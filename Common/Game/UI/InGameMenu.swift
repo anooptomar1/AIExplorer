@@ -7,8 +7,11 @@
 //
 
 import SpriteKit
+import GameController
 
 class InGameMenu : SKNode {
+    var controller:GCController!
+
     var level:GameLevel!
     var size:CGSize!
     var joystick:Joystick!
@@ -34,6 +37,19 @@ class InGameMenu : SKNode {
         addPlayerControls()
         
         addCameraControls()
+        
+        // Add hardware controller code
+        if(GCController.controllers().count > 0) {
+            self.toggleHardwareController(true)
+        }
+        
+        // Add observers
+        let notificationCenter = NSNotificationCenter.defaultCenter()
+        notificationCenter.addObserver(self, selector: "gameControllerDidConnect:", name: GCControllerDidConnectNotification, object: nil)
+        notificationCenter.addObserver(self, selector: "gameControllerDidDisconnect:", name: GCControllerDidDisconnectNotification, object: nil)
+        
+        GCController.startWirelessControllerDiscoveryWithCompletionHandler(nil)
+
     }
     
     func addPlayerControls() {
@@ -58,7 +74,6 @@ class InGameMenu : SKNode {
         cameraNode.xScale = 0.4
         cameraNode.yScale = 0.4
         self.addChild(cameraNode)
-        
         
         upNode = SKSpriteNode(imageNamed:"art.scnassets/ui/arrow-up");
         upNode.size = CGSizeMake(20, 20);
@@ -103,9 +118,54 @@ class InGameMenu : SKNode {
         zoomOutNode.zPosition = 1.0;
         self.addChild(zoomOutNode);
 
-
     }
     
+    //MARK: Hardware controller support
+    func toggleHardwareController(useHardware:Bool) {
+        if(useHardware) {
+            //Hide the on screen controls
+            self.alpha = 0.0
+            let gameControllers = GCController.controllers() as [GCController]
+            self.controller = gameControllers[0]
+            self.configureController(self.controller)
+            
+        } else {
+            self.alpha = 1.0
+            self.controller = nil
+        }
+    }
+    
+    func gameControllerDidConnect(notification: NSNotification) {
+        //let controller = notification.object as! GCController
+        self.toggleHardwareController(true)
+    }
+    
+    func gameControllerDidDisconnect(notification: NSNotification) {
+        //let controller = notification.object as! GCController
+        self.toggleHardwareController(false)
+    }
+
+    func configureController(controller: GCController) {
+        
+        let directionPadMoveHandler: GCControllerDirectionPadValueChangedHandler = { dpad, x, y in
+        }
+        
+        let rightThumbstickHandler: GCControllerDirectionPadValueChangedHandler = { dpad, x, y in
+        }
+        
+        controller.extendedGamepad?.leftThumbstick.valueChangedHandler = directionPadMoveHandler
+        controller.extendedGamepad?.rightThumbstick.valueChangedHandler = rightThumbstickHandler
+        controller.gamepad?.dpad.valueChangedHandler = directionPadMoveHandler
+        
+        let fireButtonHandler: GCControllerButtonValueChangedHandler = { button, value, pressed in
+        }
+        
+        controller.gamepad?.buttonA.valueChangedHandler = fireButtonHandler
+        controller.gamepad?.buttonB.valueChangedHandler = fireButtonHandler
+        controller.extendedGamepad?.rightTrigger.valueChangedHandler = fireButtonHandler
+        
+    }
+
     #if os(iOS)
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         let touch:UITouch = touches.first as UITouch!
