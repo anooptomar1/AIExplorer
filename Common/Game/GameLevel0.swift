@@ -57,13 +57,19 @@ class GameLevel0 : NSObject, GameLevel {
         
         // animate the 3d object
         ship.runAction(SCNAction.repeatActionForever(SCNAction.rotateByX(0, y: 2, z: 0, duration: 1)))
+        
+        let gameUIManager:GameUIManager = GameUIManager.sharedInstance
+        gameUIManager.setScene(scnView.overlaySKScene!)
+        // set delegate to get menu action callbacks
+        gameUIManager.delegate = self
+
 
         return self.scene
     }
     
     func renderer(aRenderer: SCNSceneRenderer, updateAtTime time: NSTimeInterval) {
         //TEMPORARY - REMOVE THIS WHEN GAME MENUS ARE IMPLEMENTED
-        GameScenesManager.sharedInstance.setGameState(GameState.InGame)
+        //GameScenesManager.sharedInstance.setGameState(GameState.InGame)
 
         if(previousTime == 0.0) {
             previousTime = time
@@ -93,10 +99,40 @@ extension GameLevel0 {
     }
     
     func changeUIState(state:GameState) {
+        let skScene = self.scnView.overlaySKScene
         
+        GameUIManager.sharedInstance.preGameMenu?.removeFromParent()
+        GameUIManager.sharedInstance.inGameMenu?.removeFromParent()
+        GameUIManager.sharedInstance.levelCompleteMenu?.removeFromParent()
+        GameUIManager.sharedInstance.levelFailedMenu?.removeFromParent()
+        
+        switch(state) {
+        case GameState.PreGame:
+            GameUIManager.sharedInstance.preGameMenu = PreGameMenu(size: skScene!.frame.size)
+            skScene!.addChild(GameUIManager.sharedInstance.preGameMenu)
+            break;
+        case GameState.InGame:
+            GameUIManager.sharedInstance.inGameMenu = InGameMenu(size:skScene!.frame.size, level:self)
+            skScene!.addChild(GameUIManager.sharedInstance.inGameMenu)
+            break;
+        case GameState.LevelFailed:
+            GameUIManager.sharedInstance.levelFailedMenu = LevelFailedMenu(size: skScene!.frame.size)
+            skScene!.addChild(GameUIManager.sharedInstance.levelFailedMenu)
+            break;
+        case GameState.LevelComplete:
+            GameUIManager.sharedInstance.levelCompleteMenu = LevelCompleteMenu(size: skScene!.frame.size)
+            skScene!.addChild(GameUIManager.sharedInstance.levelCompleteMenu)
+            break;
+        case GameState.PostGame:
+            break;
+        default:
+            break;
+        }
+
     }
     
     func buttonPressedAction(nodeName:String) {
-        
+        print("Button pressed \(nodeName)")
+
     }
 }
