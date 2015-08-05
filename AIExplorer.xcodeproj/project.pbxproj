@@ -43,6 +43,8 @@
 		C1DFA00A1B726F1400DAD2B8 /* Joystick.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DFA0011B726F1400DAD2B8 /* Joystick.swift */; };
 		C1DFA00B1B726F1400DAD2B8 /* InGameMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DFA0021B726F1400DAD2B8 /* InGameMenu.swift */; };
 		C1DFA00C1B726F1400DAD2B8 /* InGameMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DFA0021B726F1400DAD2B8 /* InGameMenu.swift */; };
+		C1DFA0111B72C91C00DAD2B8 /* GameCamera.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DFA0101B72C91C00DAD2B8 /* GameCamera.swift */; };
+		C1DFA0121B72C91C00DAD2B8 /* GameCamera.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DFA0101B72C91C00DAD2B8 /* GameCamera.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -72,6 +74,7 @@
 		C1DFA0001B726F1400DAD2B8 /* LevelCompleteMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LevelCompleteMenu.swift; path = Common/Game/UI/LevelCompleteMenu.swift; sourceTree = "<group>"; };
 		C1DFA0011B726F1400DAD2B8 /* Joystick.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Joystick.swift; path = Common/Game/UI/Joystick.swift; sourceTree = "<group>"; };
 		C1DFA0021B726F1400DAD2B8 /* InGameMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InGameMenu.swift; path = Common/Game/UI/InGameMenu.swift; sourceTree = "<group>"; };
+		C1DFA0101B72C91C00DAD2B8 /* GameCamera.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GameCamera.swift; path = Common/GameFramework/GameCamera.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,6 +152,7 @@
 		C1DF9FCF1B72506F00DAD2B8 /* GameFramework */ = {
 			isa = PBXGroup;
 			children = (
+				C1DFA0101B72C91C00DAD2B8 /* GameCamera.swift */,
 				C1DF9FF71B72612B00DAD2B8 /* GameSceneView.swift */,
 				C1DF9FD91B72513200DAD2B8 /* GameOverlayScene.swift */,
 				C1DF9FD61B7250F300DAD2B8 /* GameLevel.swift */,
@@ -293,6 +297,7 @@
 				C1DF9FF51B7260B800DAD2B8 /* GameLevel0.swift in Sources */,
 				C1DF9FD71B7250F300DAD2B8 /* GameLevel.swift in Sources */,
 				C1DF9FD41B72507D00DAD2B8 /* GameScenesManager.swift in Sources */,
+				C1DFA0111B72C91C00DAD2B8 /* GameCamera.swift in Sources */,
 				C1DFA0031B726F1400DAD2B8 /* PreGameMenu.swift in Sources */,
 				C1DFA0091B726F1400DAD2B8 /* Joystick.swift in Sources */,
 				C1DF9FFC1B726EAD00DAD2B8 /* GameUIManager.swift in Sources */,
@@ -317,6 +322,7 @@
 				C1DF9FFD1B726EAD00DAD2B8 /* GameUIManager.swift in Sources */,
 				C1DF9FF91B72612B00DAD2B8 /* GameSceneView.swift in Sources */,
 				C1DFA0061B726F1400DAD2B8 /* LevelFailedMenu.swift in Sources */,
+				C1DFA0121B72C91C00DAD2B8 /* GameCamera.swift in Sources */,
 				C1DF9FA21B717EB200DAD2B8 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

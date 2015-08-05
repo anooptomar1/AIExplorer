@@ -31,9 +31,9 @@ class GameLevel0 : NSObject, GameLevel {
         self.scene = SCNScene(named: "art.scnassets/level0/ship.dae")!
         
         // create and add a camera to the scene
-        let cameraNode = SCNNode()
-        cameraNode.camera = SCNCamera()
+        let cameraNode = GameCamera(cameraType:CameraType.SceneCamera)
         scene.rootNode.addChildNode(cameraNode)
+        cameraNode.setupTransformationMatrix()
         
         // place the camera
         cameraNode.position = SCNVector3(x: 0, y: 0, z: 15)
