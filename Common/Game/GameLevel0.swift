@@ -17,6 +17,9 @@ class GameLevel0 : NSObject, GameLevel {
     var previousTime:NSTimeInterval!
     var deltaTime:NSTimeInterval!
     
+    var cameraNode:GameCamera!
+    var ship:SCNNode!
+    
     override init() {
         super.init()
         
@@ -31,12 +34,18 @@ class GameLevel0 : NSObject, GameLevel {
         self.scene = SCNScene(named: "art.scnassets/level0/ship.dae")!
         
         // create and add a camera to the scene
-        let cameraNode = GameCamera(cameraType:CameraType.SceneCamera)
+        cameraNode = GameCamera(cameraType:CameraType.SceneCamera)
+        cameraNode.camera?.zFar = 200.0
+        #if os(iOS)
+            cameraNode.rotation = SCNVector4Make(1.0, 0.0, 0.0, -Float(M_PI_4*0.75))
+        #else
+            cameraNode.rotation = SCNVector4Make(1.0, 0.0, 0.0, -CGFloat(M_PI_4*0.75))
+        #endif
         scene.rootNode.addChildNode(cameraNode)
         cameraNode.setupTransformationMatrix()
         
         // place the camera
-        cameraNode.position = SCNVector3(x: 0, y: 0, z: 15)
+        cameraNode.position = SCNVector3(x: 0, y: 60, z: 25)
         
         // create and add a light to the scene
         let lightNode = SCNNode()
@@ -52,11 +61,19 @@ class GameLevel0 : NSObject, GameLevel {
         ambientLightNode.light!.color = SKColor.darkGrayColor()
         scene.rootNode.addChildNode(ambientLightNode)
         
-        // retrieve the ship node
-        let ship = scene.rootNode.childNodeWithName("ship", recursively: true)!
+        let floorNode = SCNNode()
+        floorNode.geometry = SCNFloor()
+        floorNode.geometry?.firstMaterial?.diffuse.contents = "art.scnassets/level0/wood.png"
+        floorNode.physicsBody = SCNPhysicsBody.staticBody()
+        scene.rootNode.addChildNode(floorNode)
         
+        // retrieve the ship node
+        ship = scene.rootNode.childNodeWithName("ship", recursively: true)!
+        
+        ship.position = SCNVector3(x:0.0, y:30.0, z:0.0)
         // animate the 3d object
         ship.runAction(SCNAction.repeatActionForever(SCNAction.rotateByX(0, y: 2, z: 0, duration: 1)))
+        
         
         let gameUIManager:GameUIManager = GameUIManager.sharedInstance
         gameUIManager.setScene(scnView.overlaySKScene!)
@@ -133,6 +150,9 @@ extension GameLevel0 {
     
     func buttonPressedAction(nodeName:String) {
         print("Button pressed \(nodeName)")
+        if(nodeName == "cameraNode") {
+            cameraNode.turnCameraAroundNode(ship, radius: 50.0, angleInDegrees: -45.0)
+        }
 
     }
 }
