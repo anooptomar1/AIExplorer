@@ -18,6 +18,7 @@ class GameLevel0 : NSObject, GameLevel {
     var deltaTime:NSTimeInterval!
     
     var cameraNode:GameCamera!
+    var player:PlayerCharacter!
     var ship:SCNNode!
     
     override init() {
@@ -35,7 +36,7 @@ class GameLevel0 : NSObject, GameLevel {
         
         // create and add a camera to the scene
         cameraNode = GameCamera(cameraType:CameraType.SceneCamera)
-        cameraNode.camera?.zFar = 200.0
+        cameraNode.camera?.zFar = 250.0
         #if os(iOS)
             cameraNode.rotation = SCNVector4Make(1.0, 0.0, 0.0, -Float(M_PI_4*0.75))
         #else
@@ -45,7 +46,7 @@ class GameLevel0 : NSObject, GameLevel {
         cameraNode.setupTransformationMatrix()
         
         // place the camera
-        cameraNode.position = SCNVector3(x: 0, y: 60, z: 25)
+        cameraNode.position = SCNVector3(x: 0, y: 90, z: 90)
         
         // create and add a light to the scene
         let lightNode = SCNNode()
@@ -62,6 +63,7 @@ class GameLevel0 : NSObject, GameLevel {
         scene.rootNode.addChildNode(ambientLightNode)
         
         self.addFloorAndWalls()
+        self.addPlayer()
         
         // retrieve the ship node
         ship = scene.rootNode.childNodeWithName("ship", recursively: true)!
@@ -133,6 +135,28 @@ class GameLevel0 : NSObject, GameLevel {
         ceilNode.castsShadow = false
         ceilNode.geometry!.firstMaterial!.locksAmbientWithDiffuse = true;
         scene.rootNode.addChildNode(ceilNode)
+    }
+    
+    func addPlayer() {
+        let skinnedModelName = "art.scnassets/common/models/explorer/explorer_skinned.dae"
+        
+        let modelScene = SCNScene(named:skinnedModelName)
+        
+        let rootNode = modelScene!.rootNode
+        
+        rootNode.enumerateChildNodesUsingBlock({
+            child, stop in
+            // do something with node or stop
+            if(child.name == "group") {
+                self.player = PlayerCharacter(characterNode:child)
+                self.player.scale = SCNVector3Make(0.2, 0.2, 0.2)
+                self.player.position = SCNVector3Make(-20, 0, -50)
+                
+                self.scene.rootNode.addChildNode(self.player)
+            }
+        })
+
+        
     }
     
     func renderer(aRenderer: SCNSceneRenderer, updateAtTime time: NSTimeInterval) {
