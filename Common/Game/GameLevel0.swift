@@ -61,11 +61,7 @@ class GameLevel0 : NSObject, GameLevel {
         ambientLightNode.light!.color = SKColor.darkGrayColor()
         scene.rootNode.addChildNode(ambientLightNode)
         
-        let floorNode = SCNNode()
-        floorNode.geometry = SCNFloor()
-        floorNode.geometry?.firstMaterial?.diffuse.contents = "art.scnassets/level0/wood.png"
-        floorNode.physicsBody = SCNPhysicsBody.staticBody()
-        scene.rootNode.addChildNode(floorNode)
+        self.addFloorAndWalls()
         
         // retrieve the ship node
         ship = scene.rootNode.childNodeWithName("ship", recursively: true)!
@@ -74,7 +70,6 @@ class GameLevel0 : NSObject, GameLevel {
         // animate the 3d object
         ship.runAction(SCNAction.repeatActionForever(SCNAction.rotateByX(0, y: 2, z: 0, duration: 1)))
         
-        
         let gameUIManager:GameUIManager = GameUIManager.sharedInstance
         gameUIManager.setScene(scnView.overlaySKScene!)
         // set delegate to get menu action callbacks
@@ -82,6 +77,62 @@ class GameLevel0 : NSObject, GameLevel {
 
 
         return self.scene
+    }
+    
+    func addFloorAndWalls() {
+        //add floor
+        let floorNode = SCNNode()
+        let floor = SCNFloor()
+        floor.reflectionFalloffEnd = 2.0
+        floorNode.geometry = floor
+        floorNode.geometry?.firstMaterial?.diffuse.contents = "art.scnassets/level0/wood.png"
+        floorNode.geometry?.firstMaterial?.diffuse.contentsTransform = SCNMatrix4MakeScale(2, 2, 1); //scale the wood texture
+        floorNode.geometry?.firstMaterial?.locksAmbientWithDiffuse = true
+        floorNode.physicsBody = SCNPhysicsBody.staticBody()
+        scene.rootNode.addChildNode(floorNode)
+        
+        //add walls
+        var wall = SCNNode(geometry:SCNBox(width:400, height:100, length:4, chamferRadius:0))
+        wall.geometry!.firstMaterial!.diffuse.contents = "art.scnassets/level0/wall.jpg"
+        wall.geometry!.firstMaterial!.diffuse.contentsTransform = SCNMatrix4Mult(SCNMatrix4MakeScale(24, 2, 1), SCNMatrix4MakeTranslation(0, 1, 0));
+        wall.geometry!.firstMaterial!.diffuse.wrapS = SCNWrapMode.Repeat;
+        wall.geometry!.firstMaterial!.diffuse.wrapT = SCNWrapMode.Mirror;
+        wall.geometry!.firstMaterial!.doubleSided = false;
+        wall.castsShadow = false;
+        wall.geometry!.firstMaterial!.locksAmbientWithDiffuse = true;
+        
+        wall.position = SCNVector3Make(0, 50, -92);
+        wall.physicsBody = SCNPhysicsBody.staticBody()
+        scene.rootNode.addChildNode(wall)
+        
+        wall = wall.clone()
+        wall.position = SCNVector3Make(-202, 50, 0);
+        wall.rotation = SCNVector4Make(0.0, 1.0, 0.0, Float(M_PI_2));
+        wall.physicsBody = SCNPhysicsBody.staticBody()
+        scene.rootNode.addChildNode(wall)
+        
+        wall = wall.clone()
+        wall.position = SCNVector3Make(202, 50, 0);
+        wall.rotation = SCNVector4Make(0.0, 1.0, 0.0, -Float(M_PI_2));
+        wall.physicsBody = SCNPhysicsBody.staticBody()
+        scene.rootNode.addChildNode(wall)
+        
+        let backWall = SCNNode(geometry:SCNPlane(width:400, height:100))
+        backWall.geometry!.firstMaterial = wall.geometry!.firstMaterial;
+        backWall.position = SCNVector3Make(0, 50, 200);
+        backWall.rotation = SCNVector4Make(0.0, 1.0, 0.0, Float(M_PI));
+        backWall.castsShadow = false;
+        backWall.physicsBody = SCNPhysicsBody.staticBody()
+        scene.rootNode.addChildNode(backWall)
+
+        // add ceil
+        let ceilNode = SCNNode(geometry:SCNPlane(width:400, height:400))
+        ceilNode.position = SCNVector3Make(0, 100, 0);
+        ceilNode.rotation = SCNVector4Make(1.0, 0.0, 0.0, Float(M_PI_2));
+        ceilNode.geometry!.firstMaterial!.doubleSided = false;
+        ceilNode.castsShadow = false
+        ceilNode.geometry!.firstMaterial!.locksAmbientWithDiffuse = true;
+        scene.rootNode.addChildNode(ceilNode)
     }
     
     func renderer(aRenderer: SCNSceneRenderer, updateAtTime time: NSTimeInterval) {
