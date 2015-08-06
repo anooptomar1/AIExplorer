@@ -260,7 +260,7 @@ extension GameLevel0 {
     func buttonPressedAction(nodeName:String) {
         print("Button pressed \(nodeName)")
         if(nodeName == "cameraNode") {
-            cameraNode.turnCameraAroundNode(ship, radius: 50.0, angleInDegrees: -45.0)
+            cameraNode.turnCameraAroundNode(ship, radius: 175.0, angleInDegrees: -45.0)
         }
 
     }
