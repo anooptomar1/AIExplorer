@@ -109,20 +109,32 @@ class GameLevel0 : NSObject, GameLevel {
         
         wall = wall.clone()
         wall.position = SCNVector3Make(-202, 50, 0);
-        wall.rotation = SCNVector4Make(0.0, 1.0, 0.0, Float(M_PI_2));
+        #if os(iOS)
+            wall.rotation = SCNVector4Make(0.0, 1.0, 0.0, Float(M_PI_2));
+        #else
+            wall.rotation = SCNVector4Make(0.0, 1.0, 0.0, CGFloat(M_PI_2));
+        #endif
         wall.physicsBody = SCNPhysicsBody.staticBody()
         scene.rootNode.addChildNode(wall)
         
         wall = wall.clone()
         wall.position = SCNVector3Make(202, 50, 0);
-        wall.rotation = SCNVector4Make(0.0, 1.0, 0.0, -Float(M_PI_2));
+        #if os(iOS)
+            wall.rotation = SCNVector4Make(0.0, 1.0, 0.0, -Float(M_PI_2));
+        #else
+            wall.rotation = SCNVector4Make(0.0, 1.0, 0.0, -CGFloat(M_PI_2));
+        #endif
         wall.physicsBody = SCNPhysicsBody.staticBody()
         scene.rootNode.addChildNode(wall)
         
         let backWall = SCNNode(geometry:SCNPlane(width:400, height:100))
         backWall.geometry!.firstMaterial = wall.geometry!.firstMaterial;
         backWall.position = SCNVector3Make(0, 50, 200);
-        backWall.rotation = SCNVector4Make(0.0, 1.0, 0.0, Float(M_PI));
+        #if os(iOS)
+            backWall.rotation = SCNVector4Make(0.0, 1.0, 0.0, Float(M_PI));
+        #else
+            backWall.rotation = SCNVector4Make(0.0, 1.0, 0.0, CGFloat(M_PI));
+        #endif
         backWall.castsShadow = false;
         backWall.physicsBody = SCNPhysicsBody.staticBody()
         scene.rootNode.addChildNode(backWall)
@@ -130,7 +142,11 @@ class GameLevel0 : NSObject, GameLevel {
         // add ceil
         let ceilNode = SCNNode(geometry:SCNPlane(width:400, height:400))
         ceilNode.position = SCNVector3Make(0, 100, 0);
-        ceilNode.rotation = SCNVector4Make(1.0, 0.0, 0.0, Float(M_PI_2));
+        #if os(iOS)
+            ceilNode.rotation = SCNVector4Make(1.0, 0.0, 0.0, Float(M_PI_2));
+        #else
+            ceilNode.rotation = SCNVector4Make(1.0, 0.0, 0.0, CGFloat(M_PI_2));
+        #endif
         ceilNode.geometry!.firstMaterial!.doubleSided = false;
         ceilNode.castsShadow = false
         ceilNode.geometry!.firstMaterial!.locksAmbientWithDiffuse = true;
