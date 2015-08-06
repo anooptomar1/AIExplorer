@@ -51,6 +51,8 @@
 		C1DFA0181B73A34700DAD2B8 /* GameObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DFA0141B73A34700DAD2B8 /* GameObject.swift */; };
 		C1DFA01A1B73A3FE00DAD2B8 /* PlayerCharacter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DFA0191B73A3FE00DAD2B8 /* PlayerCharacter.swift */; };
 		C1DFA01B1B73A3FE00DAD2B8 /* PlayerCharacter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DFA0191B73A3FE00DAD2B8 /* PlayerCharacter.swift */; };
+		C1DFA01D1B73B06B00DAD2B8 /* EnemyCharacter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DFA01C1B73B06B00DAD2B8 /* EnemyCharacter.swift */; };
+		C1DFA01E1B73B06B00DAD2B8 /* EnemyCharacter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DFA01C1B73B06B00DAD2B8 /* EnemyCharacter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -84,6 +86,7 @@
 		C1DFA0131B73A34700DAD2B8 /* SkinnedCharacter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SkinnedCharacter.swift; path = Common/GameFramework/SkinnedCharacter.swift; sourceTree = "<group>"; };
 		C1DFA0141B73A34700DAD2B8 /* GameObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GameObject.swift; path = Common/GameFramework/GameObject.swift; sourceTree = "<group>"; };
 		C1DFA0191B73A3FE00DAD2B8 /* PlayerCharacter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PlayerCharacter.swift; path = Common/Game/PlayerCharacter.swift; sourceTree = "<group>"; };
+		C1DFA01C1B73B06B00DAD2B8 /* EnemyCharacter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EnemyCharacter.swift; path = Common/Game/EnemyCharacter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -179,6 +182,7 @@
 				C1DF9FFA1B726E7C00DAD2B8 /* UI */,
 				C1DF9FF41B7260B800DAD2B8 /* GameLevel0.swift */,
 				C1DFA0191B73A3FE00DAD2B8 /* PlayerCharacter.swift */,
+				C1DFA01C1B73B06B00DAD2B8 /* EnemyCharacter.swift */,
 			);
 			name = Game;
 			sourceTree = "<group>";
@@ -302,6 +306,7 @@
 				C1DFA00B1B726F1400DAD2B8 /* InGameMenu.swift in Sources */,
 				C1DF9FD21B72507D00DAD2B8 /* GameUtilities.swift in Sources */,
 				C1DFA0051B726F1400DAD2B8 /* LevelFailedMenu.swift in Sources */,
+				C1DFA01D1B73B06B00DAD2B8 /* EnemyCharacter.swift in Sources */,
 				C1DF9FF81B72612B00DAD2B8 /* GameSceneView.swift in Sources */,
 				C1DF9F8C1B717E8900DAD2B8 /* GameViewController.swift in Sources */,
 				C1DFA01A1B73A3FE00DAD2B8 /* PlayerCharacter.swift in Sources */,
@@ -337,6 +342,7 @@
 				C1DF9FF61B7260B800DAD2B8 /* GameLevel0.swift in Sources */,
 				C1DFA0041B726F1400DAD2B8 /* PreGameMenu.swift in Sources */,
 				C1DFA01B1B73A3FE00DAD2B8 /* PlayerCharacter.swift in Sources */,
+				C1DFA01E1B73B06B00DAD2B8 /* EnemyCharacter.swift in Sources */,
 				C1DF9FFD1B726EAD00DAD2B8 /* GameUIManager.swift in Sources */,
 				C1DF9FF91B72612B00DAD2B8 /* GameSceneView.swift in Sources */,
 				C1DFA0061B726F1400DAD2B8 /* LevelFailedMenu.swift in Sources */,

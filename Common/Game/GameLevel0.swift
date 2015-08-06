@@ -19,6 +19,7 @@ class GameLevel0 : NSObject, GameLevel {
     
     var cameraNode:GameCamera!
     var player:PlayerCharacter!
+    var enemy:EnemyCharacter!
     var ship:SCNNode!
     
     override init() {
@@ -36,7 +37,7 @@ class GameLevel0 : NSObject, GameLevel {
         
         // create and add a camera to the scene
         cameraNode = GameCamera(cameraType:CameraType.SceneCamera)
-        cameraNode.camera?.zFar = 250.0
+        cameraNode.camera?.zFar = 400.0
         #if os(iOS)
             cameraNode.rotation = SCNVector4Make(1.0, 0.0, 0.0, -Float(M_PI_4*0.75))
         #else
@@ -46,7 +47,7 @@ class GameLevel0 : NSObject, GameLevel {
         cameraNode.setupTransformationMatrix()
         
         // place the camera
-        cameraNode.position = SCNVector3(x: 0, y: 90, z: 90)
+        cameraNode.position = SCNVector3(x: 0, y: 110, z: 200)
         
         // create and add a light to the scene
         let lightNode = SCNNode()
@@ -64,6 +65,7 @@ class GameLevel0 : NSObject, GameLevel {
         
         self.addFloorAndWalls()
         self.addPlayer()
+        self.addEnemies()
         
         // retrieve the ship node
         ship = scene.rootNode.childNodeWithName("ship", recursively: true)!
@@ -103,7 +105,7 @@ class GameLevel0 : NSObject, GameLevel {
         wall.castsShadow = false;
         wall.geometry!.firstMaterial!.locksAmbientWithDiffuse = true;
         
-        wall.position = SCNVector3Make(0, 50, -92);
+        wall.position = SCNVector3Make(0, 50, -198);
         wall.physicsBody = SCNPhysicsBody.staticBody()
         scene.rootNode.addChildNode(wall)
         
@@ -129,7 +131,7 @@ class GameLevel0 : NSObject, GameLevel {
         
         let backWall = SCNNode(geometry:SCNPlane(width:400, height:100))
         backWall.geometry!.firstMaterial = wall.geometry!.firstMaterial;
-        backWall.position = SCNVector3Make(0, 50, 200);
+        backWall.position = SCNVector3Make(0, 50, 198);
         #if os(iOS)
             backWall.rotation = SCNVector4Make(0.0, 1.0, 0.0, Float(M_PI));
         #else
@@ -171,8 +173,24 @@ class GameLevel0 : NSObject, GameLevel {
                 self.scene.rootNode.addChildNode(self.player)
             }
         })
-
+    }
+    
+    func addEnemies() {
+        let skinnedModelName = "art.scnassets/common/models/warrior/walk.dae"
         
+        let escene = SCNScene(named:skinnedModelName)
+        enemy = EnemyCharacter(characterNode:escene!.rootNode)
+        enemy.scale = SCNVector3Make(0.2, 0.2, 0.2)
+        enemy.position = SCNVector3Make(20, 0, -40)
+        #if os(iOS)
+            enemy.rotation = SCNVector4Make(0, 1, 0, Float(M_PI))
+        #else
+            enemy.rotation = SCNVector4Make(0, 1, 0, CGFloat(M_PI))
+        #endif
+        
+        scene.rootNode.addChildNode(enemy)
+
+
     }
     
     func renderer(aRenderer: SCNSceneRenderer, updateAtTime time: NSTimeInterval) {
