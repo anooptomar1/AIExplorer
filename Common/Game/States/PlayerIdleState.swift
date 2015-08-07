@@ -19,7 +19,7 @@ class PlayerIdleState: State {
 
     func enter(obj: GameObject) {
         if let player = obj as? PlayerCharacter {
-            print("Entered idle state")
+            print("Player Entered idle state")
             player.changeAnimationState(PlayerAnimationState.Idle)
         } else {
             print("wrong owner passed to state")
@@ -46,10 +46,19 @@ class PlayerIdleState: State {
     
     func exit(obj: GameObject) {
         if let _ = obj as? PlayerCharacter {
-            print("Exiting idle state")
+            print("Player Exiting idle state")
         } else {
             print("wrong owner passed to state")
         }
 
+    }
+    
+    func handleMessage(obj:GameObject, msg:Message) -> Bool {
+        if let player = obj as? PlayerCharacter {
+            print("\(player.name) received \(msg.messageType) notification from \(msg.sender)")
+        }
+        
+
+        return true
     }
 }

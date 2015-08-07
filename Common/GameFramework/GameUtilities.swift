@@ -21,4 +21,13 @@ class GameUtilities {
         return box
     }
 
+    class func getAngleFromDirection(currentPosition:SCNVector3, target:SCNVector3) -> Float
+    {
+        let delX = target.x - currentPosition.x;
+        let delZ = target.z - currentPosition.z;
+        let angleInRadians =  atan2(delX, delZ);
+        
+        return Float(angleInRadians)
+    }
+
 }

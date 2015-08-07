@@ -25,6 +25,7 @@ enum PlayerAnimationState : Int {
 }
 
 class PlayerCharacter : SkinnedCharacter {
+    let speed:Float = 0.1
     var stateMachine: StateMachine!
     let assetDirectory = "art.scnassets/common/models/explorer/"
     let skeletonName = "Bip001_Pelvis"
@@ -135,6 +136,32 @@ class PlayerCharacter : SkinnedCharacter {
 
     func changeState(newState:State) {
         stateMachine.changeState(newState)
+    }
+    
+    func updatePosition(velocity:CGPoint) {
+        let delX = velocity.x * CGFloat(speed)
+        let delZ = velocity.y * CGFloat(speed)
+        
+        #if os(iOS)
+            var newPlayerPos = SCNVector3Make(self.position.x+Float(delX), self.position.y, self.position.z+Float(delZ))
+        #else
+            var newPlayerPos = SCNVector3Make(self.position.x+CGFloat(delX), self.position.y, self.position.z+CGFloat(delZ))
+        #endif
+        let angleDirection = GameUtilities.getAngleFromDirection(self.position, target:newPlayerPos)
+        
+        let height:Float = 0.0
+        //height = self.getGroundHeight(newPlayerPos)
+        //print("ground height is \(height)")
+        
+        #if os(iOS)
+            newPlayerPos = SCNVector3Make(self.position.x+Float(delX), height, self.position.z+Float(delZ))
+            self.rotation = SCNVector4Make(0, 1, 0, angleDirection)
+        #else
+            newPlayerPos = SCNVector3Make(self.position.x+CGFloat(delX), CGFloat(height), self.position.z+CGFloat(delZ))
+            self.rotation = SCNVector4Make(0, 1, 0, CGFloat(angleDirection))
+        #endif
+        self.position = newPlayerPos
+
     }
     
     override func update(deltaTime:NSTimeInterval) {

@@ -20,7 +20,7 @@ class EnemyCharacter : SkinnedCharacter {
     var stateMachine: StateMachine!
     let assetDirectory = "art.scnassets/common/models/warrior/"
     let skeletonName = "Bip01"
-    let helpNotificationKey = "HelpKey"
+    let notificationKey = "NotificationKey"
     
     var currentState:EnemyAnimationState = EnemyAnimationState.Idle
     var previousState:EnemyAnimationState = EnemyAnimationState.Idle
@@ -46,15 +46,15 @@ class EnemyCharacter : SkinnedCharacter {
 
         NSNotificationCenter.defaultCenter().addObserver(
             self,
-            selector: "helpNotification:",
-            name: helpNotificationKey,
+            selector: "handleNotification:",
+            name: notificationKey,
             object: nil)
     }
     
-    func helpNotification(notification:NSNotification) {
+    func handleNotification(notification:NSNotification) {
         let obj = notification.object as! Message
         if(self.name != obj.sender) {
-            print("\(self.name) received help notification from \(obj.sender)")
+            stateMachine.handleMessage(obj)
         }
     }
     

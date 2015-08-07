@@ -19,7 +19,7 @@ class PlayerMovingState: State {
 
     func enter(obj: GameObject) {
         if let player = obj as? PlayerCharacter {
-            print("Entered moving state")
+            print("Player Entered moving state")
             player.changeAnimationState(PlayerAnimationState.Walk)
         } else {
             print("wrong owner passed to state")
@@ -34,9 +34,9 @@ class PlayerMovingState: State {
                 
                 if(joystick.velocity.x == 0.0 && joystick.velocity.y == 0.0 ) {
                     player.changeState(PlayerIdleState.sharedInstance)
+                } else {
+                    player.updatePosition(joystick.velocity)
                 }
-                
-                
             }
 
         } else {
@@ -47,10 +47,18 @@ class PlayerMovingState: State {
     
     func exit(obj: GameObject) {
         if let _ = obj as? PlayerCharacter {
-            print("Exiting moving state")
+            print("Player Exiting moving state")
         } else {
             print("wrong owner passed to state")
         }
 
+    }
+    
+    func handleMessage(obj:GameObject, msg:Message) -> Bool {
+        if let player = obj as? PlayerCharacter {
+            print("\(player.name) received help notification from \(msg.sender)")
+        }
+        
+        return true
     }
 }

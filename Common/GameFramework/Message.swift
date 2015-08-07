@@ -12,5 +12,6 @@ import Foundation
 class Message {
     var sender:String!
     var receiver:String!
+    var messageType:String!
     var extraInfo:AnyObject!
 }

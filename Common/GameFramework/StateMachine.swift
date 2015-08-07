@@ -34,6 +34,22 @@ class StateMachine {
         globalState = state
     }
     
+    func handleMessage(msg:Message) -> Bool {
+        // First see if current state can handle message
+        if(currentState != nil) {
+            if(currentState.handleMessage(owner, msg: msg) == true) {
+                return true
+            }
+        }
+        // If not then try and see if global state can handle it
+        if(globalState != nil) {
+            if(globalState.handleMessage(owner, msg: msg) == true) {
+                return true
+            }
+        }
+        return false
+    }
+    
     //call to update FSM
     func update() {
         if(globalState != nil) {
@@ -47,13 +63,9 @@ class StateMachine {
     
     func changeState(newState:State) {
         previousState = currentState
-        
         currentState.exit(owner)
-        
         currentState = newState
-        
         currentState.enter(owner)
-        
     }
     
     func returnToPreviousState() {

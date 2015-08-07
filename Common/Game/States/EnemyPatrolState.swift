@@ -19,13 +19,14 @@ class EnemyPatrolState: State {
 
     func enter(obj: GameObject) {
         if let enemy = obj as? EnemyCharacter {
-            print("Entering patrol state")
+            print("\(enemy.name) Entering patrol state")
             enemy.changeAnimationState(EnemyAnimationState.Idle)
             let msg = Message()
             msg.sender = enemy.name
             msg.receiver = nil
+            msg.messageType = "Help"
             
-            NSNotificationCenter.defaultCenter().postNotificationName(enemy.helpNotificationKey, object: msg)
+            NSNotificationCenter.defaultCenter().postNotificationName(enemy.notificationKey, object: msg)
         } else {
             print("wrong owner passed to state")
         }
@@ -44,11 +45,19 @@ class EnemyPatrolState: State {
     }
     
     func exit(obj: GameObject) {
-        if let _ = obj as? EnemyCharacter {
-            print("Exiting patrol state")
+        if let enemy = obj as? EnemyCharacter {
+            print("\(enemy.name) Exiting patrol state")
         } else {
             print("wrong owner passed to state")
         }
 
+    }
+    
+    func handleMessage(obj:GameObject, msg:Message) -> Bool {
+        if let enemy = obj as? EnemyCharacter {
+            print("\(enemy.name) received \(msg.messageType) notification from \(msg.sender)")
+        }
+
+        return true
     }
 }

@@ -12,4 +12,5 @@ protocol State {
     func enter(obj:GameObject)
     func execute(obj:GameObject)
     func exit(obj:GameObject)
+    func handleMessage(obj:GameObject, msg:Message) -> Bool
 }
