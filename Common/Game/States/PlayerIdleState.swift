@@ -45,7 +45,7 @@ class PlayerIdleState: State {
     }
     
     func exit(obj: GameObject) {
-        if let player = obj as? PlayerCharacter {
+        if let _ = obj as? PlayerCharacter {
             print("Exiting idle state")
         } else {
             print("wrong owner passed to state")

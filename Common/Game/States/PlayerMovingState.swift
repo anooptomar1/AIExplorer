@@ -46,7 +46,7 @@ class PlayerMovingState: State {
     }
     
     func exit(obj: GameObject) {
-        if let player = obj as? PlayerCharacter {
+        if let _ = obj as? PlayerCharacter {
             print("Exiting moving state")
         } else {
             print("wrong owner passed to state")

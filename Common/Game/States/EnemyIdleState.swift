@@ -39,7 +39,7 @@ class EnemyIdleState: State {
     }
     
     func exit(obj: GameObject) {
-        if let enemy = obj as? EnemyCharacter {
+        if let _ = obj as? EnemyCharacter {
             print("Exiting idle state")
         } else {
             print("wrong owner passed to state")

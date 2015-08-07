@@ -19,15 +19,20 @@ class EnemyPatrolState: State {
 
     func enter(obj: GameObject) {
         if let enemy = obj as? EnemyCharacter {
-            print("Entered idle state")
+            print("Entering patrol state")
             enemy.changeAnimationState(EnemyAnimationState.Idle)
+            let msg = Message()
+            msg.sender = enemy.name
+            msg.receiver = nil
+            
+            NSNotificationCenter.defaultCenter().postNotificationName(enemy.helpNotificationKey, object: msg)
         } else {
             print("wrong owner passed to state")
         }
     }
     
     func execute(obj: GameObject) {
-        if let enemy = obj as? EnemyCharacter {
+        if let _ = obj as? EnemyCharacter {
             let gameState = GameScenesManager.sharedInstance.gameState
             if (gameState == GameState.InGame) {
                 
@@ -39,8 +44,8 @@ class EnemyPatrolState: State {
     }
     
     func exit(obj: GameObject) {
-        if let enemy = obj as? EnemyCharacter {
-            print("Exiting idle state")
+        if let _ = obj as? EnemyCharacter {
+            print("Exiting patrol state")
         } else {
             print("wrong owner passed to state")
         }
