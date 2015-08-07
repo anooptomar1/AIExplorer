@@ -91,7 +91,6 @@ class GameScenesManager {
     
     func setGameState(gameState:GameState) {
         
-        self.gameState = gameState;
         currentLevel.changeUIState(gameState)
         
         switch(gameState) {
@@ -124,6 +123,9 @@ class GameScenesManager {
             scnView.pause(self)
             break;
         }
+        
+        self.gameState = gameState;
+
     }
     
 }

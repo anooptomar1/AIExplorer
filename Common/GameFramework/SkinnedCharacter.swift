@@ -26,7 +26,7 @@ class SkinnedCharacter : SCNNode, GameObject {
         rootNode.enumerateChildNodesUsingBlock({
             child, stop in
             // do something with node or stop
-            //print("Child node name:\(child.name)")
+            print("Child node name:\(child.name)")
             if let _ = child.skinner {
                 self.mainSkeleton = child.skinner!.skeleton
                 //print("Main skeleton name: \(self.mainSkeleton.name)")

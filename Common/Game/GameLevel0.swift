@@ -21,7 +21,7 @@ class GameLevel0 : NSObject, GameLevel {
     var frontCamera:GameCamera!
     var currentCamera:GameCamera!
     var player:PlayerCharacter!
-    var enemy:EnemyCharacter!
+    var enemies:[EnemyCharacter] = [EnemyCharacter]()
     var ship:SCNNode!
     
     override init() {
@@ -36,6 +36,12 @@ class GameLevel0 : NSObject, GameLevel {
         self.scnView = scnView
         // create a new scene
         self.scene = SCNScene(named: "art.scnassets/level0/ship.dae")!
+        
+        let gameUIManager:GameUIManager = GameUIManager.sharedInstance
+        gameUIManager.setScene(scnView.overlaySKScene!)
+        // set delegate to get menu action callbacks
+        gameUIManager.delegate = self
+
         
         // create and add a camera to the scene
         sceneCamera = GameCamera(cameraType:CameraType.SceneCamera)
@@ -78,10 +84,6 @@ class GameLevel0 : NSObject, GameLevel {
         // animate the 3d object
         ship.runAction(SCNAction.repeatActionForever(SCNAction.rotateByX(0, y: 2, z: 0, duration: 1)))
         
-        let gameUIManager:GameUIManager = GameUIManager.sharedInstance
-        gameUIManager.setScene(scnView.overlaySKScene!)
-        // set delegate to get menu action callbacks
-        gameUIManager.delegate = self
 
 
         return self.scene
@@ -182,18 +184,57 @@ class GameLevel0 : NSObject, GameLevel {
     func addEnemies() {
         let skinnedModelName = "art.scnassets/common/models/warrior/walk.dae"
         
-        let escene = SCNScene(named:skinnedModelName)
-        enemy = EnemyCharacter(characterNode:escene!.rootNode, id:"Enemy")
+        for i in 0...1 {
+            let escene = SCNScene(named:skinnedModelName)
+            let rootNode = escene!.rootNode
+            
+            var enemy:EnemyCharacter!
+
+            print("Creating enemy \(i)")
+            enemy = EnemyCharacter(characterNode:rootNode, id:"Enemy"+String(i))
+            enemy.scale = SCNVector3Make(0.2, 0.2, 0.2)
+            #if os(iOS)
+                let xPos = 20.0 * Float(i+1)
+                let zPos = -40.0 * Float(i+1)
+                enemy.rotation = SCNVector4Make(0, 1, 0, Float(M_PI))
+                #else
+                let xPos = 20.0 * CGFloat(i+1)
+                let zPos = -40.0 * CGFloat(i+1)
+                enemy.rotation = SCNVector4Make(0, 1, 0, CGFloat(M_PI))
+            #endif
+            enemy.position = SCNVector3Make(xPos, 0, zPos)
+
+            enemies.append(enemy)
+            scene.rootNode.addChildNode(enemy)
+        }
+        
+        /*
+        let enemy = EnemyCharacter(characterNode:rootNode, id:"Enemy0")
         enemy.scale = SCNVector3Make(0.2, 0.2, 0.2)
         enemy.position = SCNVector3Make(20, 0, -40)
         #if os(iOS)
             enemy.rotation = SCNVector4Make(0, 1, 0, Float(M_PI))
-        #else
+            #else
             enemy.rotation = SCNVector4Make(0, 1, 0, CGFloat(M_PI))
         #endif
-        
+        enemies.append(enemy)
         scene.rootNode.addChildNode(enemy)
+        
+        
+        let escene1 = SCNScene(named:skinnedModelName)
+        let rootNode1 = escene1!.rootNode
 
+        let enemy1 = EnemyCharacter(characterNode:rootNode1, id:"Enemy1")
+        enemy1.scale = SCNVector3Make(0.2, 0.2, 0.2)
+        enemy1.position = SCNVector3Make(40, 0, -40)
+        #if os(iOS)
+            enemy1.rotation = SCNVector4Make(0, 1, 0, Float(M_PI))
+            #else
+            enemy1.rotation = SCNVector4Make(0, 1, 0, CGFloat(M_PI))
+        #endif
+        enemies.append(enemy1)
+        scene.rootNode.addChildNode(enemy1)
+        */
 
     }
     
@@ -210,9 +251,13 @@ class GameLevel0 : NSObject, GameLevel {
         deltaTime = time - previousTime
         previousTime = time
         
-        player.update(deltaTime)
-        enemy.update(deltaTime)
-        currentCamera.update(deltaTime)
+        if(GameScenesManager.sharedInstance.gameState == GameState.InGame) {
+            player.update(deltaTime)
+            for enemy in enemies {
+                enemy.update(deltaTime)
+            }
+            currentCamera.update(deltaTime)
+        }
 
     }
 

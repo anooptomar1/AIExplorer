@@ -7,7 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C12622B21B74368900886D97 /* PlayerMovingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12622B11B74368900886D97 /* PlayerMovingState.swift */; };
+		C12622B81B74F9E200886D97 /* PlayerIdleState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12622B71B74F9E200886D97 /* PlayerIdleState.swift */; };
+		C12622B91B74F9E200886D97 /* PlayerIdleState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12622B71B74F9E200886D97 /* PlayerIdleState.swift */; };
+		C12622C21B74FA1900886D97 /* PlayerMovingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12622C01B74FA1900886D97 /* PlayerMovingState.swift */; };
+		C12622C31B74FA1900886D97 /* PlayerMovingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12622C01B74FA1900886D97 /* PlayerMovingState.swift */; };
+		C12622C41B74FA1900886D97 /* EnemyIdleState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12622C11B74FA1900886D97 /* EnemyIdleState.swift */; };
+		C12622C51B74FA1900886D97 /* EnemyIdleState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12622C11B74FA1900886D97 /* EnemyIdleState.swift */; };
+		C12622C71B74FA3100886D97 /* EnemyPatrolState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12622C61B74FA3100886D97 /* EnemyPatrolState.swift */; };
+		C12622C81B74FA3100886D97 /* EnemyPatrolState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12622C61B74FA3100886D97 /* EnemyPatrolState.swift */; };
 		C1DF9F881B717E8900DAD2B8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DF9F871B717E8900DAD2B8 /* AppDelegate.swift */; };
 		C1DF9F8C1B717E8900DAD2B8 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DF9F8B1B717E8900DAD2B8 /* GameViewController.swift */; };
 		C1DF9F8F1B717E8900DAD2B8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C1DF9F8D1B717E8900DAD2B8 /* Main.storyboard */; };
@@ -58,12 +65,13 @@
 		C1DFA0E31B740DE600DAD2B8 /* InGameMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DFA0D81B740DE600DAD2B8 /* InGameMenu.swift */; };
 		C1DFA0E41B740DE600DAD2B8 /* GameUIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DFA0D91B740DE600DAD2B8 /* GameUIManager.swift */; };
 		C1DFA0E51B740DE600DAD2B8 /* GameUIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DFA0D91B740DE600DAD2B8 /* GameUIManager.swift */; };
-		C1DFA0E71B740E1000DAD2B8 /* PlayerIdleState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DFA0E61B740E1000DAD2B8 /* PlayerIdleState.swift */; };
-		C1DFA0E81B740E1000DAD2B8 /* PlayerIdleState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DFA0E61B740E1000DAD2B8 /* PlayerIdleState.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		C12622B11B74368900886D97 /* PlayerMovingState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PlayerMovingState.swift; path = Common/Game/States/PlayerMovingState.swift; sourceTree = "<group>"; };
+		C12622B71B74F9E200886D97 /* PlayerIdleState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PlayerIdleState.swift; path = Common/Game/States/PlayerIdleState.swift; sourceTree = "<group>"; };
+		C12622C01B74FA1900886D97 /* PlayerMovingState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PlayerMovingState.swift; path = Common/Game/States/PlayerMovingState.swift; sourceTree = "<group>"; };
+		C12622C11B74FA1900886D97 /* EnemyIdleState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EnemyIdleState.swift; path = Common/Game/States/EnemyIdleState.swift; sourceTree = "<group>"; };
+		C12622C61B74FA3100886D97 /* EnemyPatrolState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EnemyPatrolState.swift; path = Common/Game/States/EnemyPatrolState.swift; sourceTree = "<group>"; };
 		C1DF9F841B717E8900DAD2B8 /* AIExplorer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AIExplorer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1DF9F871B717E8900DAD2B8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C1DF9F8B1B717E8900DAD2B8 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
@@ -97,7 +105,6 @@
 		C1DFA0D71B740DE600DAD2B8 /* Joystick.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Joystick.swift; path = Common/Game/UI/Joystick.swift; sourceTree = "<group>"; };
 		C1DFA0D81B740DE600DAD2B8 /* InGameMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InGameMenu.swift; path = Common/Game/UI/InGameMenu.swift; sourceTree = "<group>"; };
 		C1DFA0D91B740DE600DAD2B8 /* GameUIManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GameUIManager.swift; path = Common/Game/UI/GameUIManager.swift; sourceTree = "<group>"; };
-		C1DFA0E61B740E1000DAD2B8 /* PlayerIdleState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PlayerIdleState.swift; path = Common/Game/States/PlayerIdleState.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -225,8 +232,10 @@
 		C1DFA0D31B740DD500DAD2B8 /* States */ = {
 			isa = PBXGroup;
 			children = (
-				C12622B11B74368900886D97 /* PlayerMovingState.swift */,
-				C1DFA0E61B740E1000DAD2B8 /* PlayerIdleState.swift */,
+				C12622C61B74FA3100886D97 /* EnemyPatrolState.swift */,
+				C12622C01B74FA1900886D97 /* PlayerMovingState.swift */,
+				C12622C11B74FA1900886D97 /* EnemyIdleState.swift */,
+				C12622B71B74F9E200886D97 /* PlayerIdleState.swift */,
 			);
 			name = States;
 			sourceTree = "<group>";
@@ -333,11 +342,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C1DFA0E71B740E1000DAD2B8 /* PlayerIdleState.swift in Sources */,
+				C12622C21B74FA1900886D97 /* PlayerMovingState.swift in Sources */,
+				C12622B81B74F9E200886D97 /* PlayerIdleState.swift in Sources */,
 				C1DFA0531B73B7A600DAD2B8 /* GameUtilities.swift in Sources */,
 				C1DF9F8C1B717E8900DAD2B8 /* GameViewController.swift in Sources */,
 				C1DFA0DA1B740DE600DAD2B8 /* PreGameMenu.swift in Sources */,
-				C12622B21B74368900886D97 /* PlayerMovingState.swift in Sources */,
 				C1DFA0C11B7405F300DAD2B8 /* State.swift in Sources */,
 				C1DFA0CE1B740DC800DAD2B8 /* GameLevel0.swift in Sources */,
 				C1DFA0E21B740DE600DAD2B8 /* InGameMenu.swift in Sources */,
@@ -350,12 +359,14 @@
 				C1DFA0DC1B740DE600DAD2B8 /* LevelFailedMenu.swift in Sources */,
 				C1DF9F881B717E8900DAD2B8 /* AppDelegate.swift in Sources */,
 				C1DFA05F1B73B7A600DAD2B8 /* GameCamera.swift in Sources */,
+				C12622C71B74FA3100886D97 /* EnemyPatrolState.swift in Sources */,
 				C1DFA0DE1B740DE600DAD2B8 /* LevelCompleteMenu.swift in Sources */,
 				C1DFA0571B73B7A600DAD2B8 /* GameScenesManager.swift in Sources */,
 				C1DFA05D1B73B7A600DAD2B8 /* GameLevel.swift in Sources */,
 				C1DFA0CC1B740DC800DAD2B8 /* PlayerCharacter.swift in Sources */,
 				C1DFA0C41B74079000DAD2B8 /* StateMachine.swift in Sources */,
 				C1DFA0511B73B7A600DAD2B8 /* SkinnedCharacter.swift in Sources */,
+				C12622C41B74FA1900886D97 /* EnemyIdleState.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -363,6 +374,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C12622C31B74FA1900886D97 /* PlayerMovingState.swift in Sources */,
 				C1DFA0CD1B740DC800DAD2B8 /* PlayerCharacter.swift in Sources */,
 				C1DFA0E51B740DE600DAD2B8 /* GameUIManager.swift in Sources */,
 				C1DFA0601B73B7A600DAD2B8 /* GameCamera.swift in Sources */,
@@ -374,18 +386,20 @@
 				C1DFA05C1B73B7A600DAD2B8 /* GameObject.swift in Sources */,
 				C1DF9FA41B717EB200DAD2B8 /* GameView.swift in Sources */,
 				C1DFA05A1B73B7A600DAD2B8 /* GameOverlayScene.swift in Sources */,
+				C12622C81B74FA3100886D97 /* EnemyPatrolState.swift in Sources */,
 				C1DFA0DF1B740DE600DAD2B8 /* LevelCompleteMenu.swift in Sources */,
 				C1DFA0581B73B7A600DAD2B8 /* GameScenesManager.swift in Sources */,
 				C1DFA0D11B740DC800DAD2B8 /* EnemyCharacter.swift in Sources */,
 				C1DF9FA61B717EB200DAD2B8 /* GameViewController.swift in Sources */,
 				C1DFA0521B73B7A600DAD2B8 /* SkinnedCharacter.swift in Sources */,
-				C1DFA0E81B740E1000DAD2B8 /* PlayerIdleState.swift in Sources */,
+				C12622B91B74F9E200886D97 /* PlayerIdleState.swift in Sources */,
 				C1DFA0E31B740DE600DAD2B8 /* InGameMenu.swift in Sources */,
 				C1DFA0C51B74079000DAD2B8 /* StateMachine.swift in Sources */,
 				C1DFA0CF1B740DC800DAD2B8 /* GameLevel0.swift in Sources */,
 				C1DFA0E11B740DE600DAD2B8 /* Joystick.swift in Sources */,
 				C1DFA0DB1B740DE600DAD2B8 /* PreGameMenu.swift in Sources */,
 				C1DF9FA21B717EB200DAD2B8 /* AppDelegate.swift in Sources */,
+				C12622C51B74FA1900886D97 /* EnemyIdleState.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

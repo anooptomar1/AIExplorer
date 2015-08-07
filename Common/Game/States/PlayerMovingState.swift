@@ -19,7 +19,7 @@ class PlayerMovingState: State {
 
     func enter(obj: GameObject) {
         if let player = obj as? PlayerCharacter {
-            print("Entered idle state")
+            print("Entered moving state")
             player.changeAnimationState(PlayerAnimationState.Walk)
         } else {
             print("wrong owner passed to state")
@@ -47,7 +47,7 @@ class PlayerMovingState: State {
     
     func exit(obj: GameObject) {
         if let player = obj as? PlayerCharacter {
-            print("Exiting idle state")
+            print("Exiting moving state")
         } else {
             print("wrong owner passed to state")
         }
