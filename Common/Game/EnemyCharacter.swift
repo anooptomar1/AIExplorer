@@ -18,9 +18,9 @@ class EnemyCharacter : SkinnedCharacter {
         super.init(coder:aDecoder)
     }
     
-    init(characterNode:SCNNode) {
+    init(characterNode:SCNNode, id:String) {
         super.init(rootNode: characterNode)
-        self.name = "Enemy"
+        self.name = id
     }
 
     override func update(deltaTime:NSTimeInterval) {
@@ -29,4 +29,9 @@ class EnemyCharacter : SkinnedCharacter {
     override func isStatic() -> Bool {
         return false
     }
+    
+    override func getID() -> String {
+        return self.name!
+    }
+
 }

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C12622B21B74368900886D97 /* PlayerMovingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12622B11B74368900886D97 /* PlayerMovingState.swift */; };
 		C1DF9F881B717E8900DAD2B8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DF9F871B717E8900DAD2B8 /* AppDelegate.swift */; };
 		C1DF9F8C1B717E8900DAD2B8 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DF9F8B1B717E8900DAD2B8 /* GameViewController.swift */; };
 		C1DF9F8F1B717E8900DAD2B8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C1DF9F8D1B717E8900DAD2B8 /* Main.storyboard */; };
@@ -35,27 +36,34 @@
 		C1DFA05E1B73B7A600DAD2B8 /* GameLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DFA04F1B73B7A600DAD2B8 /* GameLevel.swift */; };
 		C1DFA05F1B73B7A600DAD2B8 /* GameCamera.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DFA0501B73B7A600DAD2B8 /* GameCamera.swift */; };
 		C1DFA0601B73B7A600DAD2B8 /* GameCamera.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DFA0501B73B7A600DAD2B8 /* GameCamera.swift */; };
-		C1DFA0651B73B7BE00DAD2B8 /* PlayerCharacter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DFA0621B73B7BE00DAD2B8 /* PlayerCharacter.swift */; };
-		C1DFA0661B73B7BE00DAD2B8 /* PlayerCharacter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DFA0621B73B7BE00DAD2B8 /* PlayerCharacter.swift */; };
-		C1DFA0671B73B7BE00DAD2B8 /* GameLevel0.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DFA0631B73B7BE00DAD2B8 /* GameLevel0.swift */; };
-		C1DFA0681B73B7BE00DAD2B8 /* GameLevel0.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DFA0631B73B7BE00DAD2B8 /* GameLevel0.swift */; };
-		C1DFA0691B73B7BE00DAD2B8 /* EnemyCharacter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DFA0641B73B7BE00DAD2B8 /* EnemyCharacter.swift */; };
-		C1DFA06A1B73B7BE00DAD2B8 /* EnemyCharacter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DFA0641B73B7BE00DAD2B8 /* EnemyCharacter.swift */; };
-		C1DFA0721B73B7D200DAD2B8 /* PreGameMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DFA06C1B73B7D200DAD2B8 /* PreGameMenu.swift */; };
-		C1DFA0731B73B7D200DAD2B8 /* PreGameMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DFA06C1B73B7D200DAD2B8 /* PreGameMenu.swift */; };
-		C1DFA0741B73B7D200DAD2B8 /* LevelFailedMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DFA06D1B73B7D200DAD2B8 /* LevelFailedMenu.swift */; };
-		C1DFA0751B73B7D200DAD2B8 /* LevelFailedMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DFA06D1B73B7D200DAD2B8 /* LevelFailedMenu.swift */; };
-		C1DFA0761B73B7D200DAD2B8 /* LevelCompleteMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DFA06E1B73B7D200DAD2B8 /* LevelCompleteMenu.swift */; };
-		C1DFA0771B73B7D200DAD2B8 /* LevelCompleteMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DFA06E1B73B7D200DAD2B8 /* LevelCompleteMenu.swift */; };
-		C1DFA0781B73B7D200DAD2B8 /* Joystick.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DFA06F1B73B7D200DAD2B8 /* Joystick.swift */; };
-		C1DFA0791B73B7D200DAD2B8 /* Joystick.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DFA06F1B73B7D200DAD2B8 /* Joystick.swift */; };
-		C1DFA07A1B73B7D200DAD2B8 /* InGameMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DFA0701B73B7D200DAD2B8 /* InGameMenu.swift */; };
-		C1DFA07B1B73B7D200DAD2B8 /* InGameMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DFA0701B73B7D200DAD2B8 /* InGameMenu.swift */; };
-		C1DFA07C1B73B7D200DAD2B8 /* GameUIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DFA0711B73B7D200DAD2B8 /* GameUIManager.swift */; };
-		C1DFA07D1B73B7D200DAD2B8 /* GameUIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DFA0711B73B7D200DAD2B8 /* GameUIManager.swift */; };
+		C1DFA0C11B7405F300DAD2B8 /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DFA0C01B7405F300DAD2B8 /* State.swift */; };
+		C1DFA0C21B7405F300DAD2B8 /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DFA0C01B7405F300DAD2B8 /* State.swift */; };
+		C1DFA0C41B74079000DAD2B8 /* StateMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DFA0C31B74079000DAD2B8 /* StateMachine.swift */; };
+		C1DFA0C51B74079000DAD2B8 /* StateMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DFA0C31B74079000DAD2B8 /* StateMachine.swift */; };
+		C1DFA0CC1B740DC800DAD2B8 /* PlayerCharacter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DFA0C91B740DC800DAD2B8 /* PlayerCharacter.swift */; };
+		C1DFA0CD1B740DC800DAD2B8 /* PlayerCharacter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DFA0C91B740DC800DAD2B8 /* PlayerCharacter.swift */; };
+		C1DFA0CE1B740DC800DAD2B8 /* GameLevel0.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DFA0CA1B740DC800DAD2B8 /* GameLevel0.swift */; };
+		C1DFA0CF1B740DC800DAD2B8 /* GameLevel0.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DFA0CA1B740DC800DAD2B8 /* GameLevel0.swift */; };
+		C1DFA0D01B740DC800DAD2B8 /* EnemyCharacter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DFA0CB1B740DC800DAD2B8 /* EnemyCharacter.swift */; };
+		C1DFA0D11B740DC800DAD2B8 /* EnemyCharacter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DFA0CB1B740DC800DAD2B8 /* EnemyCharacter.swift */; };
+		C1DFA0DA1B740DE600DAD2B8 /* PreGameMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DFA0D41B740DE600DAD2B8 /* PreGameMenu.swift */; };
+		C1DFA0DB1B740DE600DAD2B8 /* PreGameMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DFA0D41B740DE600DAD2B8 /* PreGameMenu.swift */; };
+		C1DFA0DC1B740DE600DAD2B8 /* LevelFailedMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DFA0D51B740DE600DAD2B8 /* LevelFailedMenu.swift */; };
+		C1DFA0DD1B740DE600DAD2B8 /* LevelFailedMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DFA0D51B740DE600DAD2B8 /* LevelFailedMenu.swift */; };
+		C1DFA0DE1B740DE600DAD2B8 /* LevelCompleteMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DFA0D61B740DE600DAD2B8 /* LevelCompleteMenu.swift */; };
+		C1DFA0DF1B740DE600DAD2B8 /* LevelCompleteMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DFA0D61B740DE600DAD2B8 /* LevelCompleteMenu.swift */; };
+		C1DFA0E01B740DE600DAD2B8 /* Joystick.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DFA0D71B740DE600DAD2B8 /* Joystick.swift */; };
+		C1DFA0E11B740DE600DAD2B8 /* Joystick.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DFA0D71B740DE600DAD2B8 /* Joystick.swift */; };
+		C1DFA0E21B740DE600DAD2B8 /* InGameMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DFA0D81B740DE600DAD2B8 /* InGameMenu.swift */; };
+		C1DFA0E31B740DE600DAD2B8 /* InGameMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DFA0D81B740DE600DAD2B8 /* InGameMenu.swift */; };
+		C1DFA0E41B740DE600DAD2B8 /* GameUIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DFA0D91B740DE600DAD2B8 /* GameUIManager.swift */; };
+		C1DFA0E51B740DE600DAD2B8 /* GameUIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DFA0D91B740DE600DAD2B8 /* GameUIManager.swift */; };
+		C1DFA0E71B740E1000DAD2B8 /* PlayerIdleState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DFA0E61B740E1000DAD2B8 /* PlayerIdleState.swift */; };
+		C1DFA0E81B740E1000DAD2B8 /* PlayerIdleState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DFA0E61B740E1000DAD2B8 /* PlayerIdleState.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C12622B11B74368900886D97 /* PlayerMovingState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PlayerMovingState.swift; path = Common/Game/States/PlayerMovingState.swift; sourceTree = "<group>"; };
 		C1DF9F841B717E8900DAD2B8 /* AIExplorer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AIExplorer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1DF9F871B717E8900DAD2B8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C1DF9F8B1B717E8900DAD2B8 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
@@ -78,15 +86,18 @@
 		C1DFA04E1B73B7A600DAD2B8 /* GameObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GameObject.swift; path = Common/GameFramework/GameObject.swift; sourceTree = "<group>"; };
 		C1DFA04F1B73B7A600DAD2B8 /* GameLevel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GameLevel.swift; path = Common/GameFramework/GameLevel.swift; sourceTree = "<group>"; };
 		C1DFA0501B73B7A600DAD2B8 /* GameCamera.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GameCamera.swift; path = Common/GameFramework/GameCamera.swift; sourceTree = "<group>"; };
-		C1DFA0621B73B7BE00DAD2B8 /* PlayerCharacter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PlayerCharacter.swift; path = Common/Game/PlayerCharacter.swift; sourceTree = "<group>"; };
-		C1DFA0631B73B7BE00DAD2B8 /* GameLevel0.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GameLevel0.swift; path = Common/Game/GameLevel0.swift; sourceTree = "<group>"; };
-		C1DFA0641B73B7BE00DAD2B8 /* EnemyCharacter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EnemyCharacter.swift; path = Common/Game/EnemyCharacter.swift; sourceTree = "<group>"; };
-		C1DFA06C1B73B7D200DAD2B8 /* PreGameMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PreGameMenu.swift; path = Common/Game/UI/PreGameMenu.swift; sourceTree = "<group>"; };
-		C1DFA06D1B73B7D200DAD2B8 /* LevelFailedMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LevelFailedMenu.swift; path = Common/Game/UI/LevelFailedMenu.swift; sourceTree = "<group>"; };
-		C1DFA06E1B73B7D200DAD2B8 /* LevelCompleteMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LevelCompleteMenu.swift; path = Common/Game/UI/LevelCompleteMenu.swift; sourceTree = "<group>"; };
-		C1DFA06F1B73B7D200DAD2B8 /* Joystick.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Joystick.swift; path = Common/Game/UI/Joystick.swift; sourceTree = "<group>"; };
-		C1DFA0701B73B7D200DAD2B8 /* InGameMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InGameMenu.swift; path = Common/Game/UI/InGameMenu.swift; sourceTree = "<group>"; };
-		C1DFA0711B73B7D200DAD2B8 /* GameUIManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GameUIManager.swift; path = Common/Game/UI/GameUIManager.swift; sourceTree = "<group>"; };
+		C1DFA0C01B7405F300DAD2B8 /* State.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = State.swift; path = Common/GameFramework/State.swift; sourceTree = "<group>"; };
+		C1DFA0C31B74079000DAD2B8 /* StateMachine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StateMachine.swift; path = Common/GameFramework/StateMachine.swift; sourceTree = "<group>"; };
+		C1DFA0C91B740DC800DAD2B8 /* PlayerCharacter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PlayerCharacter.swift; path = Common/Game/PlayerCharacter.swift; sourceTree = "<group>"; };
+		C1DFA0CA1B740DC800DAD2B8 /* GameLevel0.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GameLevel0.swift; path = Common/Game/GameLevel0.swift; sourceTree = "<group>"; };
+		C1DFA0CB1B740DC800DAD2B8 /* EnemyCharacter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EnemyCharacter.swift; path = Common/Game/EnemyCharacter.swift; sourceTree = "<group>"; };
+		C1DFA0D41B740DE600DAD2B8 /* PreGameMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PreGameMenu.swift; path = Common/Game/UI/PreGameMenu.swift; sourceTree = "<group>"; };
+		C1DFA0D51B740DE600DAD2B8 /* LevelFailedMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LevelFailedMenu.swift; path = Common/Game/UI/LevelFailedMenu.swift; sourceTree = "<group>"; };
+		C1DFA0D61B740DE600DAD2B8 /* LevelCompleteMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LevelCompleteMenu.swift; path = Common/Game/UI/LevelCompleteMenu.swift; sourceTree = "<group>"; };
+		C1DFA0D71B740DE600DAD2B8 /* Joystick.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Joystick.swift; path = Common/Game/UI/Joystick.swift; sourceTree = "<group>"; };
+		C1DFA0D81B740DE600DAD2B8 /* InGameMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InGameMenu.swift; path = Common/Game/UI/InGameMenu.swift; sourceTree = "<group>"; };
+		C1DFA0D91B740DE600DAD2B8 /* GameUIManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GameUIManager.swift; path = Common/Game/UI/GameUIManager.swift; sourceTree = "<group>"; };
+		C1DFA0E61B740E1000DAD2B8 /* PlayerIdleState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PlayerIdleState.swift; path = Common/Game/States/PlayerIdleState.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -153,8 +164,8 @@
 		C1DFA02C1B73B68200DAD2B8 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				C1DFA0C81B740DB700DAD2B8 /* Game */,
 				C1DFA07E1B73B7E300DAD2B8 /* External */,
-				C1DFA0611B73B7AC00DAD2B8 /* Game */,
 				C1DFA0481B73B79200DAD2B8 /* GameFramework */,
 				C1DFA0301B73B69C00DAD2B8 /* Assets.xcassets */,
 				C1DFA0311B73B69C00DAD2B8 /* art.scnassets */,
@@ -173,32 +184,10 @@
 				C1DFA04E1B73B7A600DAD2B8 /* GameObject.swift */,
 				C1DFA04F1B73B7A600DAD2B8 /* GameLevel.swift */,
 				C1DFA0501B73B7A600DAD2B8 /* GameCamera.swift */,
+				C1DFA0C01B7405F300DAD2B8 /* State.swift */,
+				C1DFA0C31B74079000DAD2B8 /* StateMachine.swift */,
 			);
 			name = GameFramework;
-			sourceTree = "<group>";
-		};
-		C1DFA0611B73B7AC00DAD2B8 /* Game */ = {
-			isa = PBXGroup;
-			children = (
-				C1DFA06B1B73B7C400DAD2B8 /* UI */,
-				C1DFA0621B73B7BE00DAD2B8 /* PlayerCharacter.swift */,
-				C1DFA0631B73B7BE00DAD2B8 /* GameLevel0.swift */,
-				C1DFA0641B73B7BE00DAD2B8 /* EnemyCharacter.swift */,
-			);
-			name = Game;
-			sourceTree = "<group>";
-		};
-		C1DFA06B1B73B7C400DAD2B8 /* UI */ = {
-			isa = PBXGroup;
-			children = (
-				C1DFA06C1B73B7D200DAD2B8 /* PreGameMenu.swift */,
-				C1DFA06D1B73B7D200DAD2B8 /* LevelFailedMenu.swift */,
-				C1DFA06E1B73B7D200DAD2B8 /* LevelCompleteMenu.swift */,
-				C1DFA06F1B73B7D200DAD2B8 /* Joystick.swift */,
-				C1DFA0701B73B7D200DAD2B8 /* InGameMenu.swift */,
-				C1DFA0711B73B7D200DAD2B8 /* GameUIManager.swift */,
-			);
-			name = UI;
 			sourceTree = "<group>";
 		};
 		C1DFA07E1B73B7E300DAD2B8 /* External */ = {
@@ -206,6 +195,40 @@
 			children = (
 			);
 			name = External;
+			sourceTree = "<group>";
+		};
+		C1DFA0C81B740DB700DAD2B8 /* Game */ = {
+			isa = PBXGroup;
+			children = (
+				C1DFA0D31B740DD500DAD2B8 /* States */,
+				C1DFA0D21B740DCE00DAD2B8 /* UI */,
+				C1DFA0C91B740DC800DAD2B8 /* PlayerCharacter.swift */,
+				C1DFA0CA1B740DC800DAD2B8 /* GameLevel0.swift */,
+				C1DFA0CB1B740DC800DAD2B8 /* EnemyCharacter.swift */,
+			);
+			name = Game;
+			sourceTree = "<group>";
+		};
+		C1DFA0D21B740DCE00DAD2B8 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				C1DFA0D41B740DE600DAD2B8 /* PreGameMenu.swift */,
+				C1DFA0D51B740DE600DAD2B8 /* LevelFailedMenu.swift */,
+				C1DFA0D61B740DE600DAD2B8 /* LevelCompleteMenu.swift */,
+				C1DFA0D71B740DE600DAD2B8 /* Joystick.swift */,
+				C1DFA0D81B740DE600DAD2B8 /* InGameMenu.swift */,
+				C1DFA0D91B740DE600DAD2B8 /* GameUIManager.swift */,
+			);
+			name = UI;
+			sourceTree = "<group>";
+		};
+		C1DFA0D31B740DD500DAD2B8 /* States */ = {
+			isa = PBXGroup;
+			children = (
+				C12622B11B74368900886D97 /* PlayerMovingState.swift */,
+				C1DFA0E61B740E1000DAD2B8 /* PlayerIdleState.swift */,
+			);
+			name = States;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -310,24 +333,28 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C1DFA0E71B740E1000DAD2B8 /* PlayerIdleState.swift in Sources */,
 				C1DFA0531B73B7A600DAD2B8 /* GameUtilities.swift in Sources */,
-				C1DFA0671B73B7BE00DAD2B8 /* GameLevel0.swift in Sources */,
 				C1DF9F8C1B717E8900DAD2B8 /* GameViewController.swift in Sources */,
+				C1DFA0DA1B740DE600DAD2B8 /* PreGameMenu.swift in Sources */,
+				C12622B21B74368900886D97 /* PlayerMovingState.swift in Sources */,
+				C1DFA0C11B7405F300DAD2B8 /* State.swift in Sources */,
+				C1DFA0CE1B740DC800DAD2B8 /* GameLevel0.swift in Sources */,
+				C1DFA0E21B740DE600DAD2B8 /* InGameMenu.swift in Sources */,
+				C1DFA0D01B740DC800DAD2B8 /* EnemyCharacter.swift in Sources */,
 				C1DFA0591B73B7A600DAD2B8 /* GameOverlayScene.swift in Sources */,
-				C1DFA0741B73B7D200DAD2B8 /* LevelFailedMenu.swift in Sources */,
-				C1DFA0691B73B7BE00DAD2B8 /* EnemyCharacter.swift in Sources */,
 				C1DFA0551B73B7A600DAD2B8 /* GameSceneView.swift in Sources */,
-				C1DFA0781B73B7D200DAD2B8 /* Joystick.swift in Sources */,
 				C1DFA05B1B73B7A600DAD2B8 /* GameObject.swift in Sources */,
-				C1DFA0761B73B7D200DAD2B8 /* LevelCompleteMenu.swift in Sources */,
+				C1DFA0E01B740DE600DAD2B8 /* Joystick.swift in Sources */,
+				C1DFA0E41B740DE600DAD2B8 /* GameUIManager.swift in Sources */,
+				C1DFA0DC1B740DE600DAD2B8 /* LevelFailedMenu.swift in Sources */,
 				C1DF9F881B717E8900DAD2B8 /* AppDelegate.swift in Sources */,
-				C1DFA0721B73B7D200DAD2B8 /* PreGameMenu.swift in Sources */,
 				C1DFA05F1B73B7A600DAD2B8 /* GameCamera.swift in Sources */,
+				C1DFA0DE1B740DE600DAD2B8 /* LevelCompleteMenu.swift in Sources */,
 				C1DFA0571B73B7A600DAD2B8 /* GameScenesManager.swift in Sources */,
 				C1DFA05D1B73B7A600DAD2B8 /* GameLevel.swift in Sources */,
-				C1DFA07C1B73B7D200DAD2B8 /* GameUIManager.swift in Sources */,
-				C1DFA07A1B73B7D200DAD2B8 /* InGameMenu.swift in Sources */,
-				C1DFA0651B73B7BE00DAD2B8 /* PlayerCharacter.swift in Sources */,
+				C1DFA0CC1B740DC800DAD2B8 /* PlayerCharacter.swift in Sources */,
+				C1DFA0C41B74079000DAD2B8 /* StateMachine.swift in Sources */,
 				C1DFA0511B73B7A600DAD2B8 /* SkinnedCharacter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -336,25 +363,28 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C1DFA0CD1B740DC800DAD2B8 /* PlayerCharacter.swift in Sources */,
+				C1DFA0E51B740DE600DAD2B8 /* GameUIManager.swift in Sources */,
 				C1DFA0601B73B7A600DAD2B8 /* GameCamera.swift in Sources */,
-				C1DFA0771B73B7D200DAD2B8 /* LevelCompleteMenu.swift in Sources */,
 				C1DFA0541B73B7A600DAD2B8 /* GameUtilities.swift in Sources */,
-				C1DFA0751B73B7D200DAD2B8 /* LevelFailedMenu.swift in Sources */,
 				C1DFA0561B73B7A600DAD2B8 /* GameSceneView.swift in Sources */,
+				C1DFA0DD1B740DE600DAD2B8 /* LevelFailedMenu.swift in Sources */,
+				C1DFA0C21B7405F300DAD2B8 /* State.swift in Sources */,
 				C1DFA05E1B73B7A600DAD2B8 /* GameLevel.swift in Sources */,
 				C1DFA05C1B73B7A600DAD2B8 /* GameObject.swift in Sources */,
 				C1DF9FA41B717EB200DAD2B8 /* GameView.swift in Sources */,
-				C1DFA0661B73B7BE00DAD2B8 /* PlayerCharacter.swift in Sources */,
-				C1DFA0791B73B7D200DAD2B8 /* Joystick.swift in Sources */,
 				C1DFA05A1B73B7A600DAD2B8 /* GameOverlayScene.swift in Sources */,
+				C1DFA0DF1B740DE600DAD2B8 /* LevelCompleteMenu.swift in Sources */,
 				C1DFA0581B73B7A600DAD2B8 /* GameScenesManager.swift in Sources */,
+				C1DFA0D11B740DC800DAD2B8 /* EnemyCharacter.swift in Sources */,
 				C1DF9FA61B717EB200DAD2B8 /* GameViewController.swift in Sources */,
-				C1DFA06A1B73B7BE00DAD2B8 /* EnemyCharacter.swift in Sources */,
-				C1DFA0681B73B7BE00DAD2B8 /* GameLevel0.swift in Sources */,
 				C1DFA0521B73B7A600DAD2B8 /* SkinnedCharacter.swift in Sources */,
-				C1DFA07B1B73B7D200DAD2B8 /* InGameMenu.swift in Sources */,
-				C1DFA07D1B73B7D200DAD2B8 /* GameUIManager.swift in Sources */,
-				C1DFA0731B73B7D200DAD2B8 /* PreGameMenu.swift in Sources */,
+				C1DFA0E81B740E1000DAD2B8 /* PlayerIdleState.swift in Sources */,
+				C1DFA0E31B740DE600DAD2B8 /* InGameMenu.swift in Sources */,
+				C1DFA0C51B74079000DAD2B8 /* StateMachine.swift in Sources */,
+				C1DFA0CF1B740DC800DAD2B8 /* GameLevel0.swift in Sources */,
+				C1DFA0E11B740DE600DAD2B8 /* Joystick.swift in Sources */,
+				C1DFA0DB1B740DE600DAD2B8 /* PreGameMenu.swift in Sources */,
 				C1DF9FA21B717EB200DAD2B8 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -543,6 +573,7 @@
 				C1DF9F9A1B717E8900DAD2B8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C1DF9FAF1B717EB200DAD2B8 /* Build configuration list for PBXNativeTarget "MacOSXAIExplorer" */ = {
 			isa = XCConfigurationList;
@@ -551,6 +582,7 @@
 				C1DF9FB11B717EB200DAD2B8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

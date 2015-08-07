@@ -116,5 +116,9 @@ class SkinnedCharacter : SCNNode, GameObject {
     func isStatic() -> Bool {
         return false
     }
+    
+    func getID() -> String {
+        return "SkinnedCharacter"
+    }
 }
 

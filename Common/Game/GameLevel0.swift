@@ -17,7 +17,9 @@ class GameLevel0 : NSObject, GameLevel {
     var previousTime:NSTimeInterval!
     var deltaTime:NSTimeInterval!
     
-    var cameraNode:GameCamera!
+    var sceneCamera:GameCamera!
+    var frontCamera:GameCamera!
+    var currentCamera:GameCamera!
     var player:PlayerCharacter!
     var enemy:EnemyCharacter!
     var ship:SCNNode!
@@ -36,18 +38,20 @@ class GameLevel0 : NSObject, GameLevel {
         self.scene = SCNScene(named: "art.scnassets/level0/ship.dae")!
         
         // create and add a camera to the scene
-        cameraNode = GameCamera(cameraType:CameraType.SceneCamera)
-        cameraNode.camera?.zFar = 400.0
-        #if os(iOS)
-            cameraNode.rotation = SCNVector4Make(1.0, 0.0, 0.0, -Float(M_PI_4*0.75))
-        #else
-            cameraNode.rotation = SCNVector4Make(1.0, 0.0, 0.0, -CGFloat(M_PI_4*0.75))
-        #endif
-        scene.rootNode.addChildNode(cameraNode)
-        cameraNode.setupTransformationMatrix()
-        
+        sceneCamera = GameCamera(cameraType:CameraType.SceneCamera)
+        sceneCamera.camera?.zFar = 400.0
         // place the camera
-        cameraNode.position = SCNVector3(x: 0, y: 110, z: 200)
+        sceneCamera.position = SCNVector3(x: 0, y: 110, z: 200)
+        #if os(iOS)
+            sceneCamera.rotation = SCNVector4Make(1.0, 0.0, 0.0, -Float(M_PI_4*0.75))
+        #else
+            sceneCamera.rotation = SCNVector4Make(1.0, 0.0, 0.0, -CGFloat(M_PI_4*0.75))
+        #endif
+
+        scene.rootNode.addChildNode(sceneCamera)
+        sceneCamera.setupTransformationMatrix()
+        currentCamera = sceneCamera
+        
         
         // create and add a light to the scene
         let lightNode = SCNNode()
@@ -166,7 +170,7 @@ class GameLevel0 : NSObject, GameLevel {
             child, stop in
             // do something with node or stop
             if(child.name == "group") {
-                self.player = PlayerCharacter(characterNode:child)
+                self.player = PlayerCharacter(characterNode:child, id:"Player")
                 self.player.scale = SCNVector3Make(0.2, 0.2, 0.2)
                 self.player.position = SCNVector3Make(-20, 0, -50)
                 
@@ -179,7 +183,7 @@ class GameLevel0 : NSObject, GameLevel {
         let skinnedModelName = "art.scnassets/common/models/warrior/walk.dae"
         
         let escene = SCNScene(named:skinnedModelName)
-        enemy = EnemyCharacter(characterNode:escene!.rootNode)
+        enemy = EnemyCharacter(characterNode:escene!.rootNode, id:"Enemy")
         enemy.scale = SCNVector3Make(0.2, 0.2, 0.2)
         enemy.position = SCNVector3Make(20, 0, -40)
         #if os(iOS)
@@ -196,6 +200,9 @@ class GameLevel0 : NSObject, GameLevel {
     func renderer(aRenderer: SCNSceneRenderer, updateAtTime time: NSTimeInterval) {
         //TEMPORARY - REMOVE THIS WHEN GAME MENUS ARE IMPLEMENTED
         //GameScenesManager.sharedInstance.setGameState(GameState.InGame)
+        
+        aRenderer.pointOfView = sceneCamera
+        currentCamera = sceneCamera
 
         if(previousTime == 0.0) {
             previousTime = time
@@ -203,6 +210,10 @@ class GameLevel0 : NSObject, GameLevel {
         deltaTime = time - previousTime
         previousTime = time
         
+        player.update(deltaTime)
+        enemy.update(deltaTime)
+        currentCamera.update(deltaTime)
+
     }
 
     func physicsWorld(world: SCNPhysicsWorld, didBeginContact contact: SCNPhysicsContact) {
@@ -260,7 +271,7 @@ extension GameLevel0 {
     func buttonPressedAction(nodeName:String) {
         print("Button pressed \(nodeName)")
         if(nodeName == "cameraNode") {
-            cameraNode.turnCameraAroundNode(ship, radius: 175.0, angleInDegrees: -45.0)
+            currentCamera.turnCameraAroundNode(ship, radius: 175.0, angleInDegrees: -45.0)
         }
 
     }

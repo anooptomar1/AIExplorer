@@ -92,7 +92,6 @@ class GameCamera : SCNNode {
         var modelViewMatrix:SCNMatrix4 = SCNMatrix4MakeTranslation(self.pos.x, self.pos.y, self.pos.z)
         modelViewMatrix = SCNMatrix4Mult(rotationMatrix, modelViewMatrix)
         self.transform = modelViewMatrix
-        
     }
     
     func yaw(angleInDegrees:Float, duration:CGFloat) {
