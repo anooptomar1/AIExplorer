@@ -6,7 +6,7 @@
 //  Copyright © 2015 Vivek Nagar. All rights reserved.
 //
 
-import Foundation
+import SpriteKit
 import SceneKit
 
 class GameUtilities {
@@ -20,6 +20,16 @@ class GameUtilities {
         let box = SCNBox(width: CGFloat(max.x-min.x), height: CGFloat(max.y-min.y), length: CGFloat(max.z-min.z), chamferRadius: 0.0)
         return box
     }
+    
+    class func createDebugBox(scene:SCNScene, box:SCNBox, position:SCNVector3, color:SKColor, rotation:SCNVector4) {
+        let geometry = box
+        geometry.firstMaterial!.diffuse.contents = color
+        let node = SCNNode(geometry: geometry)
+        node.position = position
+        node.rotation = rotation
+        scene.rootNode.addChildNode(node)
+    }
+
 
     class func getAngleFromDirection(currentPosition:SCNVector3, target:SCNVector3) -> Float
     {

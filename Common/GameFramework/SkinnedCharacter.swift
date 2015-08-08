@@ -6,7 +6,7 @@
 import SceneKit
 import QuartzCore
 
-class SkinnedCharacter : SCNNode, GameObject {
+class SkinnedCharacter : SCNNode {
     var mainSkeleton:SCNNode!
     var animationsDict = Dictionary<String, CAAnimation>()
 

@@ -17,6 +17,14 @@
 		C12622C81B74FA3100886D97 /* EnemyPatrolState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12622C61B74FA3100886D97 /* EnemyPatrolState.swift */; };
 		C12622D01B75196E00886D97 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12622CF1B75196E00886D97 /* Message.swift */; };
 		C12622D11B75196E00886D97 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12622CF1B75196E00886D97 /* Message.swift */; };
+		C12622D51B76400B00886D97 /* MovingGameObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12622D41B76400B00886D97 /* MovingGameObject.swift */; };
+		C12622D61B76400B00886D97 /* MovingGameObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12622D41B76400B00886D97 /* MovingGameObject.swift */; };
+		C12622DB1B7641A800886D97 /* SteeringBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12622DA1B7641A800886D97 /* SteeringBehavior.swift */; };
+		C12622DC1B7641A800886D97 /* SteeringBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12622DA1B7641A800886D97 /* SteeringBehavior.swift */; };
+		C12622DF1B7650AD00886D97 /* SCNVector3Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12622DE1B7650AD00886D97 /* SCNVector3Extensions.swift */; };
+		C12622E01B7650AD00886D97 /* SCNVector3Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12622DE1B7650AD00886D97 /* SCNVector3Extensions.swift */; };
+		C12622E21B7656AF00886D97 /* Vector2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12622E11B7656AF00886D97 /* Vector2D.swift */; };
+		C12622E31B7656AF00886D97 /* Vector2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12622E11B7656AF00886D97 /* Vector2D.swift */; };
 		C1DF9F881B717E8900DAD2B8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DF9F871B717E8900DAD2B8 /* AppDelegate.swift */; };
 		C1DF9F8C1B717E8900DAD2B8 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DF9F8B1B717E8900DAD2B8 /* GameViewController.swift */; };
 		C1DF9F8F1B717E8900DAD2B8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C1DF9F8D1B717E8900DAD2B8 /* Main.storyboard */; };
@@ -75,6 +83,10 @@
 		C12622C11B74FA1900886D97 /* EnemyIdleState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EnemyIdleState.swift; path = Common/Game/States/EnemyIdleState.swift; sourceTree = "<group>"; };
 		C12622C61B74FA3100886D97 /* EnemyPatrolState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EnemyPatrolState.swift; path = Common/Game/States/EnemyPatrolState.swift; sourceTree = "<group>"; };
 		C12622CF1B75196E00886D97 /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Message.swift; path = Common/GameFramework/Message.swift; sourceTree = "<group>"; };
+		C12622D41B76400B00886D97 /* MovingGameObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MovingGameObject.swift; path = Common/GameFramework/MovingGameObject.swift; sourceTree = "<group>"; };
+		C12622DA1B7641A800886D97 /* SteeringBehavior.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SteeringBehavior.swift; path = Common/GameFramework/SteeringBehavior.swift; sourceTree = "<group>"; };
+		C12622DE1B7650AD00886D97 /* SCNVector3Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SCNVector3Extensions.swift; path = Common/GameFramework/Utils/SCNVector3Extensions.swift; sourceTree = "<group>"; };
+		C12622E11B7656AF00886D97 /* Vector2D.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Vector2D.swift; path = Common/GameFramework/Utils/Vector2D.swift; sourceTree = "<group>"; };
 		C1DF9F841B717E8900DAD2B8 /* AIExplorer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AIExplorer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1DF9F871B717E8900DAD2B8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C1DF9F8B1B717E8900DAD2B8 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
@@ -128,6 +140,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C12622DD1B76509700886D97 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				C12622DE1B7650AD00886D97 /* SCNVector3Extensions.swift */,
+				C12622E11B7656AF00886D97 /* Vector2D.swift */,
+			);
+			name = Utils;
+			sourceTree = "<group>";
+		};
 		C1DF9F7B1B717E8900DAD2B8 = {
 			isa = PBXGroup;
 			children = (
@@ -186,6 +207,9 @@
 		C1DFA0481B73B79200DAD2B8 /* GameFramework */ = {
 			isa = PBXGroup;
 			children = (
+				C12622DD1B76509700886D97 /* Utils */,
+				C12622DA1B7641A800886D97 /* SteeringBehavior.swift */,
+				C12622D41B76400B00886D97 /* MovingGameObject.swift */,
 				C12622CF1B75196E00886D97 /* Message.swift */,
 				C1DFA0491B73B7A600DAD2B8 /* SkinnedCharacter.swift */,
 				C1DFA04A1B73B7A600DAD2B8 /* GameUtilities.swift */,
@@ -346,9 +370,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C12622DF1B7650AD00886D97 /* SCNVector3Extensions.swift in Sources */,
 				C12622C21B74FA1900886D97 /* PlayerMovingState.swift in Sources */,
 				C12622B81B74F9E200886D97 /* PlayerIdleState.swift in Sources */,
 				C1DFA0531B73B7A600DAD2B8 /* GameUtilities.swift in Sources */,
+				C12622E21B7656AF00886D97 /* Vector2D.swift in Sources */,
 				C1DF9F8C1B717E8900DAD2B8 /* GameViewController.swift in Sources */,
 				C1DFA0DA1B740DE600DAD2B8 /* PreGameMenu.swift in Sources */,
 				C1DFA0C11B7405F300DAD2B8 /* State.swift in Sources */,
@@ -359,10 +385,12 @@
 				C1DFA0591B73B7A600DAD2B8 /* GameOverlayScene.swift in Sources */,
 				C1DFA0551B73B7A600DAD2B8 /* GameSceneView.swift in Sources */,
 				C1DFA05B1B73B7A600DAD2B8 /* GameObject.swift in Sources */,
+				C12622D51B76400B00886D97 /* MovingGameObject.swift in Sources */,
 				C1DFA0E01B740DE600DAD2B8 /* Joystick.swift in Sources */,
 				C1DFA0E41B740DE600DAD2B8 /* GameUIManager.swift in Sources */,
 				C1DFA0DC1B740DE600DAD2B8 /* LevelFailedMenu.swift in Sources */,
 				C1DF9F881B717E8900DAD2B8 /* AppDelegate.swift in Sources */,
+				C12622DB1B7641A800886D97 /* SteeringBehavior.swift in Sources */,
 				C1DFA05F1B73B7A600DAD2B8 /* GameCamera.swift in Sources */,
 				C12622C71B74FA3100886D97 /* EnemyPatrolState.swift in Sources */,
 				C1DFA0DE1B740DE600DAD2B8 /* LevelCompleteMenu.swift in Sources */,
@@ -388,7 +416,9 @@
 				C1DFA0DD1B740DE600DAD2B8 /* LevelFailedMenu.swift in Sources */,
 				C1DFA0C21B7405F300DAD2B8 /* State.swift in Sources */,
 				C1DFA05E1B73B7A600DAD2B8 /* GameLevel.swift in Sources */,
+				C12622E01B7650AD00886D97 /* SCNVector3Extensions.swift in Sources */,
 				C1DFA05C1B73B7A600DAD2B8 /* GameObject.swift in Sources */,
+				C12622D61B76400B00886D97 /* MovingGameObject.swift in Sources */,
 				C1DF9FA41B717EB200DAD2B8 /* GameView.swift in Sources */,
 				C1DFA05A1B73B7A600DAD2B8 /* GameOverlayScene.swift in Sources */,
 				C12622C81B74FA3100886D97 /* EnemyPatrolState.swift in Sources */,
@@ -401,10 +431,12 @@
 				C1DFA0E31B740DE600DAD2B8 /* InGameMenu.swift in Sources */,
 				C1DFA0C51B74079000DAD2B8 /* StateMachine.swift in Sources */,
 				C12622D11B75196E00886D97 /* Message.swift in Sources */,
+				C12622DC1B7641A800886D97 /* SteeringBehavior.swift in Sources */,
 				C1DFA0CF1B740DC800DAD2B8 /* GameLevel0.swift in Sources */,
 				C1DFA0E11B740DE600DAD2B8 /* Joystick.swift in Sources */,
 				C1DFA0DB1B740DE600DAD2B8 /* PreGameMenu.swift in Sources */,
 				C1DF9FA21B717EB200DAD2B8 /* AppDelegate.swift in Sources */,
+				C12622E31B7656AF00886D97 /* Vector2D.swift in Sources */,
 				C12622C51B74FA1900886D97 /* EnemyIdleState.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

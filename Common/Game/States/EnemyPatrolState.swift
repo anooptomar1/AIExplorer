@@ -20,7 +20,7 @@ class EnemyPatrolState: State {
     func enter(obj: GameObject) {
         if let enemy = obj as? EnemyCharacter {
             print("\(enemy.name) Entering patrol state")
-            enemy.changeAnimationState(EnemyAnimationState.Idle)
+            enemy.changeAnimationState(EnemyAnimationState.Walk)
             let msg = Message()
             msg.sender = enemy.name
             msg.receiver = nil

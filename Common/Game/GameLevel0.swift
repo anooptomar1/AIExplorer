@@ -35,14 +35,14 @@ class GameLevel0 : NSObject, GameLevel {
     func createLevel(scnView:SCNView) -> SCNScene {
         self.scnView = scnView
         // create a new scene
-        self.scene = SCNScene(named: "art.scnassets/level0/ship.dae")!
+        //self.scene = SCNScene(named: "art.scnassets/level0/ship.dae")!
+        self.scene = SCNScene()
         
         let gameUIManager:GameUIManager = GameUIManager.sharedInstance
         gameUIManager.setScene(scnView.overlaySKScene!)
         // set delegate to get menu action callbacks
         gameUIManager.delegate = self
 
-        
         // create and add a camera to the scene
         sceneCamera = GameCamera(cameraType:CameraType.SceneCamera)
         sceneCamera.camera?.zFar = 400.0
@@ -76,15 +76,7 @@ class GameLevel0 : NSObject, GameLevel {
         self.addFloorAndWalls()
         self.addPlayer()
         self.addEnemies()
-        
-        // retrieve the ship node
-        ship = scene.rootNode.childNodeWithName("ship", recursively: true)!
-        
-        ship.position = SCNVector3(x:0.0, y:30.0, z:0.0)
-        // animate the 3d object
-        ship.runAction(SCNAction.repeatActionForever(SCNAction.rotateByX(0, y: 2, z: 0, duration: 1)))
-        
-
+        self.addDebugObjects()
 
         return self.scene
     }
@@ -147,7 +139,7 @@ class GameLevel0 : NSObject, GameLevel {
         backWall.physicsBody = SCNPhysicsBody.staticBody()
         scene.rootNode.addChildNode(backWall)
 
-        // add ceil
+        // add ceiling
         let ceilNode = SCNNode(geometry:SCNPlane(width:400, height:400))
         ceilNode.position = SCNVector3Make(0, 100, 0);
         #if os(iOS)
@@ -172,7 +164,7 @@ class GameLevel0 : NSObject, GameLevel {
             child, stop in
             // do something with node or stop
             if(child.name == "group") {
-                self.player = PlayerCharacter(characterNode:child, id:"Player")
+                self.player = PlayerCharacter(characterNode:child, id:"Player", level:self)
                 self.player.scale = SCNVector3Make(0.2, 0.2, 0.2)
                 self.player.position = SCNVector3Make(-20, 0, -50)
                 
@@ -183,15 +175,15 @@ class GameLevel0 : NSObject, GameLevel {
     
     func addEnemies() {
         let skinnedModelName = "art.scnassets/common/models/warrior/walk.dae"
+        let count = 0
         
-        for i in 0...1 {
+        for i in 0...count {
             let escene = SCNScene(named:skinnedModelName)
             let rootNode = escene!.rootNode
             
             var enemy:EnemyCharacter!
 
-            print("Creating enemy \(i)")
-            enemy = EnemyCharacter(characterNode:rootNode, id:"Enemy"+String(i))
+            enemy = EnemyCharacter(characterNode:rootNode, id:"Enemy"+String(i), level:self)
             enemy.scale = SCNVector3Make(0.2, 0.2, 0.2)
             #if os(iOS)
                 let xPos = 20.0 * Float(i+1)
@@ -208,40 +200,17 @@ class GameLevel0 : NSObject, GameLevel {
             scene.rootNode.addChildNode(enemy)
         }
         
-        /*
-        let enemy = EnemyCharacter(characterNode:rootNode, id:"Enemy0")
-        enemy.scale = SCNVector3Make(0.2, 0.2, 0.2)
-        enemy.position = SCNVector3Make(20, 0, -40)
+    }
+    
+    func addDebugObjects() {
         #if os(iOS)
-            enemy.rotation = SCNVector4Make(0, 1, 0, Float(M_PI))
-            #else
-            enemy.rotation = SCNVector4Make(0, 1, 0, CGFloat(M_PI))
+        GameUtilities.createDebugBox(self.scene, box:SCNBox(width:5.0, height:5.0, length:5.0, chamferRadius:1.0), position: SCNVector3Make(0.0, 0.0, 100.0), color: SKColor.redColor(), rotation:SCNVector4Make(Float(1.0), Float(0.0), Float(0.0), Float(0.0)))
+        #else
+            GameUtilities.createDebugBox(self.scene, box:SCNBox(width:5.0, height:5.0, length:5.0, chamferRadius:1.0), position: SCNVector3Make(0.0, 0.0, 100.0), color: SKColor.redColor(), rotation:SCNVector4Make(CGFloat(1.0), CGFloat(0.0), CGFloat(0.0), CGFloat(0.0)))
         #endif
-        enemies.append(enemy)
-        scene.rootNode.addChildNode(enemy)
-        
-        
-        let escene1 = SCNScene(named:skinnedModelName)
-        let rootNode1 = escene1!.rootNode
-
-        let enemy1 = EnemyCharacter(characterNode:rootNode1, id:"Enemy1")
-        enemy1.scale = SCNVector3Make(0.2, 0.2, 0.2)
-        enemy1.position = SCNVector3Make(40, 0, -40)
-        #if os(iOS)
-            enemy1.rotation = SCNVector4Make(0, 1, 0, Float(M_PI))
-            #else
-            enemy1.rotation = SCNVector4Make(0, 1, 0, CGFloat(M_PI))
-        #endif
-        enemies.append(enemy1)
-        scene.rootNode.addChildNode(enemy1)
-        */
-
     }
     
     func renderer(aRenderer: SCNSceneRenderer, updateAtTime time: NSTimeInterval) {
-        //TEMPORARY - REMOVE THIS WHEN GAME MENUS ARE IMPLEMENTED
-        //GameScenesManager.sharedInstance.setGameState(GameState.InGame)
-        
         aRenderer.pointOfView = sceneCamera
         currentCamera = sceneCamera
 

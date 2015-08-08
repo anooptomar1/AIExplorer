@@ -16,8 +16,17 @@ enum EnemyAnimationState : Int {
     Attack
 }
 
-class EnemyCharacter : SkinnedCharacter {
+class EnemyCharacter : SkinnedCharacter, MovingGameObject {
+    let mass:Float = 4.0
+    let maxSpeed:Float = 20.0
+    let maxForce:Float = 5.0
+    let maxTurnRate:Float = 0.0
+    var velocity = Vector2D(x:0.0, z:0.0)
+    
+    var gameLevel:GameLevel!
     var stateMachine: StateMachine!
+    var steering:SteeringBehavior!
+    
     let assetDirectory = "art.scnassets/common/models/warrior/"
     let skeletonName = "Bip01"
     let notificationKey = "NotificationKey"
@@ -29,9 +38,11 @@ class EnemyCharacter : SkinnedCharacter {
         super.init(coder:aDecoder)
     }
         
-    init(characterNode:SCNNode, id:String) {
+    init(characterNode:SCNNode, id:String, level:GameLevel) {
         super.init(rootNode: characterNode)
         self.name = id
+        self.gameLevel = level
+        self.steering = SteeringBehavior(obj:self)
         
         // Load the animations and store via a lookup table.
         self.setupIdleAnimation()
@@ -137,8 +148,48 @@ class EnemyCharacter : SkinnedCharacter {
         stateMachine.changeState(newState)
     }
 
+    func updatePosition(deltaTime:NSTimeInterval) {
+        
+        //calculate the combined force from each steering behavior
+        let steeringForce = steering.seek(SCNVector3Make(0.0, 0.0, 100))
+        
+        //acceleration = Force/mass
+        let acceleration = Vector2D(x:steeringForce.x/self.getMass(), z:steeringForce.z/self.getMass())
+        
+        //update velocity
+        velocity.x = velocity.x + acceleration.x*Float(deltaTime)
+        velocity.z = velocity.z + acceleration.z*Float(deltaTime)
+        
+        //make sure velocity does not exceed maximum velocity
+        velocity = velocity.truncate(self.getMaxSpeed())
+        
+        //update the position
+        var newPlayerPos = SCNVector3Zero
+        #if os(iOS)
+            newPlayerPos.x = self.position.x + velocity.x*Float(deltaTime)
+            newPlayerPos.z = self.position.z + velocity.z*Float(deltaTime)
+        #else
+            newPlayerPos.x = self.position.x + CGFloat(velocity.x)*CGFloat(deltaTime)
+            newPlayerPos.z = self.position.z + CGFloat(velocity.z)*CGFloat(deltaTime)
+        #endif
+        newPlayerPos.y = self.position.y
+        
+        let angleDirection = GameUtilities.getAngleFromDirection(self.position, target:newPlayerPos)
+        
+        #if os(iOS)
+            self.rotation = SCNVector4Make(0, 1, 0, angleDirection)
+            #else
+            self.rotation = SCNVector4Make(0, 1, 0, CGFloat(angleDirection))
+        #endif
+
+        //update the position
+        self.position = newPlayerPos
+
+    }
+
     override func update(deltaTime:NSTimeInterval) {
         stateMachine.update()
+        self.updatePosition(deltaTime)
     }
     
     override func isStatic() -> Bool {
@@ -147,6 +198,39 @@ class EnemyCharacter : SkinnedCharacter {
     
     override func getID() -> String {
         return self.name!
+    }
+
+    func getPosition() -> SCNVector3 {
+        return self.position
+    }
+    
+    func getVelocity() -> Vector2D {
+        return Vector2D(x: 1.0, z: 1.0)
+
+    }
+    // A normalized vector describing the direction of the object
+    func getHeading() -> Vector2D {
+        return Vector2D(x: 0, z: 0)
+
+    }
+    // A vector perpendicular to the heading
+    func getPerp() -> Vector2D {
+        return Vector2D(x: 0, z: 0)
+
+    }
+    
+    func getMass() -> Float {
+        return self.mass
+    }
+    func getMaxSpeed() -> Float {
+        return self.maxSpeed
+    }
+    func getMaxForce() -> Float {
+        return self.maxForce
+    }
+    //turn rate in radians per sec
+    func getMaxTurnRate() -> Float {
+        return self.maxTurnRate
     }
 
 }

@@ -24,7 +24,8 @@ enum PlayerAnimationState : Int {
     Unknown
 }
 
-class PlayerCharacter : SkinnedCharacter {
+class PlayerCharacter : SkinnedCharacter, MovingGameObject {
+    var gameLevel:GameLevel!
     let speed:Float = 0.1
     var stateMachine: StateMachine!
     let assetDirectory = "art.scnassets/common/models/explorer/"
@@ -36,10 +37,11 @@ class PlayerCharacter : SkinnedCharacter {
         fatalError("init(coder:) has not been implemented")
     }
     
-    init(characterNode:SCNNode, id:String) {
+    init(characterNode:SCNNode, id:String, level:GameLevel) {
         super.init(rootNode: characterNode)
         
         self.name = id
+        self.gameLevel = level
         
         // Load the animations and store via a lookup table.
         self.setupIdleAnimation()
@@ -176,4 +178,37 @@ class PlayerCharacter : SkinnedCharacter {
     override func getID() -> String {
         return self.name!
     }
+    
+    func getPosition() -> SCNVector3 {
+        return self.position
+    }
+    
+    func getVelocity() -> Vector2D {
+        return Vector2D(x: 0, z: 0)
+    }
+    // A normalized vector describing the direction of the object
+    func getHeading() -> Vector2D {
+        return Vector2D(x: 0, z: 0)
+
+    }
+    // A vector perpendicular to the heading
+    func getPerp() -> Vector2D {
+        return Vector2D(x: 0, z: 0)
+
+    }
+    
+    func getMass() -> Float {
+        return 0.0
+    }
+    func getMaxSpeed() -> Float {
+        return 0.0
+    }
+    func getMaxForce() -> Float {
+        return 0.0
+    }
+    //turn rate in radians per sec
+    func getMaxTurnRate() -> Float {
+        return 0.0
+    }
+
 }
