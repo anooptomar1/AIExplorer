@@ -151,7 +151,9 @@ class EnemyCharacter : SkinnedCharacter, MovingGameObject {
     func updatePosition(deltaTime:NSTimeInterval) {
         
         //calculate the combined force from each steering behavior
-        let steeringForce = steering.seek(SCNVector3Make(0.0, 0.0, 100))
+        //let steeringForce = steering.seek(SCNVector3Make(0.0, 0.0, 100))
+        let steeringForce = steering.flee(SCNVector3Make(20.0, 0.0, -44.0))
+
         
         //acceleration = Force/mass
         let acceleration = Vector2D(x:steeringForce.x/self.getMass(), z:steeringForce.z/self.getMass())
