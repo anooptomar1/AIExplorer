@@ -156,7 +156,9 @@ class EnemyCharacter : SkinnedCharacter, MovingGameObject {
     }
     
     func chasePlayer() {
-        steering.seekOn = true
+        //steering.seekOn = true
+        steering.pursueTarget(self.player)
+        //steering.evadeTarget(self.player)
     }
     
     func changeState(newState:State) {

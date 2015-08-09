@@ -17,23 +17,32 @@ enum Deceleration : Int {
 class SteeringBehavior {
     
     var obj:MovingGameObject!
-    var target:SCNNode!
+    var targetNode:SCNNode!
+    var targetMovingObject:MovingGameObject!
     
     var seekOn:Bool = false
     var fleeOn:Bool = false
+    var pursueOn:Bool = false
+    var evadeOn:Bool = false
     
     
     init(obj:MovingGameObject, target:SCNNode) {
         self.obj = obj
-        self.target = target
+        self.targetNode = target
     }
     
     func calculate() -> Vector2D {
         if(seekOn) {
-            return self.seek(target.position)
+            return self.seek(targetNode.position)
         }
         if(fleeOn) {
-            return self.flee(target.position)
+            return self.flee(targetNode.position)
+        }
+        if(pursueOn) {
+            return self.pursue(targetMovingObject)
+        }
+        if(evadeOn) {
+            return self.evade(targetMovingObject)
         }
         return Vector2D(x:0.0, z:0.0)
     }
@@ -106,4 +115,69 @@ class SteeringBehavior {
         }
         return Vector2D(x:0.0, z:0.0)
     }
+    
+    func pursueTarget(evader:MovingGameObject) {
+        self.pursueOn = true
+        self.targetMovingObject = evader
+    }
+    
+    func pursue(evader:MovingGameObject) -> Vector2D {
+        #if os(iOS)
+            let vectorToEvader = Vector2D(x: evader.getPosition().x - obj.getPosition().x,  z: evader.getPosition().z - obj.getPosition().z)
+        #else
+            let vectorToEvader = Vector2D(x: Float(evader.getPosition().x - obj.getPosition().x),  z: Float(evader.getPosition().z - obj.getPosition().z))
+        #endif
+
+        let relativeHeading = obj.getHeading().dot(evader.getHeading())
+        
+        if((vectorToEvader.dot(obj.getHeading()) > 0) && (relativeHeading < -0.95)) {
+            return seek(evader.getPosition())
+        }
+        
+        let speed = obj.getMaxSpeed() + evader.getVelocity().length()
+        let lookAheadTime = vectorToEvader.length() / speed
+        
+        #if os(iOS)
+            let targetPositionVector = Vector2D(x:(evader.getPosition().x + evader.getVelocity().x * lookAheadTime), z:(evader.getPosition().z + evader.getVelocity().z * lookAheadTime))
+            let targetPosition = SCNVector3Make(targetPositionVector.x, 0.0, targetPositionVector.z)
+
+        #else
+            let targetPositionVector = Vector2D(x:(Float(evader.getPosition().x) + Float(evader.getVelocity().x) * lookAheadTime), z:(Float(evader.getPosition().z) + Float(evader.getVelocity().z) * lookAheadTime))
+            let targetPosition = SCNVector3Make(CGFloat(targetPositionVector.x), 0.0, CGFloat(targetPositionVector.z))
+
+        #endif
+        
+        return seek(targetPosition)
+    }
+    
+    func evadeTarget(pursuer:MovingGameObject) {
+        self.evadeOn = true
+        self.targetMovingObject = pursuer
+    }
+    
+    func evade(pursuer:MovingGameObject) -> Vector2D {
+        #if os(iOS)
+            let vectorToPursuer = Vector2D(x: pursuer.getPosition().x - obj.getPosition().x,  z: pursuer.getPosition().z - obj.getPosition().z)
+        #else
+            let vectorToPursuer = Vector2D(x: Float(pursuer.getPosition().x - obj.getPosition().x),  z: Float(pursuer.getPosition().z - obj.getPosition().z))
+        #endif
+        
+        
+        let speed = obj.getMaxSpeed() + pursuer.getVelocity().length()
+        let lookAheadTime = vectorToPursuer.length() / speed
+
+        #if os(iOS)
+            let targetPositionVector = Vector2D(x:(pursuer.getPosition().x + pursuer.getVelocity().x * lookAheadTime), z:(pursuer.getPosition().z + pursuer.getVelocity().z * lookAheadTime))
+        
+            let targetPosition = SCNVector3Make(targetPositionVector.x, 0.0, targetPositionVector.z)
+        #else
+            let targetPositionVector = Vector2D(x:Float(pursuer.getPosition().x) + Float(pursuer.getVelocity().x) * lookAheadTime, z:Float(pursuer.getPosition().z) + Float(pursuer.getVelocity().z) * lookAheadTime)
+            
+            let targetPosition = SCNVector3Make(CGFloat(targetPositionVector.x), 0.0, CGFloat(targetPositionVector.z))
+
+        #endif
+        
+        return flee(targetPosition)
+    }
+    
 }
