@@ -189,12 +189,12 @@ class GameLevel0 : NSObject, GameLevel {
             enemy = EnemyCharacter(characterNode:rootNode, id:"Enemy"+String(i), level:self)
             enemy.scale = SCNVector3Make(0.2, 0.2, 0.2)
             #if os(iOS)
-                let xPos = 20.0 * Float(i+1)
-                let zPos = -40.0 * Float(i+1)
+                let xPos = 10.0 * Float(i+1)
+                let zPos = 100.0 * Float(i+1)
                 enemy.rotation = SCNVector4Make(0, 1, 0, Float(M_PI))
                 #else
-                let xPos = 20.0 * CGFloat(i+1)
-                let zPos = -40.0 * CGFloat(i+1)
+                let xPos = 10.0 * CGFloat(i+1)
+                let zPos = 100.0 * CGFloat(i+1)
                 enemy.rotation = SCNVector4Make(0, 1, 0, CGFloat(M_PI))
             #endif
             enemy.position = SCNVector3Make(xPos, 0, zPos)

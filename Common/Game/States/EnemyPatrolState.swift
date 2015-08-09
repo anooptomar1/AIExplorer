@@ -33,10 +33,12 @@ class EnemyPatrolState: State {
     }
     
     func execute(obj: GameObject) {
-        if let _ = obj as? EnemyCharacter {
+        if let enemy = obj as? EnemyCharacter {
             let gameState = GameScenesManager.sharedInstance.gameState
             if (gameState == GameState.InGame) {
-                
+                if(enemy.canSeePlayer() == true) {
+                    enemy.chasePlayer()
+                }
             }
         } else {
             print("wrong owner passed to state")

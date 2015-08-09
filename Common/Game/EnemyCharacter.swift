@@ -24,6 +24,7 @@ class EnemyCharacter : SkinnedCharacter, MovingGameObject {
     var velocity = Vector2D(x:0.0, z:0.0)
     
     var gameLevel:GameLevel!
+    var player:PlayerCharacter!
     var stateMachine: StateMachine!
     var steering:SteeringBehavior!
     
@@ -42,7 +43,11 @@ class EnemyCharacter : SkinnedCharacter, MovingGameObject {
         super.init(rootNode: characterNode)
         self.name = id
         self.gameLevel = level
-        self.steering = SteeringBehavior(obj:self)
+        
+        player = gameLevel.getGameObject("Player") as! PlayerCharacter
+        print("Found player with name \(player.getID())")
+
+        self.steering = SteeringBehavior(obj:self, target:player)
         
         // Load the animations and store via a lookup table.
         self.setupIdleAnimation()
@@ -144,6 +149,14 @@ class EnemyCharacter : SkinnedCharacter, MovingGameObject {
         
     }
 
+    func canSeePlayer() -> Bool {
+        return true
+    }
+    
+    func chasePlayer() {
+        steering.seekOn = true
+    }
+    
     func changeState(newState:State) {
         stateMachine.changeState(newState)
     }
@@ -153,9 +166,9 @@ class EnemyCharacter : SkinnedCharacter, MovingGameObject {
         //calculate the combined force from each steering behavior
         //let steeringForce = steering.seek(SCNVector3Make(0.0, 0.0, 100))
         //let steeringForce = steering.flee(SCNVector3Make(20.0, 0.0, -44.0))
-        let steeringForce = steering.arrive(SCNVector3Make(0.0, 0.0, 100), deceleration: Deceleration.slow)
+        //let steeringForce = steering.arrive(SCNVector3Make(0.0, 0.0, 100), deceleration: Deceleration.slow)
+        let steeringForce = steering.calculate()
 
-        
         //acceleration = Force/mass
         let acceleration = Vector2D(x:steeringForce.x/self.getMass(), z:steeringForce.z/self.getMass())
         
@@ -163,12 +176,8 @@ class EnemyCharacter : SkinnedCharacter, MovingGameObject {
         velocity.x = velocity.x + acceleration.x*Float(deltaTime)
         velocity.z = velocity.z + acceleration.z*Float(deltaTime)
         
-        print("VElocity BEFORE is \(velocity.x) and \(velocity.z)")
-
         //make sure velocity does not exceed maximum velocity
         velocity = velocity.truncate(self.getMaxSpeed())
-        print("VElocity is \(velocity.x) and \(velocity.z)")
-
         
         //update the position
         var newPlayerPos = SCNVector3Zero

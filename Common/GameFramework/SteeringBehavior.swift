@@ -17,13 +17,24 @@ enum Deceleration : Int {
 class SteeringBehavior {
     
     var obj:MovingGameObject!
+    var target:SCNNode!
     
-    init(obj:MovingGameObject) {
+    var seekOn:Bool = false
+    var fleeOn:Bool = false
+    
+    
+    init(obj:MovingGameObject, target:SCNNode) {
         self.obj = obj
+        self.target = target
     }
     
     func calculate() -> Vector2D {
-        
+        if(seekOn) {
+            return self.seek(target.position)
+        }
+        if(fleeOn) {
+            return self.flee(target.position)
+        }
         return Vector2D(x:0.0, z:0.0)
     }
     
