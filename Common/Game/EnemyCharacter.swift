@@ -22,6 +22,8 @@ class EnemyCharacter : SkinnedCharacter, MovingGameObject {
     let maxForce:Float = 5.0
     let maxTurnRate:Float = 0.0
     var velocity = Vector2D(x:0.0, z:0.0)
+    var heading = Vector2D(x:0.0, z:0.0)
+    var side = Vector2D(x:0.0, z:0.0)
     
     var gameLevel:GameLevel!
     var player:PlayerCharacter!
@@ -179,6 +181,14 @@ class EnemyCharacter : SkinnedCharacter, MovingGameObject {
         //make sure velocity does not exceed maximum velocity
         velocity = velocity.truncate(self.getMaxSpeed())
         
+        //update the heading if the vehicle has a non zero velocity
+        if (velocity.lengthSquared() > 0.00000001)
+        {
+            heading = velocity.normalized()
+            
+            side = heading.perp()
+        }
+
         //update the position
         var newPlayerPos = SCNVector3Zero
         #if os(iOS)
@@ -221,17 +231,17 @@ class EnemyCharacter : SkinnedCharacter, MovingGameObject {
     }
     
     func getVelocity() -> Vector2D {
-        return Vector2D(x: 1.0, z: 1.0)
+        return self.velocity
 
     }
     // A normalized vector describing the direction of the object
     func getHeading() -> Vector2D {
-        return Vector2D(x: 0, z: 0)
+        return self.heading
 
     }
     // A vector perpendicular to the heading
     func getPerp() -> Vector2D {
-        return Vector2D(x: 0, z: 0)
+        return self.side
 
     }
     

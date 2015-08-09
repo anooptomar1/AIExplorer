@@ -25,6 +25,10 @@ class Vector2D {
         return sqrtf(x*x + z*z)
     }
 
+    
+    func lengthSquared() -> Float {
+        return x*x + z*z
+    }
     /**
     * Normalizes the vector described by the SCNVector3 to length 1.0 and returns
     * the result as a new SCNVector3.
