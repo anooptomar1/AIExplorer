@@ -8,6 +8,12 @@
 
 import SceneKit
 
+enum Deceleration : Int {
+    case fast = 1,
+    normal = 2,
+    slow = 3
+}
+
 class SteeringBehavior {
     
     var obj:MovingGameObject!
@@ -64,5 +70,29 @@ class SteeringBehavior {
         
         return seekVelocity
         
+    }
+    
+    func arrive(target:SCNVector3, deceleration:Deceleration) -> Vector2D {
+        let vectorToTarget = SCNVector3(x: target.x - obj.getPosition().x, y: target.y - obj.getPosition().y, z: target.z - obj.getPosition().z)
+        let dist = vectorToTarget.length()
+        
+        print("Distance to target is \(dist)")
+        if(dist > 1.0) {
+            let decelerationTweaker:Float = 0.5
+            
+            var speed = dist / (Float(deceleration.rawValue) * decelerationTweaker)
+            
+            speed = min(speed, obj.getMaxSpeed())
+            
+            #if os(iOS)
+                let desiredVelocity = Vector2D(x: (vectorToTarget.x * speed) / dist, z:(vectorToTarget.z * speed) / dist)
+            #else
+                let desiredVelocity = Vector2D(x: (Float(vectorToTarget.x) * speed) / dist, z:(Float(vectorToTarget.z) * speed) / dist)
+            #endif
+
+            return Vector2D(x: desiredVelocity.x - obj.getVelocity().x, z: desiredVelocity.z - obj.getVelocity().z)
+            
+        }
+        return Vector2D(x:0.0, z:0.0)
     }
 }

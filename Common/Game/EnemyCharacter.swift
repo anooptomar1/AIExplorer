@@ -17,8 +17,8 @@ enum EnemyAnimationState : Int {
 }
 
 class EnemyCharacter : SkinnedCharacter, MovingGameObject {
-    let mass:Float = 4.0
-    let maxSpeed:Float = 20.0
+    let mass:Float = 3.0
+    let maxSpeed:Float = 10.0
     let maxForce:Float = 5.0
     let maxTurnRate:Float = 0.0
     var velocity = Vector2D(x:0.0, z:0.0)
@@ -152,7 +152,8 @@ class EnemyCharacter : SkinnedCharacter, MovingGameObject {
         
         //calculate the combined force from each steering behavior
         //let steeringForce = steering.seek(SCNVector3Make(0.0, 0.0, 100))
-        let steeringForce = steering.flee(SCNVector3Make(20.0, 0.0, -44.0))
+        //let steeringForce = steering.flee(SCNVector3Make(20.0, 0.0, -44.0))
+        let steeringForce = steering.arrive(SCNVector3Make(0.0, 0.0, 100), deceleration: Deceleration.slow)
 
         
         //acceleration = Force/mass
@@ -162,8 +163,12 @@ class EnemyCharacter : SkinnedCharacter, MovingGameObject {
         velocity.x = velocity.x + acceleration.x*Float(deltaTime)
         velocity.z = velocity.z + acceleration.z*Float(deltaTime)
         
+        print("VElocity BEFORE is \(velocity.x) and \(velocity.z)")
+
         //make sure velocity does not exceed maximum velocity
         velocity = velocity.truncate(self.getMaxSpeed())
+        print("VElocity is \(velocity.x) and \(velocity.z)")
+
         
         //update the position
         var newPlayerPos = SCNVector3Zero
