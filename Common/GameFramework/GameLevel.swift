@@ -12,12 +12,13 @@ import SceneKit
 import SpriteKit
 
 
-@objc protocol GameLevel : SCNSceneRendererDelegate, SCNPhysicsContactDelegate {
+protocol GameLevel : SCNSceneRendererDelegate, SCNPhysicsContactDelegate {
     func createLevel(scnView:SCNView) -> SCNScene
     func startLevel()
     func pauseLevel()
     func stopLevel()
     
+    func getGameObject(id:String) -> GameObject
     func changeUIState(state:GameState)
     func buttonPressedAction(nodeName:String)
 }

@@ -25,6 +25,12 @@ enum PlayerAnimationState : Int {
 }
 
 class PlayerCharacter : SkinnedCharacter, MovingGameObject {
+    let mass:Float = 3.0
+    let maxSpeed:Float = 10.0
+    let maxForce:Float = 5.0
+    let maxTurnRate:Float = 0.0
+    var velocity = Vector2D(x:0.0, z:0.0)
+
     var gameLevel:GameLevel!
     let speed:Float = 0.1
     var stateMachine: StateMachine!
@@ -184,7 +190,7 @@ class PlayerCharacter : SkinnedCharacter, MovingGameObject {
     }
     
     func getVelocity() -> Vector2D {
-        return Vector2D(x: 0, z: 0)
+        return Vector2D(x: 1.0, z: 1.0)
     }
     // A normalized vector describing the direction of the object
     func getHeading() -> Vector2D {
@@ -198,17 +204,17 @@ class PlayerCharacter : SkinnedCharacter, MovingGameObject {
     }
     
     func getMass() -> Float {
-        return 0.0
+        return self.mass
     }
     func getMaxSpeed() -> Float {
-        return 0.0
+        return self.maxSpeed
     }
     func getMaxForce() -> Float {
-        return 0.0
+        return self.maxForce
     }
     //turn rate in radians per sec
     func getMaxTurnRate() -> Float {
-        return 0.0
+        return self.maxTurnRate
     }
 
 }
