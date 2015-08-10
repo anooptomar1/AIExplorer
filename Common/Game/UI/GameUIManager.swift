@@ -33,7 +33,6 @@ class GameUIManager {
 
     }
     
-    
     func changeUIState(state: GameState) {
         preGameMenu?.removeFromParent()
         inGameMenu?.removeFromParent()

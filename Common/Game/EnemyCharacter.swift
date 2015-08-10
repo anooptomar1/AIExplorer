@@ -224,22 +224,13 @@ class EnemyCharacter : SkinnedCharacter, MovingGameObject {
 
         //update the position
         var newPlayerPos = SCNVector3Zero
-        #if os(iOS)
-            newPlayerPos.x = self.position.x + velocity.x*Float(deltaTime)
-            newPlayerPos.z = self.position.z + velocity.z*Float(deltaTime)
-        #else
-            newPlayerPos.x = self.position.x + CGFloat(velocity.x)*CGFloat(deltaTime)
-            newPlayerPos.z = self.position.z + CGFloat(velocity.z)*CGFloat(deltaTime)
-        #endif
+        newPlayerPos.x = self.position.x + GFloat(velocity.x)*GFloat(deltaTime)
+        newPlayerPos.z = self.position.z + GFloat(velocity.z)*GFloat(deltaTime)
         newPlayerPos.y = self.position.y
         
         let angleDirection = GameUtilities.getAngleFromDirection(self.position, target:newPlayerPos)
         
-        #if os(iOS)
-            self.rotation = SCNVector4Make(0, 1, 0, angleDirection)
-            #else
-            self.rotation = SCNVector4Make(0, 1, 0, CGFloat(angleDirection))
-        #endif
+        self.rotation = SCNVector4Make(0, 1, 0, GFloat(angleDirection))
 
         //update the position
         self.position = newPlayerPos

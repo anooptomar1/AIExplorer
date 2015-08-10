@@ -19,6 +19,7 @@ class PreGameMenu :SKNode {
     init(size:CGSize) {
         super.init()
         
+        self.name = "PreGameMenu"
         self.size = size;
         self.userInteractionEnabled = true
         myLabel = GameUIManager.labelWithText("Start Game", textSize: 40)

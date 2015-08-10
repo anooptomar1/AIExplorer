@@ -30,11 +30,11 @@ class GameOverlayScene : SKScene {
     }
     
     override func didChangeSize(oldSize: CGSize) {
-        //print("Did change size")
+        print("Did change size")
 
-        /*
         for node in self.children {
+            print("NODE NAME is \(node.name)")
         }
-        */
+        
     }
 }

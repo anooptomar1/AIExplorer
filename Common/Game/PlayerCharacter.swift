@@ -189,17 +189,13 @@ class PlayerCharacter : SkinnedCharacter, MovingGameObject {
         #endif
         let angleDirection = GameUtilities.getAngleFromDirection(self.position, target:newPlayerPos)
         
-        let height:Float = 0.0
+        let height:GFloat = 0.0
         //height = self.getGroundHeight(newPlayerPos)
         //print("ground height is \(height)")
         
-        #if os(iOS)
-            newPlayerPos = SCNVector3Make(self.position.x+Float(delX), height, self.position.z+Float(delZ))
-            self.rotation = SCNVector4Make(0, 1, 0, angleDirection)
-        #else
-            newPlayerPos = SCNVector3Make(self.position.x+CGFloat(delX), CGFloat(height), self.position.z+CGFloat(delZ))
-            self.rotation = SCNVector4Make(0, 1, 0, CGFloat(angleDirection))
-        #endif
+        newPlayerPos = SCNVector3Make(self.position.x+GFloat(delX), height, self.position.z+GFloat(delZ))
+        self.rotation = SCNVector4Make(0, 1, 0, GFloat(angleDirection))
+
         self.position = newPlayerPos
 
     }
