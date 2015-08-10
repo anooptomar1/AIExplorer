@@ -21,7 +21,7 @@ class EnemyCharacter : SkinnedCharacter, MovingGameObject {
     let maxSpeed:Float = 10.0
     let maxForce:Float = 5.0
     let maxTurnRate:Float = 0.0
-    var velocity = Vector2D(x:0.0, z:0.0)
+    var velocity = Vector2D(x:0.1, z:0.1)
     var heading = Vector2D(x:0.0, z:0.0)
     var side = Vector2D(x:0.0, z:0.0)
     
@@ -157,8 +157,9 @@ class EnemyCharacter : SkinnedCharacter, MovingGameObject {
     
     func chasePlayer() {
         //steering.seekOn = true
-        steering.pursueTarget(self.player)
+        //steering.pursueTarget(self.player)
         //steering.evadeTarget(self.player)
+        steering.wanderOn = true
     }
     
     func changeState(newState:State) {

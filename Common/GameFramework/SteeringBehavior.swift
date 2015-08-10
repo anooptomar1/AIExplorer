@@ -19,11 +19,14 @@ class SteeringBehavior {
     var obj:MovingGameObject!
     var targetNode:SCNNode!
     var targetMovingObject:MovingGameObject!
+    var wanderTarget:Vector2D = Vector2D(x:0.0, z:0.0)
+
     
     var seekOn:Bool = false
     var fleeOn:Bool = false
     var pursueOn:Bool = false
     var evadeOn:Bool = false
+    var wanderOn:Bool = false
     
     
     init(obj:MovingGameObject, target:SCNNode) {
@@ -43,6 +46,9 @@ class SteeringBehavior {
         }
         if(evadeOn) {
             return self.evade(targetMovingObject)
+        }
+        if(wanderOn) {
+            return self.wander()
         }
         return Vector2D(x:0.0, z:0.0)
     }
@@ -180,4 +186,31 @@ class SteeringBehavior {
         return flee(targetPosition)
     }
     
+    func wander() -> Vector2D {
+        let wanderRadius:Float = 10.0
+        let wanderDistance:Float = 5.0
+        let wanderJitter:Float = 5.0
+        var wanderAngle:Float = 10.0
+                
+        var circleCenter = obj.getVelocity()
+        circleCenter = circleCenter.normalized()
+        circleCenter = Vector2D(x: circleCenter.x * wanderDistance, z: circleCenter.z * wanderDistance)
+        
+        var displacement = Vector2D(x: 0.0, z: -1.0)
+        displacement = Vector2D(x: displacement.x * wanderRadius, z: displacement.z * wanderRadius)
+        
+        let len:Float = displacement.length()
+        displacement.x = cos(wanderAngle) * len;
+        displacement.z = sin(wanderAngle) * len;
+        
+        wanderAngle = wanderAngle + getRandomClamped()*wanderJitter
+        
+        return Vector2D(x: circleCenter.x + displacement.x, z: circleCenter.z + displacement.z)
+    }
+    
+    func getRandomClamped() -> Float {
+        let v1 = Float(arc4random()) /  Float(UInt32.max)
+        let v2 = Float(arc4random()) /  Float(UInt32.max)
+        return v1 - v2
+    }
 }
