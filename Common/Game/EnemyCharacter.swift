@@ -49,7 +49,8 @@ class EnemyCharacter : SkinnedCharacter, MovingGameObject {
         self.gameLevel = level
         self.addCollideSphere()
         
-        player = gameLevel.getGameObject("Player") as! PlayerCharacter
+        let gLevel = gameLevel as! GameLevel0
+        player = gLevel.player
         print("Found player with name \(player.getID())")
 
         self.steering = SteeringBehavior(obj:self, target:player)
@@ -195,11 +196,13 @@ class EnemyCharacter : SkinnedCharacter, MovingGameObject {
         //steering.seekOn = true
         //steering.pursueTarget(self.player)
         //steering.evadeTarget(self.player)
-        steering.wanderOn = true
+        //steering.wanderOn = true
         
         let gLevel = gameLevel as? GameLevel0
         let gameObjects = gLevel?.gameObjects
         steering.avoidCollisionsOn(gameObjects!)
+        
+        steering.hideOn(self.player, gameObjects: gameObjects!)
         
     }
     

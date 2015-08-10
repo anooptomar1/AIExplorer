@@ -181,7 +181,7 @@ class GameLevel0 : NSObject, GameLevel {
                 self.player.position = SCNVector3Make(-20, 0, -50)
                 
                 self.scene.rootNode.addChildNode(self.player)
-                self.gameObjects[self.player.getID()] = self.player
+                //self.gameObjects[self.player.getID()] = self.player
             }
         })
     }
@@ -212,7 +212,7 @@ class GameLevel0 : NSObject, GameLevel {
             enemies[enemy.getID()] = enemy
             //enemies.append(enemy)
             scene.rootNode.addChildNode(enemy)
-            self.gameObjects[enemy.getID()] = enemy
+            //self.gameObjects[enemy.getID()] = enemy
         }
         
     }

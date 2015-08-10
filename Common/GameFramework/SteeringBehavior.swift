@@ -21,7 +21,8 @@ class SteeringBehavior {
     var targetMovingObject:MovingGameObject!
     var wanderTarget:Vector2D = Vector2D(x:0.0, z:0.0)
     var wallTarget:SCNNode!
-    var gameObjects:[String: GameObject]!
+    var obstacles:[String: GameObject]!
+    var hideTarget:MovingGameObject!
 
     
     var seekOn:Bool = false
@@ -31,6 +32,7 @@ class SteeringBehavior {
     var wanderOn:Bool = false
     var avoidWallOn:Bool = false
     var avoidCollisionOn:Bool = false
+    var hideOn = false
     
     
     init(obj:MovingGameObject, target:SCNNode) {
@@ -71,7 +73,12 @@ class SteeringBehavior {
             steeringForce.z = steeringForce.z + force.z
         }
         if(avoidCollisionOn) {
-            let force = self.collisionAvoidance(gameObjects)
+            let force = self.collisionAvoidance(obstacles)
+            steeringForce.x = steeringForce.x + force.x
+            steeringForce.z = steeringForce.z + force.z
+        }
+        if(hideOn) {
+            let force = self.hideFromTarget(hideTarget, gameObjects: obstacles)
             steeringForce.x = steeringForce.x + force.x
             steeringForce.z = steeringForce.z + force.z
         }
@@ -256,7 +263,7 @@ class SteeringBehavior {
     
     func avoidCollisionsOn(gameObjects: [String: GameObject]) {
         avoidCollisionOn = true
-        self.gameObjects = gameObjects
+        self.obstacles = gameObjects
     }
     
     func collisionAvoidance(gameObjects:[String: GameObject]) -> Vector2D {
@@ -328,10 +335,55 @@ class SteeringBehavior {
         return distance(obPos, b: ahead) <= obstacle.getBoundingRadius() || distance(obPos, b:ahead2) <= obstacle.getBoundingRadius()
     }
     
-    
     func getRandomClamped() -> Float {
         let v1 = Float(arc4random()) /  Float(UInt32.max)
         let v2 = Float(arc4random()) /  Float(UInt32.max)
         return v1 - v2
     }
+
+    
+    func hideOn(target:MovingGameObject, gameObjects: [String: GameObject]) {
+        self.hideOn = true
+        self.hideTarget = target
+        self.obstacles = gameObjects
+    }
+    
+    func hideFromTarget(target:MovingGameObject,gameObjects: [String: GameObject]) -> Vector2D {
+        var distanceToClosest:Float = MAXFLOAT
+        var bestHidingSpot = Vector2D(x:0.0, z:0.0)
+        
+        for (_, obstacle) in obstacles {
+            let hidingSpot = getHidingPosition(Vector2D(x:obstacle.getObjectPosition().x, z:obstacle.getObjectPosition().z), obstacleRadius: obstacle.getBoundingRadius(), targetPosition: Vector2D(x:target.getPosition().x, z:target.getPosition().z))
+            
+            //find closest hiding spot
+            let distSquared = (hidingSpot.x - obj.getPosition().x)*(hidingSpot.x - obj.getPosition().x) +
+                                (hidingSpot.z - obj.getPosition().z)*(hidingSpot.z - obj.getPosition().z)
+            
+            if(distSquared < distanceToClosest) {
+                distanceToClosest = distSquared
+                bestHidingSpot = hidingSpot
+            }
+        }
+        
+        if(distanceToClosest == MAXFLOAT) {
+            return evade(target)
+        }
+        
+        // else using arrive to the hiding spot
+        return arrive(SCNVector3(x: bestHidingSpot.x, y: 0, z: bestHidingSpot.z), deceleration: Deceleration.fast)
+    }
+    
+    func getHidingPosition(obstaclePosition:Vector2D, obstacleRadius:Float, targetPosition:Vector2D) -> Vector2D {
+        let distanceFromBoundary:Float = 10.0
+        
+        let distAway = obstacleRadius + distanceFromBoundary
+        
+        var toOb = Vector2D(x:obstaclePosition.x - targetPosition.x, z: obstaclePosition.z - targetPosition.z)
+        toOb = toOb.normalized()
+        
+        //scale to size and add to obstacle's position
+        toOb = toOb.scaleBy(distAway)
+        return Vector2D(x: toOb.x + obstaclePosition.x, z: toOb.z + obstaclePosition.z)
+    }
+    
 }
