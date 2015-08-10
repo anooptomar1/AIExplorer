@@ -36,12 +36,17 @@ class Vector2D {
     func normalized() -> Vector2D {
         return Vector2D(x: self.x / length(), z: self.z / length())
     }
+    
+    func scaleBy(scaleFactor:Float) -> Vector2D {
+        return Vector2D(x: self.x * scaleFactor, z: self.z * scaleFactor)
+    }
     /**
     * Calculates the dot product between two SCNVector3.
     */
     func dot(vector: Vector2D) -> Float {
         return x * vector.x +  z * vector.z
     }
+    
     
     func perp() -> Vector2D {
         return Vector2D(x:-self.z, z:self.x)

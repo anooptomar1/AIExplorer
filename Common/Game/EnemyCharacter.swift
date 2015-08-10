@@ -21,6 +21,7 @@ class EnemyCharacter : SkinnedCharacter, MovingGameObject {
     let maxSpeed:Float = 10.0
     let maxForce:Float = 5.0
     let maxTurnRate:Float = 0.0
+    var boundingRadius:Float = 0.0
     var velocity = Vector2D(x:0.1, z:0.1)
     var heading = Vector2D(x:0.0, z:0.0)
     var side = Vector2D(x:0.0, z:0.0)
@@ -83,6 +84,7 @@ class EnemyCharacter : SkinnedCharacter, MovingGameObject {
         let playerBox = GameUtilities.getBoundingBox(self)
         let capRadius = scale * GFloat(playerBox.width/2.0)
         let capHeight = scale * GFloat(playerBox.height)
+        self.boundingRadius = Float(capRadius)
         
         //println("enemy box width:\(playerBox.width) height:\(playerBox.height) length:\(playerBox.length)")
         
@@ -194,6 +196,11 @@ class EnemyCharacter : SkinnedCharacter, MovingGameObject {
         //steering.pursueTarget(self.player)
         //steering.evadeTarget(self.player)
         steering.wanderOn = true
+        
+        let gLevel = gameLevel as? GameLevel0
+        let gameObjects = gLevel?.gameObjects
+        steering.avoidCollisionsOn(gameObjects!)
+        
     }
     
     func changeState(newState:State) {
@@ -241,16 +248,16 @@ class EnemyCharacter : SkinnedCharacter, MovingGameObject {
 
     }
 
-    override func update(deltaTime:NSTimeInterval) {
+    func update(deltaTime:NSTimeInterval) {
         stateMachine.update()
         self.updatePosition(deltaTime)
     }
     
-    override func isStatic() -> Bool {
+    func isStatic() -> Bool {
         return false
     }
     
-    override func getID() -> String {
+    func getID() -> String {
         return self.name!
     }
 
@@ -289,6 +296,14 @@ class EnemyCharacter : SkinnedCharacter, MovingGameObject {
     
     func getObjectScale() -> GFloat {
         return 0.20
+    }
+
+    func getObjectPosition() -> SCNVector3 {
+        return self.position
+    }
+
+    func getBoundingRadius() -> Float {
+        return boundingRadius
     }
 
 

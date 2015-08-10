@@ -13,5 +13,7 @@ protocol GameObject  {
     func update(deltaTime:NSTimeInterval)
     func isStatic() -> Bool
     func getObjectScale() -> GFloat
+    func getObjectPosition() -> SCNVector3
+    func getBoundingRadius() -> Float
 }
 

@@ -21,6 +21,7 @@ class SteeringBehavior {
     var targetMovingObject:MovingGameObject!
     var wanderTarget:Vector2D = Vector2D(x:0.0, z:0.0)
     var wallTarget:SCNNode!
+    var gameObjects:[String: GameObject]!
 
     
     var seekOn:Bool = false
@@ -29,6 +30,7 @@ class SteeringBehavior {
     var evadeOn:Bool = false
     var wanderOn:Bool = false
     var avoidWallOn:Bool = false
+    var avoidCollisionOn:Bool = false
     
     
     init(obj:MovingGameObject, target:SCNNode) {
@@ -65,6 +67,11 @@ class SteeringBehavior {
         }
         if(avoidWallOn) {
             let force = self.wallAvoidance(self.wallTarget)
+            steeringForce.x = steeringForce.x + force.x
+            steeringForce.z = steeringForce.z + force.z
+        }
+        if(avoidCollisionOn) {
+            let force = self.collisionAvoidance(gameObjects)
             steeringForce.x = steeringForce.x + force.x
             steeringForce.z = steeringForce.z + force.z
         }
@@ -246,6 +253,81 @@ class SteeringBehavior {
         }
         return Vector2D(x:0.0, z:0.0)
     }
+    
+    func avoidCollisionsOn(gameObjects: [String: GameObject]) {
+        avoidCollisionOn = true
+        self.gameObjects = gameObjects
+    }
+    
+    func collisionAvoidance(gameObjects:[String: GameObject]) -> Vector2D {
+        let MAX_SEE_AHEAD:Float = 40.0
+        let MAX_AVOID_FORCE:Float = 40.0
+        var velocity = obj.getVelocity()
+        velocity = velocity.normalized()
+        let vel = velocity.scaleBy(MAX_SEE_AHEAD)
+        let vel2 = velocity.scaleBy(MAX_SEE_AHEAD*0.5)
+        
+        let ahead = Vector2D(x:Float(obj.getPosition().x) + vel.x, z: Float(obj.getPosition().z) + vel.z) // calculate the ahead vector
+        let ahead2 = Vector2D(x:Float(obj.getPosition().x) + vel2.x, z: Float(obj.getPosition().z) + vel2.z)
+        
+        var avoidance = Vector2D(x:0.0, z:0.0)
+        
+        if let mostThreatening = findMostThreateningObstacle(ahead, ahead2: ahead2, gameObjects:gameObjects) {
+            avoidance.x = ahead.x - Float(mostThreatening.getObjectPosition().x)
+            avoidance.z = ahead.z - Float(mostThreatening.getObjectPosition().z)
+            
+            avoidance = avoidance.normalized()
+            avoidance = avoidance.scaleBy(MAX_AVOID_FORCE)
+        } else {
+            avoidance = avoidance.scaleBy(0); // nullify the avoidance force
+        }
+        
+        return avoidance
+    }
+    
+    func findMostThreateningObstacle(ahead:Vector2D, ahead2:Vector2D, gameObjects:[String: GameObject]) -> GameObject! {
+        var mostThreatening :GameObject!
+        
+        for (name, obstacle) in gameObjects {
+            if(name != obj.getID()) {
+                //ignore self
+            
+                print("Checking obstacle \(name)")
+
+                let objPos = Vector2D(x:Float(obj.getPosition().x), z: Float(obj.getPosition().z))
+                let obstaclePos = Vector2D(x: Float(obstacle.getObjectPosition().x), z: Float(obstacle.getObjectPosition().z))
+                let collision :Bool = lineIntersectsCircle(ahead, ahead2: ahead2, obstacle: obstacle);
+            
+                // "position" is the character's current position
+                if(collision == true) {
+                    if(mostThreatening == nil) {
+                        mostThreatening = obstacle
+                    } else {
+                        let pos = Vector2D(x: Float(mostThreatening.getObjectPosition().x),
+                                   z: Float(mostThreatening.getObjectPosition().z))
+                        if (distance(objPos, b: obstaclePos) < distance(objPos, b:pos)) {
+                            mostThreatening = obstacle;
+                        }
+                    }
+                }
+            }
+        }
+        if(mostThreatening != nil) {
+            print("Found most threatening obstacle \(mostThreatening.getID())")
+        }
+        return mostThreatening;
+
+    }
+    
+    private func distance(a :Vector2D, b :Vector2D) -> Float {
+        return sqrt((a.x - b.x) * (a.x - b.x)  + (a.z - b.z) * (a.z - b.z))
+    }
+    
+    private func lineIntersectsCircle(ahead :Vector2D, ahead2 :Vector2D, obstacle :GameObject) -> Bool {
+        let obPos = Vector2D(x: Float(obstacle.getObjectPosition().x), z: Float(obstacle.getObjectPosition().z))
+        return distance(obPos, b: ahead) <= obstacle.getBoundingRadius() || distance(obPos, b:ahead2) <= obstacle.getBoundingRadius()
+    }
+    
     
     func getRandomClamped() -> Float {
         let v1 = Float(arc4random()) /  Float(UInt32.max)

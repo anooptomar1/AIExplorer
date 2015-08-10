@@ -91,6 +91,7 @@ class GameLevel0 : NSObject, GameLevel {
         self.addFloorAndWalls()
         self.addPlayer()
         self.addEnemies()
+        self.addObstacles()
         self.addDebugObjects()
 
         return self.scene
@@ -226,6 +227,16 @@ class GameLevel0 : NSObject, GameLevel {
         #else
             GameUtilities.createDebugBox(self.scene, box:SCNBox(width:5.0, height:5.0, length:5.0, chamferRadius:1.0), position: SCNVector3Make(0.0, 0.0, 100.0), color: SKColor.redColor(), rotation:SCNVector4Make(CGFloat(1.0), CGFloat(0.0), CGFloat(0.0), CGFloat(0.0)))
         #endif
+    }
+    
+    func addObstacles() {
+        let boxObstacle = BoxObstacle()
+        boxObstacle.position = SCNVector3Make(-120, 0, 20)
+        boxObstacle.rotation = SCNVector4Make(0, 1, 0, CGFloat(M_PI_2))
+        scene.rootNode.addChildNode(boxObstacle)
+        
+        // Add torch to list of game objects
+        gameObjects[boxObstacle.getID()] = boxObstacle
     }
     
     func renderer(aRenderer: SCNSceneRenderer, updateAtTime time: NSTimeInterval) {

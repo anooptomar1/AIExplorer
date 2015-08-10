@@ -109,6 +109,7 @@ class SkinnedCharacter : SCNNode {
         //Need to fill in rest of logic
     }
     
+    /*
     func update(deltaTime: NSTimeInterval) {
         print("Subclasses need to implement update", appendNewline: false)
     }
@@ -120,5 +121,6 @@ class SkinnedCharacter : SCNNode {
     func getID() -> String {
         return "SkinnedCharacter"
     }
+    */
 }
 
