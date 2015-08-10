@@ -292,7 +292,7 @@ class SteeringBehavior {
             if(name != obj.getID()) {
                 //ignore self
             
-                print("Checking obstacle \(name)")
+                //print("Checking obstacle \(name)")
 
                 let objPos = Vector2D(x:Float(obj.getPosition().x), z: Float(obj.getPosition().z))
                 let obstaclePos = Vector2D(x: Float(obstacle.getObjectPosition().x), z: Float(obstacle.getObjectPosition().z))

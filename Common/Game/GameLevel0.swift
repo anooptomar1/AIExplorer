@@ -232,7 +232,7 @@ class GameLevel0 : NSObject, GameLevel {
     func addObstacles() {
         let boxObstacle = BoxObstacle()
         boxObstacle.position = SCNVector3Make(-120, 0, 20)
-        boxObstacle.rotation = SCNVector4Make(0, 1, 0, CGFloat(M_PI_2))
+        boxObstacle.rotation = SCNVector4Make(0, 1, 0, GFloat(M_PI_2))
         scene.rootNode.addChildNode(boxObstacle)
         
         // Add torch to list of game objects
