@@ -12,6 +12,6 @@ protocol GameObject  {
     func getID() -> String
     func update(deltaTime:NSTimeInterval)
     func isStatic() -> Bool
-
+    func getObjectScale() -> GFloat
 }
 

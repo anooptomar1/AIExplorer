@@ -10,6 +10,19 @@ import Foundation
 import SceneKit
 import SpriteKit
 
+enum ColliderType: Int {
+    case Ground = 1024
+    case RacingCar = 4
+    case Player = 8
+    case Enemy = 16
+    case LeftWall = 32
+    case RightWall = 64
+    case BackWall = 128
+    case FrontWall = 256
+    case Door = 512
+    
+}
+
 class GameLevel0 : NSObject, GameLevel {
 
     var gameObjects = [String: GameObject]()
@@ -106,49 +119,45 @@ class GameLevel0 : NSObject, GameLevel {
         wall.geometry!.firstMaterial!.locksAmbientWithDiffuse = true;
         
         wall.position = SCNVector3Make(0, 50, -198);
+        wall.name = "FrontWall"
         wall.physicsBody = SCNPhysicsBody.staticBody()
+        wall.physicsBody!.collisionBitMask = ColliderType.Player.rawValue | ColliderType.Enemy.rawValue
+        wall.physicsBody!.categoryBitMask = ColliderType.FrontWall.rawValue
         scene.rootNode.addChildNode(wall)
         
         wall = wall.clone()
         wall.position = SCNVector3Make(-202, 50, 0);
-        #if os(iOS)
-            wall.rotation = SCNVector4Make(0.0, 1.0, 0.0, Float(M_PI_2));
-        #else
-            wall.rotation = SCNVector4Make(0.0, 1.0, 0.0, CGFloat(M_PI_2));
-        #endif
+        wall.name = "LeftWall"
+        wall.rotation = SCNVector4Make(0.0, 1.0, 0.0, GFloat(M_PI_2));
         wall.physicsBody = SCNPhysicsBody.staticBody()
+        wall.physicsBody!.collisionBitMask = ColliderType.Player.rawValue | ColliderType.Enemy.rawValue
+        wall.physicsBody!.categoryBitMask = ColliderType.LeftWall.rawValue
         scene.rootNode.addChildNode(wall)
         
         wall = wall.clone()
         wall.position = SCNVector3Make(202, 50, 0);
-        #if os(iOS)
-            wall.rotation = SCNVector4Make(0.0, 1.0, 0.0, -Float(M_PI_2));
-        #else
-            wall.rotation = SCNVector4Make(0.0, 1.0, 0.0, -CGFloat(M_PI_2));
-        #endif
+        wall.name = "RightWall"
+        wall.rotation = SCNVector4Make(0.0, 1.0, 0.0, -GFloat(M_PI_2));
         wall.physicsBody = SCNPhysicsBody.staticBody()
+        wall.physicsBody!.collisionBitMask = ColliderType.Player.rawValue | ColliderType.Enemy.rawValue
+        wall.physicsBody!.categoryBitMask = ColliderType.RightWall.rawValue
         scene.rootNode.addChildNode(wall)
         
         let backWall = SCNNode(geometry:SCNPlane(width:400, height:100))
+        backWall.name = "BackWall"
         backWall.geometry!.firstMaterial = wall.geometry!.firstMaterial;
         backWall.position = SCNVector3Make(0, 50, 198);
-        #if os(iOS)
-            backWall.rotation = SCNVector4Make(0.0, 1.0, 0.0, Float(M_PI));
-        #else
-            backWall.rotation = SCNVector4Make(0.0, 1.0, 0.0, CGFloat(M_PI));
-        #endif
+        backWall.rotation = SCNVector4Make(0.0, 1.0, 0.0, GFloat(M_PI));
         backWall.castsShadow = false;
         backWall.physicsBody = SCNPhysicsBody.staticBody()
+        wall.physicsBody!.collisionBitMask = ColliderType.Player.rawValue | ColliderType.Enemy.rawValue
+        wall.physicsBody!.categoryBitMask = ColliderType.BackWall.rawValue
         scene.rootNode.addChildNode(backWall)
 
         // add ceiling
         let ceilNode = SCNNode(geometry:SCNPlane(width:400, height:400))
         ceilNode.position = SCNVector3Make(0, 100, 0);
-        #if os(iOS)
-            ceilNode.rotation = SCNVector4Make(1.0, 0.0, 0.0, Float(M_PI_2));
-        #else
-            ceilNode.rotation = SCNVector4Make(1.0, 0.0, 0.0, CGFloat(M_PI_2));
-        #endif
+        ceilNode.rotation = SCNVector4Make(1.0, 0.0, 0.0, GFloat(M_PI_2));
         ceilNode.geometry!.firstMaterial!.doubleSided = false;
         ceilNode.castsShadow = false
         ceilNode.geometry!.firstMaterial!.locksAmbientWithDiffuse = true;
@@ -167,7 +176,7 @@ class GameLevel0 : NSObject, GameLevel {
             // do something with node or stop
             if(child.name == "group") {
                 self.player = PlayerCharacter(characterNode:child, id:"Player", level:self)
-                self.player.scale = SCNVector3Make(0.2, 0.2, 0.2)
+                self.player.scale = SCNVector3Make(self.player.getObjectScale(), self.player.getObjectScale(), self.player.getObjectScale())
                 self.player.position = SCNVector3Make(-20, 0, -50)
                 
                 self.scene.rootNode.addChildNode(self.player)
@@ -187,7 +196,7 @@ class GameLevel0 : NSObject, GameLevel {
             var enemy:EnemyCharacter!
 
             enemy = EnemyCharacter(characterNode:rootNode, id:"Enemy"+String(i), level:self)
-            enemy.scale = SCNVector3Make(0.2, 0.2, 0.2)
+            enemy.scale = SCNVector3Make(enemy.getObjectScale(), enemy.getObjectScale(), enemy.getObjectScale())
             #if os(iOS)
                 let xPos = 10.0 * Float(i+1)
                 let zPos = 100.0 * Float(i+1)

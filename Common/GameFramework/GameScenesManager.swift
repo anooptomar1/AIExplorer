@@ -10,6 +10,12 @@ import Foundation
 import SceneKit
 import SpriteKit
 
+#if os(iOS)
+    typealias GFloat = Float
+#else
+    typealias GFloat = CGFloat
+#endif
+
 @objc enum GameState :Int {
     case PreGame=0, InGame, Paused, LevelComplete, LevelFailed, PostGame
 }

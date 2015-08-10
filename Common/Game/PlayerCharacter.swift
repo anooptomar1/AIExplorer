@@ -38,6 +38,7 @@ class PlayerCharacter : SkinnedCharacter, MovingGameObject {
     var stateMachine: StateMachine!
     let assetDirectory = "art.scnassets/common/models/explorer/"
     let skeletonName = "Bip001_Pelvis"
+    let playerCollisionSphereName = "PlayerCollideSphere"
     var currentState : PlayerAnimationState = PlayerAnimationState.Idle
     var previousState : PlayerAnimationState = PlayerAnimationState.Idle
 
@@ -50,6 +51,7 @@ class PlayerCharacter : SkinnedCharacter, MovingGameObject {
         
         self.name = id
         self.gameLevel = level
+        self.addCollideSphere()
         
         // Load the animations and store via a lookup table.
         self.setupIdleAnimation()
@@ -61,9 +63,37 @@ class PlayerCharacter : SkinnedCharacter, MovingGameObject {
         stateMachine.setCurrentState(PlayerIdleState.sharedInstance)
         stateMachine.changeState(PlayerIdleState.sharedInstance)
 
-        //self.changeAnimationState(.Idle)
     }
     
+    func addCollideSphere() {
+        let scale = self.getObjectScale()
+        let playerBox = GameUtilities.getBoundingBox(self)
+        let capRadius = scale * GFloat(playerBox.width/2.0)
+        let capHeight = scale * GFloat(playerBox.height)
+        
+        print("player box width:\(playerBox.width) height:\(playerBox.height) length:\(playerBox.length)")
+        
+        let collideSphere = SCNNode()
+        collideSphere.name = playerCollisionSphereName
+        collideSphere.position = SCNVector3Make(0.0, GFloat(playerBox.height/2), 0.0)
+        let geo = SCNCapsule(capRadius: CGFloat(capRadius), height: CGFloat(capHeight))
+        let shape2 = SCNPhysicsShape(geometry: geo, options: nil)
+        collideSphere.physicsBody = SCNPhysicsBody(type: SCNPhysicsBodyType.Kinematic, shape: shape2)
+        
+        // We only want to collide with walls and enemy. Ground collision is handled elsewhere.
+        
+        collideSphere.physicsBody!.collisionBitMask =
+            ColliderType.Enemy.rawValue | ColliderType.LeftWall.rawValue | ColliderType.RightWall.rawValue | ColliderType.BackWall.rawValue | ColliderType.FrontWall.rawValue | ColliderType.Door.rawValue | ColliderType.Ground.rawValue
+        
+        
+        // Put ourself into the player category so other objects can limit their scope of collision checks.
+        collideSphere.physicsBody!.categoryBitMask = ColliderType.Player.rawValue
+        
+        
+        self.addChildNode(collideSphere)
+        
+    }
+
     class func keyForAnimationType(animType:PlayerAnimationState) -> String!
     {
         switch (animType) {
@@ -219,4 +249,7 @@ class PlayerCharacter : SkinnedCharacter, MovingGameObject {
         return self.maxTurnRate
     }
 
+    func getObjectScale() -> GFloat {
+        return 0.20
+    }
 }
