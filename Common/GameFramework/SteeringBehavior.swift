@@ -353,16 +353,26 @@ class SteeringBehavior {
         var bestHidingSpot = Vector2D(x:0.0, z:0.0)
         
         for (_, obstacle) in obstacles {
-            let hidingSpot = getHidingPosition(Vector2D(x:obstacle.getObjectPosition().x, z:obstacle.getObjectPosition().z), obstacleRadius: obstacle.getBoundingRadius(), targetPosition: Vector2D(x:target.getPosition().x, z:target.getPosition().z))
             
-            //find closest hiding spot
-            let distSquared = (hidingSpot.x - obj.getPosition().x)*(hidingSpot.x - obj.getPosition().x) +
-                                (hidingSpot.z - obj.getPosition().z)*(hidingSpot.z - obj.getPosition().z)
+            let ax = Float(obstacle.getObjectPosition().x)
+            let az = Float(obstacle.getObjectPosition().z)
+            let vec1 = Vector2D(x:ax, z:az)
+            let bx = Float(target.getPosition().x)
+            let bz = Float(target.getPosition().z)
+            let v2 = Vector2D(x:bx, z:bz)
+            
+            
+            let hidingSpot = self.getHidingPosition(vec1, obstacleRadius: obstacle.getBoundingRadius(), targetPosition: v2)
+            let c = hidingSpot.x - Float(obj.getPosition().x)
+            let d = hidingSpot.z - Float(obj.getPosition().z)
+            
+            let distSquared = c * c + d * d
             
             if(distSquared < distanceToClosest) {
                 distanceToClosest = distSquared
                 bestHidingSpot = hidingSpot
             }
+            
         }
         
         if(distanceToClosest == MAXFLOAT) {
@@ -370,7 +380,7 @@ class SteeringBehavior {
         }
         
         // else using arrive to the hiding spot
-        return arrive(SCNVector3(x: bestHidingSpot.x, y: 0, z: bestHidingSpot.z), deceleration: Deceleration.fast)
+        return arrive(SCNVector3(x: GFloat(bestHidingSpot.x), y: 0, z: GFloat(bestHidingSpot.z)), deceleration: Deceleration.fast)
     }
     
     func getHidingPosition(obstaclePosition:Vector2D, obstacleRadius:Float, targetPosition:Vector2D) -> Vector2D {
