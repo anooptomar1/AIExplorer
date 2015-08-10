@@ -36,7 +36,7 @@ class GameLevel0 : NSObject, GameLevel {
     var frontCamera:GameCamera!
     var currentCamera:GameCamera!
     var player:PlayerCharacter!
-    var enemies:[EnemyCharacter] = [EnemyCharacter]()
+    var enemies = [String: EnemyCharacter]()
     var ship:SCNNode!
     
     override init() {
@@ -208,7 +208,8 @@ class GameLevel0 : NSObject, GameLevel {
             #endif
             enemy.position = SCNVector3Make(xPos, 0, zPos)
 
-            enemies.append(enemy)
+            enemies[enemy.getID()] = enemy
+            //enemies.append(enemy)
             scene.rootNode.addChildNode(enemy)
             self.gameObjects[enemy.getID()] = enemy
         }
@@ -239,7 +240,7 @@ class GameLevel0 : NSObject, GameLevel {
         
         if(GameScenesManager.sharedInstance.gameState == GameState.InGame) {
             player.update(deltaTime)
-            for enemy in enemies {
+            for (_, enemy) in enemies {
                 enemy.update(deltaTime)
             }
             currentCamera.update(deltaTime)
@@ -249,6 +250,27 @@ class GameLevel0 : NSObject, GameLevel {
 
     func physicsWorld(world: SCNPhysicsWorld, didBeginContact contact: SCNPhysicsContact) {
         print("Contact between nodes: \(contact.nodeA.name) and \(contact.nodeB.name)")
+        if(contact.nodeA.name == "PlayerCollideSphere") {
+            player.handleContact(contact.nodeB, gameObjects: gameObjects)
+        }
+        if( contact.nodeB.name == "PlayerCollideSphere") {
+            player.handleContact(contact.nodeA, gameObjects: gameObjects)
+        }
+        var asRange = contact.nodeA.name!.rangeOfString("EnemyCollideSphere-")
+        if let asRange = asRange where asRange.startIndex == contact.nodeA.name!.startIndex {
+            let substr = contact.nodeA.name!.substringFromIndex(advance(contact.nodeA.name!.startIndex, 19))
+            //print("substr is \(substr)")
+            let enemy = enemies[substr]
+            enemy!.handleContact(contact.nodeB, gameObjects: gameObjects)
+        }
+        asRange = contact.nodeB.name!.rangeOfString("EnemyCollideSphere-")
+        if let asRange = asRange where asRange.startIndex == contact.nodeB.name!.startIndex {
+            let substr = contact.nodeB.name!.substringFromIndex(advance(contact.nodeB.name!.startIndex, 19))
+            //print("substr is \(substr)")
+            let enemy = enemies[substr]
+            enemy!.handleContact(contact.nodeA, gameObjects: gameObjects)
+        }
+
     }
 
 }

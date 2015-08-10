@@ -20,6 +20,7 @@ class SteeringBehavior {
     var targetNode:SCNNode!
     var targetMovingObject:MovingGameObject!
     var wanderTarget:Vector2D = Vector2D(x:0.0, z:0.0)
+    var wallTarget:SCNNode!
 
     
     var seekOn:Bool = false
@@ -27,6 +28,7 @@ class SteeringBehavior {
     var pursueOn:Bool = false
     var evadeOn:Bool = false
     var wanderOn:Bool = false
+    var avoidWallOn:Bool = false
     
     
     init(obj:MovingGameObject, target:SCNNode) {
@@ -35,22 +37,39 @@ class SteeringBehavior {
     }
     
     func calculate() -> Vector2D {
+        let steeringForce = Vector2D(x:0.0, z:0.0)
         if(seekOn) {
-            return self.seek(targetNode.position)
+            let force = self.seek(targetNode.position)
+            steeringForce.x = steeringForce.x + force.x
+            steeringForce.z = steeringForce.z + force.z
         }
         if(fleeOn) {
-            return self.flee(targetNode.position)
+            let force = self.flee(targetNode.position)
+            steeringForce.x = steeringForce.x + force.x
+            steeringForce.z = steeringForce.z + force.z
         }
         if(pursueOn) {
-            return self.pursue(targetMovingObject)
+            let force = self.pursue(targetMovingObject)
+            steeringForce.x = steeringForce.x + force.x
+            steeringForce.z = steeringForce.z + force.z
         }
         if(evadeOn) {
-            return self.evade(targetMovingObject)
+            let force = self.evade(targetMovingObject)
+            steeringForce.x = steeringForce.x + force.x
+            steeringForce.z = steeringForce.z + force.z
         }
         if(wanderOn) {
-            return self.wander()
+            let force = self.wander()
+            steeringForce.x = steeringForce.x + force.x
+            steeringForce.z = steeringForce.z + force.z
         }
-        return Vector2D(x:0.0, z:0.0)
+        if(avoidWallOn) {
+            let force = self.wallAvoidance(self.wallTarget)
+            steeringForce.x = steeringForce.x + force.x
+            steeringForce.z = steeringForce.z + force.z
+        }
+        
+        return steeringForce
     }
     
     func seek(target:SCNVector3) -> Vector2D {
@@ -206,6 +225,26 @@ class SteeringBehavior {
         wanderAngle = wanderAngle + getRandomClamped()*wanderJitter
         
         return Vector2D(x: circleCenter.x + displacement.x, z: circleCenter.z + displacement.z)
+    }
+    
+    func avoidWall(node:SCNNode) {
+        avoidWallOn = true
+        wallTarget = node
+    }
+    
+    func wallAvoidance(node:SCNNode) -> Vector2D {
+        if(node.name == "LeftWall") {
+            return Vector2D(x:30.0, z:0.0)
+        }
+        else if(node.name == "RightWall") {
+            return Vector2D(x:-30.0, z:0.0)
+        }
+        else if(node.name == "FrontWall") {
+            return Vector2D(x:0.0, z:30.0)
+        } else if(node.name == "BackWall") {
+            return Vector2D(x:0.0, z:-30.0)
+        }
+        return Vector2D(x:0.0, z:0.0)
     }
     
     func getRandomClamped() -> Float {

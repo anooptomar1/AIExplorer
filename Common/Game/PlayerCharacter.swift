@@ -94,6 +94,9 @@ class PlayerCharacter : SkinnedCharacter, MovingGameObject {
         
     }
 
+    func handleContact(node:SCNNode, gameObjects:Dictionary<String, GameObject>) {
+    }
+    
     class func keyForAnimationType(animType:PlayerAnimationState) -> String!
     {
         switch (animType) {

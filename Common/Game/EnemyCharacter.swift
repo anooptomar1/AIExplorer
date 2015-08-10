@@ -87,7 +87,7 @@ class EnemyCharacter : SkinnedCharacter, MovingGameObject {
         //println("enemy box width:\(playerBox.width) height:\(playerBox.height) length:\(playerBox.length)")
         
         let collideSphere = SCNNode()
-        collideSphere.name = enemyCollisionSphereName
+        collideSphere.name = enemyCollisionSphereName + "-" + self.getID()
         collideSphere.position = SCNVector3Make(0.0, GFloat(playerBox.height/2), 0.0)
         let geo = SCNCapsule(capRadius: CGFloat(capRadius), height: CGFloat(capHeight))
         let shape2 = SCNPhysicsShape(geometry: geo, options: nil)
@@ -105,6 +105,10 @@ class EnemyCharacter : SkinnedCharacter, MovingGameObject {
         
     }
 
+    func handleContact(node:SCNNode, gameObjects:Dictionary<String, GameObject>) {
+        print("Enemy with name \(self.name) handling contact with \(node.name)")
+        self.steering.avoidWall(node)
+    }
     
     class func keyForAnimationType(animType:EnemyAnimationState) -> String!
     {
