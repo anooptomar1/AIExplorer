@@ -409,8 +409,8 @@ class SteeringBehavior {
     
     func followPath() -> Vector2D {
         let waypointDistanceSquared:Float = 25.0
-        let dx = path.currentWayPoint.x - obj.getPosition().x
-        let dz = path.currentWayPoint.z - obj.getPosition().z
+        let dx = path.currentWayPoint.x - Float(obj.getPosition().x)
+        let dz = path.currentWayPoint.z - Float(obj.getPosition().z)
         
         let distSquared = dx*dx + dz*dz
         
@@ -418,7 +418,7 @@ class SteeringBehavior {
             path.setNextWayPoint()
         }
         
-        let vec = SCNVector3(x: path.currentWayPoint.x, y: 0, z: path.currentWayPoint.z)
+        let vec = SCNVector3(x: GFloat(path.currentWayPoint.x), y: 0, z: GFloat(path.currentWayPoint.z))
         if(path.finished() == true) {
             return seek(vec)
         } else {
