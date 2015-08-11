@@ -30,6 +30,7 @@ class EnemyCharacter : SkinnedCharacter, MovingGameObject {
     var player:PlayerCharacter!
     var stateMachine: StateMachine!
     var steering:SteeringBehavior!
+    var patrolPath:Path!
     
     let assetDirectory = "art.scnassets/common/models/warrior/"
     let skeletonName = "Bip01"
@@ -53,6 +54,7 @@ class EnemyCharacter : SkinnedCharacter, MovingGameObject {
         player = gLevel.player
         print("Found player with name \(player.getID())")
 
+        self.addPatrolPath()
         self.steering = SteeringBehavior(obj:self, target:player)
         
         // Load the animations and store via a lookup table.
@@ -108,6 +110,22 @@ class EnemyCharacter : SkinnedCharacter, MovingGameObject {
         
     }
 
+    func addPatrolPath() {
+        var paths = [Vector2D]()
+        
+        var pt = Vector2D(x: 0.0, z:100.0)
+        paths.append(pt)
+        pt = Vector2D(x: 90.0, z:100.0)
+        paths.append(pt)
+        pt = Vector2D(x: 90.0, z: 20.0)
+        paths.append(pt)
+        pt = Vector2D(x: 0.0, z: 20.0)
+        
+        patrolPath = Path(looped: true, waypoints: paths)
+        
+        
+    }
+    
     func handleContact(node:SCNNode, gameObjects:Dictionary<String, GameObject>) {
         print("Enemy with name \(self.name) handling contact with \(node.name)")
         self.steering.avoidWall(node)
@@ -202,7 +220,9 @@ class EnemyCharacter : SkinnedCharacter, MovingGameObject {
         let gameObjects = gLevel?.gameObjects
         steering.avoidCollisionsOn(gameObjects!)
         
-        steering.hideOn(self.player, gameObjects: gameObjects!)
+        //steering.hideOn(self.player, gameObjects: gameObjects!)
+        
+        steering.followPathOn(self.patrolPath)
         
     }
     

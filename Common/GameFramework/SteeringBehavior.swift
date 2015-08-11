@@ -23,7 +23,7 @@ class SteeringBehavior {
     var wallTarget:SCNNode!
     var obstacles:[String: GameObject]!
     var hideTarget:MovingGameObject!
-
+    var path:Path!
     
     var seekOn:Bool = false
     var fleeOn:Bool = false
@@ -33,6 +33,7 @@ class SteeringBehavior {
     var avoidWallOn:Bool = false
     var avoidCollisionOn:Bool = false
     var hideOn = false
+    var followPathOn = false
     
     
     init(obj:MovingGameObject, target:SCNNode) {
@@ -79,6 +80,11 @@ class SteeringBehavior {
         }
         if(hideOn) {
             let force = self.hideFromTarget(hideTarget, gameObjects: obstacles)
+            steeringForce.x = steeringForce.x + force.x
+            steeringForce.z = steeringForce.z + force.z
+        }
+        if(followPathOn) {
+            let force = self.followPath()
             steeringForce.x = steeringForce.x + force.x
             steeringForce.z = steeringForce.z + force.z
         }
@@ -396,4 +402,27 @@ class SteeringBehavior {
         return Vector2D(x: toOb.x + obstaclePosition.x, z: toOb.z + obstaclePosition.z)
     }
     
+    func followPathOn(path:Path) {
+        self.followPathOn = true
+        self.path = path
+    }
+    
+    func followPath() -> Vector2D {
+        let waypointDistanceSquared:Float = 25.0
+        let dx = path.currentWayPoint.x - obj.getPosition().x
+        let dz = path.currentWayPoint.z - obj.getPosition().z
+        
+        let distSquared = dx*dx + dz*dz
+        
+        if(distSquared < waypointDistanceSquared) {
+            path.setNextWayPoint()
+        }
+        
+        let vec = SCNVector3(x: path.currentWayPoint.x, y: 0, z: path.currentWayPoint.z)
+        if(path.finished() == true) {
+            return seek(vec)
+        } else {
+            return arrive(vec, deceleration: Deceleration.normal)
+        }
+    }
 }
