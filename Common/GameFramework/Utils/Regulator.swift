@@ -21,7 +21,7 @@ class Regulator {
     var nextUpdateTime:Double!
     
     init(numUpdatesPerSecond:Double) {
-        nextUpdateTime = Double(CACurrentMediaTime()) + Double(Regulator.randomNumberInRange(lower: 50.0, upper: 100.0))
+        nextUpdateTime = Double(CACurrentMediaTime())
         
         if (numUpdatesPerSecond > 0)
         {

@@ -285,14 +285,14 @@ class EnemyCharacter : SkinnedCharacter, MovingGameObject {
         self.updatePosition(deltaTime)
 
         //appraise and arbitrate between all possible high level goals
-        /*
+        
         if (goalArbitrationRegulator.isReady())
         {
 
             brain.arbitrate()
         }
-        */
-        brain.arbitrate()
+        
+        //brain.arbitrate()
     }
     
     func isStatic() -> Bool {
