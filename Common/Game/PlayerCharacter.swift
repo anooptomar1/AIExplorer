@@ -37,6 +37,7 @@ class PlayerCharacter : SkinnedCharacter, MovingGameObject {
 
     var gameLevel:GameLevel!
     let speed:Float = 0.1
+    var steering:SteeringBehavior!
     var stateMachine: StateMachine!
     let assetDirectory = "art.scnassets/common/models/explorer/"
     let skeletonName = "Bip001_Pelvis"
@@ -263,4 +264,9 @@ class PlayerCharacter : SkinnedCharacter, MovingGameObject {
     func getBoundingRadius() -> Float {
         return boundingRadius
     }
+    
+    func getSteering() -> SteeringBehavior {
+        return self.steering
+    }
+
 }

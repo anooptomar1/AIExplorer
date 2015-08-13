@@ -21,5 +21,6 @@ protocol MovingGameObject : GameObject  {
     func getMaxForce() -> Float
     //turn rate in radians per sec
     func getMaxTurnRate() -> Float
+    func getSteering() -> SteeringBehavior
     
 }

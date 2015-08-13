@@ -9,27 +9,24 @@
 import Foundation
 
 
-class CompositeGoal {
+class CompositeGoal : Goal {
     
     var subgoals:Queue<Goal> = Queue<Goal>()
     
-    init() {
-        
-    }
     
-    func activate() {
+    override func activate() {
             
     }
         
-    func process() -> Status {
+    override func process() -> Status {
         return Status.Completed
     }
         
-    func terminate() {
+    override func terminate() {
             
     }
         
-    func handleMessage(obj:GameObject, msg:Message) -> Bool {
+    override func handleMessage(obj:GameObject, msg:Message) -> Bool {
         if (!subgoals.isEmpty())
         {
             let goal = subgoals.deQueue()
@@ -40,7 +37,7 @@ class CompositeGoal {
         return false
     }
         
-    func addSubGoal(goal:Goal) {
+    override func addSubGoal(goal:Goal) {
         subgoals.enQueue(goal)
     }
         
@@ -52,7 +49,7 @@ class CompositeGoal {
         
         if(!subgoals.isEmpty()) {
             //grab the status of the front-most subgoal
-            let goal = subgoals.deQueue()
+            let goal = subgoals.peek()
             let status = goal?.process()
         
             //we have to test for the special case where the front-most subgoal

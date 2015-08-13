@@ -31,6 +31,8 @@ class EnemyCharacter : SkinnedCharacter, MovingGameObject {
     var stateMachine: StateMachine!
     var steering:SteeringBehavior!
     var patrolPath:Path!
+    let goalArbitrationRegulator = Regulator(numUpdatesPerSecond: 4.0) // 4 updates per second
+    var brain:ThinkGoal!
     
     let assetDirectory = "art.scnassets/common/models/warrior/"
     let skeletonName = "Bip01"
@@ -56,6 +58,7 @@ class EnemyCharacter : SkinnedCharacter, MovingGameObject {
 
         self.addPatrolPath()
         self.steering = SteeringBehavior(obj:self, target:player)
+        self.brain = ThinkGoal(owner: self)
         
         // Load the animations and store via a lookup table.
         self.setupIdleAnimation()
@@ -217,6 +220,7 @@ class EnemyCharacter : SkinnedCharacter, MovingGameObject {
         //steering.evadeTarget(self.player)
         //steering.wanderOn = true
         
+        /*
         let gLevel = gameLevel as? GameLevel0
         let gameObjects = gLevel?.gameObjects
         steering.avoidCollisionsOn(gameObjects!)
@@ -224,7 +228,7 @@ class EnemyCharacter : SkinnedCharacter, MovingGameObject {
         //steering.hideOn(self.player, gameObjects: gameObjects!)
         
         steering.followPathOn(self.patrolPath)
-        
+        */
     }
     
     func changeState(newState:State) {
@@ -273,8 +277,22 @@ class EnemyCharacter : SkinnedCharacter, MovingGameObject {
     }
 
     func update(deltaTime:NSTimeInterval) {
-        stateMachine.update()
+        //stateMachine.update()
+        
+        //process the currently active goal.
+        brain.process()
+        
         self.updatePosition(deltaTime)
+
+        //appraise and arbitrate between all possible high level goals
+        /*
+        if (goalArbitrationRegulator.isReady())
+        {
+
+            brain.arbitrate()
+        }
+        */
+        brain.arbitrate()
     }
     
     func isStatic() -> Bool {
@@ -328,6 +346,10 @@ class EnemyCharacter : SkinnedCharacter, MovingGameObject {
 
     func getBoundingRadius() -> Float {
         return boundingRadius
+    }
+    
+    func getSteering() -> SteeringBehavior {
+        return self.steering
     }
 
 

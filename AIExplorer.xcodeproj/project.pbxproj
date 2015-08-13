@@ -35,6 +35,20 @@
 		C1BC3BB11B7CEC1500FCAA47 /* Goal.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1BC3BAF1B7CEC1500FCAA47 /* Goal.swift */; };
 		C1BC3BB31B7CEC2900FCAA47 /* CompositeGoal.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1BC3BB21B7CEC2900FCAA47 /* CompositeGoal.swift */; };
 		C1BC3BB41B7CEC2900FCAA47 /* CompositeGoal.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1BC3BB21B7CEC2900FCAA47 /* CompositeGoal.swift */; };
+		C1BC3BB71B7CF88100FCAA47 /* WanderGoal.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1BC3BB61B7CF88100FCAA47 /* WanderGoal.swift */; };
+		C1BC3BB81B7CF88100FCAA47 /* WanderGoal.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1BC3BB61B7CF88100FCAA47 /* WanderGoal.swift */; };
+		C1BC3BBA1B7D029E00FCAA47 /* Regulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1BC3BB91B7D029E00FCAA47 /* Regulator.swift */; };
+		C1BC3BBB1B7D029E00FCAA47 /* Regulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1BC3BB91B7D029E00FCAA47 /* Regulator.swift */; };
+		C1BC3BC01B7D06BA00FCAA47 /* ThinkGoal.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1BC3BBF1B7D06BA00FCAA47 /* ThinkGoal.swift */; };
+		C1BC3BC11B7D06BA00FCAA47 /* ThinkGoal.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1BC3BBF1B7D06BA00FCAA47 /* ThinkGoal.swift */; };
+		C1D165C01B7D1FE800358B68 /* GoalEvaluator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D165BF1B7D1FE800358B68 /* GoalEvaluator.swift */; };
+		C1D165C11B7D1FE800358B68 /* GoalEvaluator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D165BF1B7D1FE800358B68 /* GoalEvaluator.swift */; };
+		C1D165C31B7D22BC00358B68 /* WanderGoalEvaluator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D165C21B7D22BC00358B68 /* WanderGoalEvaluator.swift */; };
+		C1D165C41B7D22BC00358B68 /* WanderGoalEvaluator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D165C21B7D22BC00358B68 /* WanderGoalEvaluator.swift */; };
+		C1D165CD1B7D3DBB00358B68 /* PatrolGoalEvaluator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D165CB1B7D3DBB00358B68 /* PatrolGoalEvaluator.swift */; };
+		C1D165CE1B7D3DBB00358B68 /* PatrolGoalEvaluator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D165CB1B7D3DBB00358B68 /* PatrolGoalEvaluator.swift */; };
+		C1D165CF1B7D3DBB00358B68 /* PatrolGoal.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D165CC1B7D3DBB00358B68 /* PatrolGoal.swift */; };
+		C1D165D01B7D3DBB00358B68 /* PatrolGoal.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D165CC1B7D3DBB00358B68 /* PatrolGoal.swift */; };
 		C1DF9F881B717E8900DAD2B8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DF9F871B717E8900DAD2B8 /* AppDelegate.swift */; };
 		C1DF9F8C1B717E8900DAD2B8 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DF9F8B1B717E8900DAD2B8 /* GameViewController.swift */; };
 		C1DF9F8F1B717E8900DAD2B8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C1DF9F8D1B717E8900DAD2B8 /* Main.storyboard */; };
@@ -102,6 +116,13 @@
 		C1BC3BA91B7CEB6300FCAA47 /* Queue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Queue.swift; path = Common/GameFramework/Utils/Queue.swift; sourceTree = "<group>"; };
 		C1BC3BAF1B7CEC1500FCAA47 /* Goal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Goal.swift; path = Common/GameFramework/Goal.swift; sourceTree = "<group>"; };
 		C1BC3BB21B7CEC2900FCAA47 /* CompositeGoal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CompositeGoal.swift; path = Common/GameFramework/CompositeGoal.swift; sourceTree = "<group>"; };
+		C1BC3BB61B7CF88100FCAA47 /* WanderGoal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WanderGoal.swift; path = Common/Game/Goals/WanderGoal.swift; sourceTree = "<group>"; };
+		C1BC3BB91B7D029E00FCAA47 /* Regulator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Regulator.swift; path = Common/GameFramework/Utils/Regulator.swift; sourceTree = "<group>"; };
+		C1BC3BBF1B7D06BA00FCAA47 /* ThinkGoal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ThinkGoal.swift; path = Common/Game/Goals/ThinkGoal.swift; sourceTree = "<group>"; };
+		C1D165BF1B7D1FE800358B68 /* GoalEvaluator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GoalEvaluator.swift; path = Common/GameFramework/GoalEvaluator.swift; sourceTree = "<group>"; };
+		C1D165C21B7D22BC00358B68 /* WanderGoalEvaluator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WanderGoalEvaluator.swift; path = Common/Game/Goals/WanderGoalEvaluator.swift; sourceTree = "<group>"; };
+		C1D165CB1B7D3DBB00358B68 /* PatrolGoalEvaluator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PatrolGoalEvaluator.swift; path = Common/Game/Goals/PatrolGoalEvaluator.swift; sourceTree = "<group>"; };
+		C1D165CC1B7D3DBB00358B68 /* PatrolGoal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PatrolGoal.swift; path = Common/Game/Goals/PatrolGoal.swift; sourceTree = "<group>"; };
 		C1DF9F841B717E8900DAD2B8 /* AIExplorer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AIExplorer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1DF9F871B717E8900DAD2B8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C1DF9F8B1B717E8900DAD2B8 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
@@ -161,8 +182,21 @@
 				C1BC3BA91B7CEB6300FCAA47 /* Queue.swift */,
 				C12622DE1B7650AD00886D97 /* SCNVector3Extensions.swift */,
 				C12622E11B7656AF00886D97 /* Vector2D.swift */,
+				C1BC3BB91B7D029E00FCAA47 /* Regulator.swift */,
 			);
 			name = Utils;
+			sourceTree = "<group>";
+		};
+		C1BC3BB51B7CF86600FCAA47 /* Goals */ = {
+			isa = PBXGroup;
+			children = (
+				C1D165CB1B7D3DBB00358B68 /* PatrolGoalEvaluator.swift */,
+				C1D165CC1B7D3DBB00358B68 /* PatrolGoal.swift */,
+				C1BC3BB61B7CF88100FCAA47 /* WanderGoal.swift */,
+				C1BC3BBF1B7D06BA00FCAA47 /* ThinkGoal.swift */,
+				C1D165C21B7D22BC00358B68 /* WanderGoalEvaluator.swift */,
+			);
+			name = Goals;
 			sourceTree = "<group>";
 		};
 		C1DF9F7B1B717E8900DAD2B8 = {
@@ -240,6 +274,7 @@
 				C1B469451B7A4B5800E6A3B5 /* Path.swift */,
 				C1DFA0C01B7405F300DAD2B8 /* State.swift */,
 				C1DFA0C31B74079000DAD2B8 /* StateMachine.swift */,
+				C1D165BF1B7D1FE800358B68 /* GoalEvaluator.swift */,
 			);
 			name = GameFramework;
 			sourceTree = "<group>";
@@ -254,6 +289,7 @@
 		C1DFA0C81B740DB700DAD2B8 /* Game */ = {
 			isa = PBXGroup;
 			children = (
+				C1BC3BB51B7CF86600FCAA47 /* Goals */,
 				C1DFA0D31B740DD500DAD2B8 /* States */,
 				C1DFA0D21B740DCE00DAD2B8 /* UI */,
 				C1DFA0C91B740DC800DAD2B8 /* PlayerCharacter.swift */,
@@ -405,9 +441,13 @@
 				C12622D01B75196E00886D97 /* Message.swift in Sources */,
 				C1DFA0591B73B7A600DAD2B8 /* GameOverlayScene.swift in Sources */,
 				C1DFA0551B73B7A600DAD2B8 /* GameSceneView.swift in Sources */,
+				C1BC3BB71B7CF88100FCAA47 /* WanderGoal.swift in Sources */,
 				C1DFA05B1B73B7A600DAD2B8 /* GameObject.swift in Sources */,
 				C12622D51B76400B00886D97 /* MovingGameObject.swift in Sources */,
+				C1BC3BBA1B7D029E00FCAA47 /* Regulator.swift in Sources */,
+				C1D165C01B7D1FE800358B68 /* GoalEvaluator.swift in Sources */,
 				C12622E51B79400D00886D97 /* BoxObstacle.swift in Sources */,
+				C1D165CD1B7D3DBB00358B68 /* PatrolGoalEvaluator.swift in Sources */,
 				C1DFA0E01B740DE600DAD2B8 /* Joystick.swift in Sources */,
 				C1B469461B7A4B5800E6A3B5 /* Path.swift in Sources */,
 				C1DFA0E41B740DE600DAD2B8 /* GameUIManager.swift in Sources */,
@@ -415,12 +455,15 @@
 				C1BC3BB31B7CEC2900FCAA47 /* CompositeGoal.swift in Sources */,
 				C1DF9F881B717E8900DAD2B8 /* AppDelegate.swift in Sources */,
 				C12622DB1B7641A800886D97 /* SteeringBehavior.swift in Sources */,
+				C1BC3BC01B7D06BA00FCAA47 /* ThinkGoal.swift in Sources */,
 				C1DFA05F1B73B7A600DAD2B8 /* GameCamera.swift in Sources */,
 				C12622C71B74FA3100886D97 /* EnemyPatrolState.swift in Sources */,
+				C1D165CF1B7D3DBB00358B68 /* PatrolGoal.swift in Sources */,
 				C1BC3BAA1B7CEB6300FCAA47 /* Queue.swift in Sources */,
 				C1DFA0DE1B740DE600DAD2B8 /* LevelCompleteMenu.swift in Sources */,
 				C1DFA0571B73B7A600DAD2B8 /* GameScenesManager.swift in Sources */,
 				C1DFA05D1B73B7A600DAD2B8 /* GameLevel.swift in Sources */,
+				C1D165C31B7D22BC00358B68 /* WanderGoalEvaluator.swift in Sources */,
 				C1DFA0CC1B740DC800DAD2B8 /* PlayerCharacter.swift in Sources */,
 				C1DFA0C41B74079000DAD2B8 /* StateMachine.swift in Sources */,
 				C1DFA0511B73B7A600DAD2B8 /* SkinnedCharacter.swift in Sources */,
@@ -441,10 +484,14 @@
 				C1DFA0541B73B7A600DAD2B8 /* GameUtilities.swift in Sources */,
 				C1DFA0561B73B7A600DAD2B8 /* GameSceneView.swift in Sources */,
 				C1DFA0DD1B740DE600DAD2B8 /* LevelFailedMenu.swift in Sources */,
+				C1BC3BC11B7D06BA00FCAA47 /* ThinkGoal.swift in Sources */,
 				C1DFA0C21B7405F300DAD2B8 /* State.swift in Sources */,
 				C1DFA05E1B73B7A600DAD2B8 /* GameLevel.swift in Sources */,
+				C1D165C11B7D1FE800358B68 /* GoalEvaluator.swift in Sources */,
 				C12622E01B7650AD00886D97 /* SCNVector3Extensions.swift in Sources */,
+				C1D165C41B7D22BC00358B68 /* WanderGoalEvaluator.swift in Sources */,
 				C1DFA05C1B73B7A600DAD2B8 /* GameObject.swift in Sources */,
+				C1D165D01B7D3DBB00358B68 /* PatrolGoal.swift in Sources */,
 				C1BC3BB11B7CEC1500FCAA47 /* Goal.swift in Sources */,
 				C12622D61B76400B00886D97 /* MovingGameObject.swift in Sources */,
 				C1DF9FA41B717EB200DAD2B8 /* GameView.swift in Sources */,
@@ -461,9 +508,12 @@
 				C1DFA0C51B74079000DAD2B8 /* StateMachine.swift in Sources */,
 				C12622D11B75196E00886D97 /* Message.swift in Sources */,
 				C12622DC1B7641A800886D97 /* SteeringBehavior.swift in Sources */,
+				C1D165CE1B7D3DBB00358B68 /* PatrolGoalEvaluator.swift in Sources */,
 				C1DFA0CF1B740DC800DAD2B8 /* GameLevel0.swift in Sources */,
 				C1DFA0E11B740DE600DAD2B8 /* Joystick.swift in Sources */,
 				C1DFA0DB1B740DE600DAD2B8 /* PreGameMenu.swift in Sources */,
+				C1BC3BB81B7CF88100FCAA47 /* WanderGoal.swift in Sources */,
+				C1BC3BBB1B7D029E00FCAA47 /* Regulator.swift in Sources */,
 				C1DF9FA21B717EB200DAD2B8 /* AppDelegate.swift in Sources */,
 				C1BC3BAB1B7CEB6300FCAA47 /* Queue.swift in Sources */,
 				C12622E31B7656AF00886D97 /* Vector2D.swift in Sources */,

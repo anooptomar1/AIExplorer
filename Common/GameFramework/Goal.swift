@@ -15,12 +15,20 @@ enum Status:Int {
     Failed
 }
 
+enum GoalType : Int {
+    case Wander = 0,
+    Patrol,
+    Think
+}
+
 class Goal {
     var owner:MovingGameObject!
     var status:Status = Status.Inactive
+    var type:GoalType!
     
-    init(owner:MovingGameObject) {
+    init(owner:MovingGameObject, type:GoalType) {
         self.owner = owner
+        self.type = type
     }
     
     func activate() {
