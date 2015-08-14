@@ -72,7 +72,7 @@ class Vector3D {
     }
     
     func getSCNVector3() -> SCNVector3 {
-        return SCNVector3Make(self.x, self.y, self.z)
+        return SCNVector3Make(GFloat(self.x), GFloat(self.y), GFloat(self.z))
     }
 }
 
