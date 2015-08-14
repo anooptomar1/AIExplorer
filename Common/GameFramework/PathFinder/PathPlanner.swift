@@ -16,10 +16,10 @@ class PathPlanner {
     private var original:Vector3D!
     private var navMeshGraph:NavigationMeshGraph!
     
-    var reverse:Bool = false
-    var spOpenSteps:[ShortestPathStep] = [ShortestPathStep]()
-    var spClosedSteps:[ShortestPathStep] = [ShortestPathStep]()
-    var shortestPath:[ShortestPathStep]! = [ShortestPathStep]()
+    var spOpenSteps = [ShortestPathStep]()
+    var spClosedSteps = [ShortestPathStep]()
+    var shortestPath = [ShortestPathStep]()
+
     
     init(owner:MovingGameObject, meshTriangles:[MeshTriangle]) {
         self.owner = owner
@@ -31,22 +31,27 @@ class PathPlanner {
     
     func createPathToPosition(targetPosition:Vector3D) -> [Vector3D] {
         var path:[Vector3D] = [Vector3D]()
-        
-        self.targetPosition = targetPosition
-        //if target is unobstructed from the owner's position, a path does not need to be calculated and the bot can arrive directly at the desitination
-        /*
-        if (self.owner.isPathObstructed(owner.getPosition(), self.destinationPosition, self.owner.getBoundingRadius())) {
-            path.append(targetPosition)
-            return path
-        }
-        */
+        spOpenSteps = [ShortestPathStep]()
+        spClosedSteps = [ShortestPathStep]()
+        shortestPath = [ShortestPathStep]()
 
+        self.targetPosition = targetPosition
+        let ownerPosition = owner.getPosition().vector3DFromSCNVector3()
+        shortestPath = self.findShortestPath(ownerPosition, targetPosition: self.targetPosition)
+        
+        if(shortestPath.count == 0) {
+            print("No path found")
+        } else {
+            for sPath in shortestPath {
+                path.append(sPath.position)
+            }
+        }
         
         return path
     }
     
     func createPathToItem(itemType:Int) -> [Vector3D] {
-        var path:[Vector3D] = [Vector3D]()
+        let path:[Vector3D] = [Vector3D]()
         
         return path
     }
@@ -82,39 +87,20 @@ class PathPlanner {
         
         return adjSteps
     }
+    
+        
+    func findShortestPath(currentPosition:Vector3D, targetPosition:Vector3D) -> [ShortestPathStep] {
 
-    func getNextNode(currentPosition:Vector3D) -> Vector3D {
-        let nextNodePosition:Vector3D = targetPosition
-        
-        if(shortestPath.count > 0) {
-            let s = shortestPath[0]
-            //print("element from shortest path \(s.position.x) and \(s.position.z)")
-            
-            let curX = floor(currentPosition.x)
-            let curZ = floor(currentPosition.z)
-            let sX = floor(s.position.x)
-            let sZ = floor(s.position.z)
-            let diffX = abs(curX - sX)
-            let diffZ = abs(curZ - sZ)
-            
-            print("curX=\(curX), curZ=\(curZ), sX=\(sX), sZ=\(sZ)")
-            if((diffX <= 1) && (diffZ <= 1)) {
-                //print("Removing element from shortest path \(s.position.x) and \(s.position.z)")
-                shortestPath.removeAtIndex(0)
-            }
-            return s.position
-        }
-        
         let currentPositionTriangleIndex = self.findTriangleForPosition(currentPosition)
         let targetPositionTriangleIndex = self.findTriangleForPosition(targetPosition)
         
         if(currentPositionTriangleIndex == -1) {
             print("Cannot find triangle index for current Position")
-            return nextNodePosition
+            return shortestPath
         }
         if(targetPositionTriangleIndex == -1) {
             print("Cannot find triangle index for target position")
-            return nextNodePosition
+            return shortestPath
         }
         if(currentPositionTriangleIndex == targetPositionTriangleIndex) {
             print("Target is in same triangle as current position")
@@ -122,22 +108,12 @@ class PathPlanner {
             
             if(Vector3DEqualToVector3D(currentPosition, targetPosition: targetPosition)) {
                 print("Already on target. Reversing direction...")
-                spOpenSteps = [ShortestPathStep]()
-                spClosedSteps = [ShortestPathStep]()
-                shortestPath = [ShortestPathStep]()
-                
-                if(reverse == false) {
-                    targetPosition = original
-                    reverse = true
-                } else {
-                    reverse = false
-                }
-                return targetPosition
+                return shortestPath
             } else {
-                return nextNodePosition
+                return shortestPath
             }
         }
-        
+
         // Start by adding the from position to the open list
         self.insertInOpenSteps(ShortestPathStep(position: currentPosition))
         
@@ -146,17 +122,16 @@ class PathPlanner {
         repeat {
             // Get the lowest F cost step
             // Because the list is ordered, the first step is always the one with the lowest F cost
-            currentStep = self.spOpenSteps[0]
+            currentStep = spOpenSteps[0]
         
             print("CURRENT STEP: \(currentStep.position)")
             print("TARGET POSITION: \(targetPosition)")
         
             // Add the current step to the closed set
-            self.spClosedSteps.append(currentStep)
+            spClosedSteps.append(currentStep)
         
             // Remove it from the open list
-            self.spOpenSteps.removeAtIndex(0)
-        
+            spOpenSteps.removeAtIndex(0)
         
             if (Vector3DEqualToVector3D(currentStep.position, targetPosition:targetPosition)) {
                 self.constructPath(currentStep)
@@ -172,7 +147,7 @@ class PathPlanner {
                 var step = ShortestPathStep(position: v)
         
                 // Check if the step isn't already in the closed set
-                if (self.spClosedSteps.contains(step)) {
+                if (spClosedSteps.contains(step)) {
                     continue; // Ignore it
                 }
         
@@ -180,7 +155,7 @@ class PathPlanner {
                 let moveCost = self.costToMoveFromStep(currentStep, toAdjacentStep:step)
         
                 // Check if the step is already in the open list
-                let index:Int? = self.spOpenSteps.indexOf(step)
+                let index:Int? = spOpenSteps.indexOf(step)
         
                 if (index == nil) { // Not on the open list, so add it
         
@@ -198,7 +173,7 @@ class PathPlanner {
         
                 } else { // Already in the open list
                     let foundIndex = index
-                    step = self.spOpenSteps[foundIndex!] // To retrieve the old one (which has its scores already computed ;-)
+                    step = spOpenSteps[foundIndex!] // To retrieve the old one (which has its scores already computed ;-)
         
                     // Check to see if the G score for that step is lower if we use the current step to get there
                     if ((currentStep.gScore + moveCost) < step.gScore) {
@@ -210,7 +185,7 @@ class PathPlanner {
                         // the insert function which is preserving the list ordered by F score
             
                         // Now we can removing it from the list without be afraid that it can be released
-                        self.spOpenSteps.removeAtIndex(foundIndex!)
+                        spOpenSteps.removeAtIndex(foundIndex!)
             
                         // Re-insert it with the function which is preserving the list ordered by F score
                         self.insertInOpenSteps(step)
@@ -219,13 +194,9 @@ class PathPlanner {
                 }
             }
             
-        } while( self.spOpenSteps.count > 0)
+        } while(spOpenSteps.count > 0)
         
-        if(self.shortestPath.count == 0) {
-            print("No path found")
-        }
-        
-        return nextNodePosition
+        return shortestPath
     }
     
     
@@ -233,13 +204,13 @@ class PathPlanner {
         let nilStep:ShortestPathStep? = nil
         repeat {
             if (step!.parent != nil) { // Don't add the last step which is the start position (remember we go backward, so the last one is the origin position ;-)
-                self.shortestPath.insert(step!, atIndex:0) // Always insert at index 0 to reverse the path
+                shortestPath.insert(step!, atIndex:0) // Always insert at index 0 to reverse the path
             }
             step = step!.parent // Go backward
         } while (step != nilStep) // Until there is no more parents
         
         
-        for s in self.shortestPath {
+        for s in shortestPath {
             print("SHORTEST PATH is \(s)")
         }
         
@@ -251,14 +222,14 @@ class PathPlanner {
         
         var i:Int = 0 // This will be the index at which we will insert the step
         for (; i < count; i++) {
-            if (stepFScore <= self.spOpenSteps[i].fScore()) { // If the step's F score is lower or equals to the step at index i
+            if (stepFScore <= spOpenSteps[i].fScore()) { // If the step's F score is lower or equals to the step at index i
                 // Then we found the index at which we have to insert the new step
                 // Basically we want the list sorted by F score
                 break
             }
         }
         // Insert the new step at the determined index to preserve the F score ordering
-        self.spOpenSteps.insert(step, atIndex:i)
+        spOpenSteps.insert(step, atIndex:i)
     }
     
     // Compute the H score from a position to another (from the current position to the final desired position
