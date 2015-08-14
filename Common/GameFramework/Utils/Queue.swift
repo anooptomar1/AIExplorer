@@ -13,7 +13,7 @@ class QNode<T> {
     var next: QNode?
 }
 
-public class Queue<T> {
+public class GameQueue<T> {
     private var top: QNode<T>! = QNode<T>() //enqueue the specified object 
     func enQueue( key: T) {
         //check for the instance 

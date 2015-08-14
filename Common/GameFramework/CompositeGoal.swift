@@ -11,7 +11,7 @@ import Foundation
 
 class CompositeGoal : Goal {
     
-    var subgoals:Queue<Goal> = Queue<Goal>()
+    var subgoals:GameQueue<Goal> = GameQueue<Goal>()
     
     
     override func activate() {

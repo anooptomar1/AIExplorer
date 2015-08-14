@@ -94,7 +94,8 @@ class SteeringBehavior {
     
     func seek(target:SCNVector3) -> Vector2D {
         let vectorFromAgentToTarget = SCNVector3(x: target.x - obj.getPosition().x, y: target.y - obj.getPosition().y, z: target.z - obj.getPosition().z)
-        let normalizedSeekTarget = vectorFromAgentToTarget.normalized()
+        let vec = vectorFromAgentToTarget.vector3DFromSCNVector3()
+        let normalizedSeekTarget = vec.normalized()
         
         #if os(iOS)
             let desiredVelocity = Vector2D(x:normalizedSeekTarget.x*obj.getMaxSpeed(), z:normalizedSeekTarget.z*obj.getMaxSpeed())
@@ -122,7 +123,8 @@ class SteeringBehavior {
         }
         
         let vectorFromAgentToTarget = SCNVector3(x: obj.getPosition().x - target.x, y: obj.getPosition().y - target.y, z: obj.getPosition().z - target.z)
-        let normalizedSeekTarget = vectorFromAgentToTarget.normalized()
+        let vec = vectorFromAgentToTarget.vector3DFromSCNVector3()
+        let normalizedSeekTarget = vec.normalized()
         
         #if os(iOS)
             let desiredVelocity = Vector2D(x:normalizedSeekTarget.x*obj.getMaxSpeed(), z:normalizedSeekTarget.z*obj.getMaxSpeed())
@@ -139,7 +141,8 @@ class SteeringBehavior {
     
     func arrive(target:SCNVector3, deceleration:Deceleration) -> Vector2D {
         let vectorToTarget = SCNVector3(x: target.x - obj.getPosition().x, y: target.y - obj.getPosition().y, z: target.z - obj.getPosition().z)
-        let dist = vectorToTarget.length()
+        let vec = vectorToTarget.vector3DFromSCNVector3()
+        let dist = vec.length()
         
         print("Distance to target is \(dist)")
         if(dist > 1.0) {
