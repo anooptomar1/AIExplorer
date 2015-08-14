@@ -31,9 +31,9 @@ class PlayerCharacter : SkinnedCharacter, MovingGameObject {
     let maxTurnRate:Float = 0.0
     var boundingRadius:Float = 0.0
 
-    var velocity = Vector2D(x:0.0, z:0.0)
-    var heading = Vector2D(x:0.0, z:0.0)
-    var side = Vector2D(x:0.0, z:0.0)
+    var velocity = Vector3D(x:0.0, y:0.0, z:0.0)
+    var heading = Vector3D(x:0.0, y:0.0, z:0.0)
+    var side = Vector3D(x:0.0, y:0.0, z:0.0)
 
     var gameLevel:GameLevel!
     let speed:Float = 0.1
@@ -225,17 +225,17 @@ class PlayerCharacter : SkinnedCharacter, MovingGameObject {
         return self.position
     }
     
-    func getVelocity() -> Vector2D {
+    func getVelocity() -> Vector3D {
         return self.velocity
     }
     
     // A normalized vector describing the direction of the object
-    func getHeading() -> Vector2D {
+    func getHeading() -> Vector3D {
         return self.heading
 
     }
     // A vector perpendicular to the heading
-    func getPerp() -> Vector2D {
+    func getPerp() -> Vector3D {
         return self.side
     }
     

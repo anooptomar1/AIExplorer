@@ -23,8 +23,6 @@
 		C12622DC1B7641A800886D97 /* SteeringBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12622DA1B7641A800886D97 /* SteeringBehavior.swift */; };
 		C12622DF1B7650AD00886D97 /* SCNVector3Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12622DE1B7650AD00886D97 /* SCNVector3Extensions.swift */; };
 		C12622E01B7650AD00886D97 /* SCNVector3Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12622DE1B7650AD00886D97 /* SCNVector3Extensions.swift */; };
-		C12622E21B7656AF00886D97 /* Vector2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12622E11B7656AF00886D97 /* Vector2D.swift */; };
-		C12622E31B7656AF00886D97 /* Vector2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12622E11B7656AF00886D97 /* Vector2D.swift */; };
 		C12622E51B79400D00886D97 /* BoxObstacle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12622E41B79400D00886D97 /* BoxObstacle.swift */; };
 		C12622E61B79400D00886D97 /* BoxObstacle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12622E41B79400D00886D97 /* BoxObstacle.swift */; };
 		C1B469461B7A4B5800E6A3B5 /* Path.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B469451B7A4B5800E6A3B5 /* Path.swift */; };
@@ -126,7 +124,6 @@
 		C12622D41B76400B00886D97 /* MovingGameObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MovingGameObject.swift; path = Common/GameFramework/MovingGameObject.swift; sourceTree = "<group>"; };
 		C12622DA1B7641A800886D97 /* SteeringBehavior.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SteeringBehavior.swift; path = Common/GameFramework/SteeringBehavior.swift; sourceTree = "<group>"; };
 		C12622DE1B7650AD00886D97 /* SCNVector3Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SCNVector3Extensions.swift; path = Common/GameFramework/Utils/SCNVector3Extensions.swift; sourceTree = "<group>"; };
-		C12622E11B7656AF00886D97 /* Vector2D.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Vector2D.swift; path = Common/GameFramework/Utils/Vector2D.swift; sourceTree = "<group>"; };
 		C12622E41B79400D00886D97 /* BoxObstacle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BoxObstacle.swift; path = Common/Game/BoxObstacle.swift; sourceTree = "<group>"; };
 		C1B469451B7A4B5800E6A3B5 /* Path.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Path.swift; path = Common/GameFramework/Path.swift; sourceTree = "<group>"; };
 		C1BC3BA91B7CEB6300FCAA47 /* Queue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Queue.swift; path = Common/GameFramework/Utils/Queue.swift; sourceTree = "<group>"; };
@@ -206,7 +203,6 @@
 				C1D165D11B7D790A00358B68 /* Graph.swift */,
 				C1BC3BA91B7CEB6300FCAA47 /* Queue.swift */,
 				C12622DE1B7650AD00886D97 /* SCNVector3Extensions.swift */,
-				C12622E11B7656AF00886D97 /* Vector2D.swift */,
 				C1BC3BB91B7D029E00FCAA47 /* Regulator.swift */,
 				C1D165EA1B7E531100358B68 /* Vector3D.swift */,
 			);
@@ -470,7 +466,6 @@
 				C12622C21B74FA1900886D97 /* PlayerMovingState.swift in Sources */,
 				C12622B81B74F9E200886D97 /* PlayerIdleState.swift in Sources */,
 				C1DFA0531B73B7A600DAD2B8 /* GameUtilities.swift in Sources */,
-				C12622E21B7656AF00886D97 /* Vector2D.swift in Sources */,
 				C1D165E21B7E40F200358B68 /* Vertex.swift in Sources */,
 				C1DF9F8C1B717E8900DAD2B8 /* GameViewController.swift in Sources */,
 				C1DFA0DA1B740DE600DAD2B8 /* PreGameMenu.swift in Sources */,
@@ -572,7 +567,6 @@
 				C1DF9FA21B717EB200DAD2B8 /* AppDelegate.swift in Sources */,
 				C1D165D31B7D790A00358B68 /* Graph.swift in Sources */,
 				C1BC3BAB1B7CEB6300FCAA47 /* Queue.swift in Sources */,
-				C12622E31B7656AF00886D97 /* Vector2D.swift in Sources */,
 				C12622C51B74FA1900886D97 /* EnemyIdleState.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

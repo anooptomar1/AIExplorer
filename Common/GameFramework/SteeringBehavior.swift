@@ -19,7 +19,7 @@ class SteeringBehavior {
     var obj:MovingGameObject!
     var targetNode:SCNNode!
     var targetMovingObject:MovingGameObject!
-    var wanderTarget:Vector2D = Vector2D(x:0.0, z:0.0)
+    var wanderTarget:Vector3D = Vector3D(x:0.0, y:0.0, z:0.0)
     var wallTarget:SCNNode!
     var obstacles:[String: GameObject]!
     var hideTarget:MovingGameObject!
@@ -41,8 +41,8 @@ class SteeringBehavior {
         self.targetNode = target
     }
     
-    func calculate() -> Vector2D {
-        let steeringForce = Vector2D(x:0.0, z:0.0)
+    func calculate() -> Vector3D {
+        let steeringForce = Vector3D(x:0.0, y:0.0, z:0.0)
         if(seekOn) {
             let force = self.seek(targetNode.position)
             steeringForce.x = steeringForce.x + force.x
@@ -92,25 +92,25 @@ class SteeringBehavior {
         return steeringForce
     }
     
-    func seek(target:SCNVector3) -> Vector2D {
+    func seek(target:SCNVector3) -> Vector3D {
         let vectorFromAgentToTarget = SCNVector3(x: target.x - obj.getPosition().x, y: target.y - obj.getPosition().y, z: target.z - obj.getPosition().z)
         let vec = vectorFromAgentToTarget.vector3DFromSCNVector3()
         let normalizedSeekTarget = vec.normalized()
         
         #if os(iOS)
-            let desiredVelocity = Vector2D(x:normalizedSeekTarget.x*obj.getMaxSpeed(), z:normalizedSeekTarget.z*obj.getMaxSpeed())
+            let desiredVelocity = Vector3D(x:normalizedSeekTarget.x*obj.getMaxSpeed(), y:0.0, z:normalizedSeekTarget.z*obj.getMaxSpeed())
         #else
-            let desiredVelocity = Vector2D(x:Float(normalizedSeekTarget.x)*obj.getMaxSpeed(), z:Float(normalizedSeekTarget.z)*obj.getMaxSpeed())
+            let desiredVelocity = Vector3D(x:Float(normalizedSeekTarget.x)*obj.getMaxSpeed(), y:0.0, z:Float(normalizedSeekTarget.z)*obj.getMaxSpeed())
 
         #endif
         
-        let seekVelocity = Vector2D(x:desiredVelocity.x - obj.getVelocity().x, z:desiredVelocity.z - obj.getVelocity().z)
+        let seekVelocity = Vector3D(x:desiredVelocity.x - obj.getVelocity().x, y:0.0, z:desiredVelocity.z - obj.getVelocity().z)
         
         return seekVelocity
         
     }
     
-    func flee(target:SCNVector3) -> Vector2D {
+    func flee(target:SCNVector3) -> Vector3D {
         //only flee if the target is within 'panic distance'
         let panicDistanceSquared:Float = 5.0 * 5.0
         
@@ -119,7 +119,7 @@ class SteeringBehavior {
             (obj.getPosition().z - target.z)*(obj.getPosition().z - target.z)
         
         if(Float(distanceSquared) > panicDistanceSquared) {
-            return Vector2D(x:0.0, z:0.0)
+            return Vector3D(x:0.0, y:0.0, z:0.0)
         }
         
         let vectorFromAgentToTarget = SCNVector3(x: obj.getPosition().x - target.x, y: obj.getPosition().y - target.y, z: obj.getPosition().z - target.z)
@@ -127,19 +127,19 @@ class SteeringBehavior {
         let normalizedSeekTarget = vec.normalized()
         
         #if os(iOS)
-            let desiredVelocity = Vector2D(x:normalizedSeekTarget.x*obj.getMaxSpeed(), z:normalizedSeekTarget.z*obj.getMaxSpeed())
+            let desiredVelocity = Vector3D(x:normalizedSeekTarget.x*obj.getMaxSpeed(), y:0.0, z:normalizedSeekTarget.z*obj.getMaxSpeed())
             #else
-            let desiredVelocity = Vector2D(x:Float(normalizedSeekTarget.x)*obj.getMaxSpeed(), z:Float(normalizedSeekTarget.z)*obj.getMaxSpeed())
+            let desiredVelocity = Vector3D(x:Float(normalizedSeekTarget.x)*obj.getMaxSpeed(), y:0.0, z:Float(normalizedSeekTarget.z)*obj.getMaxSpeed())
             
         #endif
         
-        let seekVelocity = Vector2D(x:desiredVelocity.x - obj.getVelocity().x, z:desiredVelocity.z - obj.getVelocity().z)
+        let seekVelocity = Vector3D(x:desiredVelocity.x - obj.getVelocity().x, y:0.0, z:desiredVelocity.z - obj.getVelocity().z)
         
         return seekVelocity
         
     }
     
-    func arrive(target:SCNVector3, deceleration:Deceleration) -> Vector2D {
+    func arrive(target:SCNVector3, deceleration:Deceleration) -> Vector3D {
         let vectorToTarget = SCNVector3(x: target.x - obj.getPosition().x, y: target.y - obj.getPosition().y, z: target.z - obj.getPosition().z)
         let vec = vectorToTarget.vector3DFromSCNVector3()
         let dist = vec.length()
@@ -153,15 +153,15 @@ class SteeringBehavior {
             speed = min(speed, obj.getMaxSpeed())
             
             #if os(iOS)
-                let desiredVelocity = Vector2D(x: (vectorToTarget.x * speed) / dist, z:(vectorToTarget.z * speed) / dist)
+                let desiredVelocity = Vector3D(x: (vectorToTarget.x * speed) / dist, y:0.0, z:(vectorToTarget.z * speed) / dist)
             #else
-                let desiredVelocity = Vector2D(x: (Float(vectorToTarget.x) * speed) / dist, z:(Float(vectorToTarget.z) * speed) / dist)
+                let desiredVelocity = Vector3D(x: (Float(vectorToTarget.x) * speed) / dist, y:0.0, z:(Float(vectorToTarget.z) * speed) / dist)
             #endif
 
-            return Vector2D(x: desiredVelocity.x - obj.getVelocity().x, z: desiredVelocity.z - obj.getVelocity().z)
+            return Vector3D(x: desiredVelocity.x - obj.getVelocity().x, y:0.0, z: desiredVelocity.z - obj.getVelocity().z)
             
         }
-        return Vector2D(x:0.0, z:0.0)
+        return Vector3D(x:0.0, y:0.0, z:0.0)
     }
     
     func pursueTarget(evader:MovingGameObject) {
@@ -169,11 +169,11 @@ class SteeringBehavior {
         self.targetMovingObject = evader
     }
     
-    func pursue(evader:MovingGameObject) -> Vector2D {
+    func pursue(evader:MovingGameObject) -> Vector3D {
         #if os(iOS)
-            let vectorToEvader = Vector2D(x: evader.getPosition().x - obj.getPosition().x,  z: evader.getPosition().z - obj.getPosition().z)
+            let vectorToEvader = Vector3D(x: evader.getPosition().x - obj.getPosition().x, y:0.0, z: evader.getPosition().z - obj.getPosition().z)
         #else
-            let vectorToEvader = Vector2D(x: Float(evader.getPosition().x - obj.getPosition().x),  z: Float(evader.getPosition().z - obj.getPosition().z))
+            let vectorToEvader = Vector3D(x: Float(evader.getPosition().x - obj.getPosition().x), y:0.0, z: Float(evader.getPosition().z - obj.getPosition().z))
         #endif
 
         let relativeHeading = obj.getHeading().dot(evader.getHeading())
@@ -186,11 +186,11 @@ class SteeringBehavior {
         let lookAheadTime = vectorToEvader.length() / speed
         
         #if os(iOS)
-            let targetPositionVector = Vector2D(x:(evader.getPosition().x + evader.getVelocity().x * lookAheadTime), z:(evader.getPosition().z + evader.getVelocity().z * lookAheadTime))
+            let targetPositionVector = Vector3D(x:(evader.getPosition().x + evader.getVelocity().x * lookAheadTime), y:0.0, z:(evader.getPosition().z + evader.getVelocity().z * lookAheadTime))
             let targetPosition = SCNVector3Make(targetPositionVector.x, 0.0, targetPositionVector.z)
 
         #else
-            let targetPositionVector = Vector2D(x:(Float(evader.getPosition().x) + Float(evader.getVelocity().x) * lookAheadTime), z:(Float(evader.getPosition().z) + Float(evader.getVelocity().z) * lookAheadTime))
+            let targetPositionVector = Vector3D(x:(Float(evader.getPosition().x) + Float(evader.getVelocity().x) * lookAheadTime), y:0.0, z:(Float(evader.getPosition().z) + Float(evader.getVelocity().z) * lookAheadTime))
             let targetPosition = SCNVector3Make(CGFloat(targetPositionVector.x), 0.0, CGFloat(targetPositionVector.z))
 
         #endif
@@ -203,11 +203,11 @@ class SteeringBehavior {
         self.targetMovingObject = pursuer
     }
     
-    func evade(pursuer:MovingGameObject) -> Vector2D {
+    func evade(pursuer:MovingGameObject) -> Vector3D {
         #if os(iOS)
-            let vectorToPursuer = Vector2D(x: pursuer.getPosition().x - obj.getPosition().x,  z: pursuer.getPosition().z - obj.getPosition().z)
+            let vectorToPursuer = Vector3D(x: pursuer.getPosition().x - obj.getPosition().x, y:0.0, z: pursuer.getPosition().z - obj.getPosition().z)
         #else
-            let vectorToPursuer = Vector2D(x: Float(pursuer.getPosition().x - obj.getPosition().x),  z: Float(pursuer.getPosition().z - obj.getPosition().z))
+            let vectorToPursuer = Vector3D(x: Float(pursuer.getPosition().x - obj.getPosition().x), y:0.0, z: Float(pursuer.getPosition().z - obj.getPosition().z))
         #endif
         
         
@@ -215,11 +215,11 @@ class SteeringBehavior {
         let lookAheadTime = vectorToPursuer.length() / speed
 
         #if os(iOS)
-            let targetPositionVector = Vector2D(x:(pursuer.getPosition().x + pursuer.getVelocity().x * lookAheadTime), z:(pursuer.getPosition().z + pursuer.getVelocity().z * lookAheadTime))
+            let targetPositionVector = Vector3D(x:(pursuer.getPosition().x + pursuer.getVelocity().x * lookAheadTime), y:0.0, z:(pursuer.getPosition().z + pursuer.getVelocity().z * lookAheadTime))
         
             let targetPosition = SCNVector3Make(targetPositionVector.x, 0.0, targetPositionVector.z)
         #else
-            let targetPositionVector = Vector2D(x:Float(pursuer.getPosition().x) + Float(pursuer.getVelocity().x) * lookAheadTime, z:Float(pursuer.getPosition().z) + Float(pursuer.getVelocity().z) * lookAheadTime)
+            let targetPositionVector = Vector3D(x:Float(pursuer.getPosition().x) + Float(pursuer.getVelocity().x) * lookAheadTime, y:0.0, z:Float(pursuer.getPosition().z) + Float(pursuer.getVelocity().z) * lookAheadTime)
             
             let targetPosition = SCNVector3Make(CGFloat(targetPositionVector.x), 0.0, CGFloat(targetPositionVector.z))
 
@@ -228,7 +228,7 @@ class SteeringBehavior {
         return flee(targetPosition)
     }
     
-    func wander() -> Vector2D {
+    func wander() -> Vector3D {
         let wanderRadius:Float = 10.0
         let wanderDistance:Float = 5.0
         let wanderJitter:Float = 5.0
@@ -236,10 +236,10 @@ class SteeringBehavior {
                 
         var circleCenter = obj.getVelocity()
         circleCenter = circleCenter.normalized()
-        circleCenter = Vector2D(x: circleCenter.x * wanderDistance, z: circleCenter.z * wanderDistance)
+        circleCenter = Vector3D(x: circleCenter.x * wanderDistance, y:0.0, z: circleCenter.z * wanderDistance)
         
-        var displacement = Vector2D(x: 0.0, z: -1.0)
-        displacement = Vector2D(x: displacement.x * wanderRadius, z: displacement.z * wanderRadius)
+        var displacement = Vector3D(x: 0.0, y:0.0, z: -1.0)
+        displacement = Vector3D(x: displacement.x * wanderRadius, y:0.0, z: displacement.z * wanderRadius)
         
         let len:Float = displacement.length()
         displacement.x = cos(wanderAngle) * len;
@@ -247,7 +247,7 @@ class SteeringBehavior {
         
         wanderAngle = wanderAngle + getRandomClamped()*wanderJitter
         
-        return Vector2D(x: circleCenter.x + displacement.x, z: circleCenter.z + displacement.z)
+        return Vector3D(x: circleCenter.x + displacement.x, y:0.0, z: circleCenter.z + displacement.z)
     }
     
     func avoidWall(node:SCNNode) {
@@ -255,19 +255,19 @@ class SteeringBehavior {
         wallTarget = node
     }
     
-    func wallAvoidance(node:SCNNode) -> Vector2D {
+    func wallAvoidance(node:SCNNode) -> Vector3D {
         if(node.name == "LeftWall") {
-            return Vector2D(x:30.0, z:0.0)
+            return Vector3D(x:30.0, y:0.0, z:0.0)
         }
         else if(node.name == "RightWall") {
-            return Vector2D(x:-30.0, z:0.0)
+            return Vector3D(x:-30.0, y:0.0, z:0.0)
         }
         else if(node.name == "FrontWall") {
-            return Vector2D(x:0.0, z:30.0)
+            return Vector3D(x:0.0, y:0.0, z:30.0)
         } else if(node.name == "BackWall") {
-            return Vector2D(x:0.0, z:-30.0)
+            return Vector3D(x:0.0, y:0.0, z:-30.0)
         }
-        return Vector2D(x:0.0, z:0.0)
+        return Vector3D(x:0.0, y:0.0, z:0.0)
     }
     
     func avoidCollisionsOn(gameObjects: [String: GameObject]) {
@@ -275,7 +275,7 @@ class SteeringBehavior {
         self.obstacles = gameObjects
     }
     
-    func collisionAvoidance(gameObjects:[String: GameObject]) -> Vector2D {
+    func collisionAvoidance(gameObjects:[String: GameObject]) -> Vector3D {
         let MAX_SEE_AHEAD:Float = 40.0
         let MAX_AVOID_FORCE:Float = 40.0
         var velocity = obj.getVelocity()
@@ -283,10 +283,10 @@ class SteeringBehavior {
         let vel = velocity.scaleBy(MAX_SEE_AHEAD)
         let vel2 = velocity.scaleBy(MAX_SEE_AHEAD*0.5)
         
-        let ahead = Vector2D(x:Float(obj.getPosition().x) + vel.x, z: Float(obj.getPosition().z) + vel.z) // calculate the ahead vector
-        let ahead2 = Vector2D(x:Float(obj.getPosition().x) + vel2.x, z: Float(obj.getPosition().z) + vel2.z)
+        let ahead = Vector3D(x:Float(obj.getPosition().x) + vel.x, y:0.0, z: Float(obj.getPosition().z) + vel.z) // calculate the ahead vector
+        let ahead2 = Vector3D(x:Float(obj.getPosition().x) + vel2.x, y:0.0, z: Float(obj.getPosition().z) + vel2.z)
         
-        var avoidance = Vector2D(x:0.0, z:0.0)
+        var avoidance = Vector3D(x:0.0, y:0.0, z:0.0)
         
         if let mostThreatening = findMostThreateningObstacle(ahead, ahead2: ahead2, gameObjects:gameObjects) {
             avoidance.x = ahead.x - Float(mostThreatening.getObjectPosition().x)
@@ -301,7 +301,7 @@ class SteeringBehavior {
         return avoidance
     }
     
-    func findMostThreateningObstacle(ahead:Vector2D, ahead2:Vector2D, gameObjects:[String: GameObject]) -> GameObject! {
+    func findMostThreateningObstacle(ahead:Vector3D, ahead2:Vector3D, gameObjects:[String: GameObject]) -> GameObject! {
         var mostThreatening :GameObject!
         
         for (name, obstacle) in gameObjects {
@@ -310,8 +310,8 @@ class SteeringBehavior {
             
                 //print("Checking obstacle \(name)")
 
-                let objPos = Vector2D(x:Float(obj.getPosition().x), z: Float(obj.getPosition().z))
-                let obstaclePos = Vector2D(x: Float(obstacle.getObjectPosition().x), z: Float(obstacle.getObjectPosition().z))
+                let objPos = Vector3D(x:Float(obj.getPosition().x), y:0.0, z: Float(obj.getPosition().z))
+                let obstaclePos = Vector3D(x: Float(obstacle.getObjectPosition().x), y:0.0, z: Float(obstacle.getObjectPosition().z))
                 let collision :Bool = lineIntersectsCircle(ahead, ahead2: ahead2, obstacle: obstacle);
             
                 // "position" is the character's current position
@@ -319,7 +319,7 @@ class SteeringBehavior {
                     if(mostThreatening == nil) {
                         mostThreatening = obstacle
                     } else {
-                        let pos = Vector2D(x: Float(mostThreatening.getObjectPosition().x),
+                        let pos = Vector3D(x: Float(mostThreatening.getObjectPosition().x), y:0.0,
                                    z: Float(mostThreatening.getObjectPosition().z))
                         if (distance(objPos, b: obstaclePos) < distance(objPos, b:pos)) {
                             mostThreatening = obstacle;
@@ -335,12 +335,12 @@ class SteeringBehavior {
 
     }
     
-    private func distance(a :Vector2D, b :Vector2D) -> Float {
-        return sqrt((a.x - b.x) * (a.x - b.x)  + (a.z - b.z) * (a.z - b.z))
+    private func distance(a :Vector3D, b :Vector3D) -> Float {
+        return sqrt((a.x - b.x) * (a.x - b.x) + (a.y - b.y)*(a.y - b.y) + (a.z - b.z) * (a.z - b.z))
     }
     
-    private func lineIntersectsCircle(ahead :Vector2D, ahead2 :Vector2D, obstacle :GameObject) -> Bool {
-        let obPos = Vector2D(x: Float(obstacle.getObjectPosition().x), z: Float(obstacle.getObjectPosition().z))
+    private func lineIntersectsCircle(ahead :Vector3D, ahead2 :Vector3D, obstacle :GameObject) -> Bool {
+        let obPos = Vector3D(x: Float(obstacle.getObjectPosition().x), y:0.0, z: Float(obstacle.getObjectPosition().z))
         return distance(obPos, b: ahead) <= obstacle.getBoundingRadius() || distance(obPos, b:ahead2) <= obstacle.getBoundingRadius()
     }
     
@@ -357,18 +357,18 @@ class SteeringBehavior {
         self.obstacles = gameObjects
     }
     
-    func hideFromTarget(target:MovingGameObject,gameObjects: [String: GameObject]) -> Vector2D {
+    func hideFromTarget(target:MovingGameObject,gameObjects: [String: GameObject]) -> Vector3D {
         var distanceToClosest:Float = MAXFLOAT
-        var bestHidingSpot = Vector2D(x:0.0, z:0.0)
+        var bestHidingSpot = Vector3D(x:0.0, y:0.0, z:0.0)
         
         for (_, obstacle) in obstacles {
             
             let ax = Float(obstacle.getObjectPosition().x)
             let az = Float(obstacle.getObjectPosition().z)
-            let vec1 = Vector2D(x:ax, z:az)
+            let vec1 = Vector3D(x:ax, y:0.0, z:az)
             let bx = Float(target.getPosition().x)
             let bz = Float(target.getPosition().z)
-            let v2 = Vector2D(x:bx, z:bz)
+            let v2 = Vector3D(x:bx, y:0.0, z:bz)
             
             
             let hidingSpot = self.getHidingPosition(vec1, obstacleRadius: obstacle.getBoundingRadius(), targetPosition: v2)
@@ -392,17 +392,17 @@ class SteeringBehavior {
         return arrive(SCNVector3(x: GFloat(bestHidingSpot.x), y: 0, z: GFloat(bestHidingSpot.z)), deceleration: Deceleration.fast)
     }
     
-    func getHidingPosition(obstaclePosition:Vector2D, obstacleRadius:Float, targetPosition:Vector2D) -> Vector2D {
+    func getHidingPosition(obstaclePosition:Vector3D, obstacleRadius:Float, targetPosition:Vector3D) -> Vector3D {
         let distanceFromBoundary:Float = 10.0
         
         let distAway = obstacleRadius + distanceFromBoundary
         
-        var toOb = Vector2D(x:obstaclePosition.x - targetPosition.x, z: obstaclePosition.z - targetPosition.z)
+        var toOb = Vector3D(x:obstaclePosition.x - targetPosition.x, y:0.0, z: obstaclePosition.z - targetPosition.z)
         toOb = toOb.normalized()
         
         //scale to size and add to obstacle's position
         toOb = toOb.scaleBy(distAway)
-        return Vector2D(x: toOb.x + obstaclePosition.x, z: toOb.z + obstaclePosition.z)
+        return Vector3D(x: toOb.x + obstaclePosition.x, y: 0.0, z: toOb.z + obstaclePosition.z)
     }
     
     func followPathOn(path:Path) {
@@ -410,7 +410,7 @@ class SteeringBehavior {
         self.path = path
     }
     
-    func followPath() -> Vector2D {
+    func followPath() -> Vector3D {
         let waypointDistanceSquared:Float = 25.0
         let dx = path.currentWayPoint.x - Float(obj.getPosition().x)
         let dz = path.currentWayPoint.z - Float(obj.getPosition().z)

@@ -10,13 +10,13 @@ import Foundation
 
 
 class Path {
-    var wayPoints = [Vector2D]()
-    var currentWayPoint:Vector2D!
+    var wayPoints = [Vector3D]()
+    var currentWayPoint:Vector3D!
         
     var currentWayPointIndex = 0
     var looped = false
     
-    init(looped:Bool, waypoints:[Vector2D]) {
+    init(looped:Bool, waypoints:[Vector3D]) {
         self.looped = looped
         self.wayPoints = waypoints
         if(self.wayPoints.count > 0) {
@@ -24,11 +24,11 @@ class Path {
         }
     }
     
-    func addWayPoint(waypoint:Vector2D) {
+    func addWayPoint(waypoint:Vector3D) {
         wayPoints.append(waypoint)
     }
     
-    func getCurrentWayPoint() -> Vector2D {
+    func getCurrentWayPoint() -> Vector3D {
         return self.currentWayPoint
     }
     

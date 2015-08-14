@@ -22,9 +22,9 @@ class EnemyCharacter : SkinnedCharacter, MovingGameObject {
     let maxForce:Float = 5.0
     let maxTurnRate:Float = 0.0
     var boundingRadius:Float = 0.0
-    var velocity = Vector2D(x:0.1, z:0.1)
-    var heading = Vector2D(x:0.0, z:0.0)
-    var side = Vector2D(x:0.0, z:0.0)
+    var velocity = Vector3D(x:0.1, y:0.0, z:0.1)
+    var heading = Vector3D(x:0.0, y:0.0, z:0.0)
+    var side = Vector3D(x:0.0, y:0.0, z:0.0)
     
     var gameLevel:GameLevel!
     var player:PlayerCharacter!
@@ -114,15 +114,15 @@ class EnemyCharacter : SkinnedCharacter, MovingGameObject {
     }
 
     func addPatrolPath() {
-        var paths = [Vector2D]()
+        var paths = [Vector3D]()
         
-        var pt = Vector2D(x: 0.0, z:100.0)
+        var pt = Vector3D(x: 0.0, y:0.0, z:100.0)
         paths.append(pt)
-        pt = Vector2D(x: 90.0, z:100.0)
+        pt = Vector3D(x: 90.0, y:0.0, z:100.0)
         paths.append(pt)
-        pt = Vector2D(x: 90.0, z: 20.0)
+        pt = Vector3D(x: 90.0, y:0.0, z: 20.0)
         paths.append(pt)
-        pt = Vector2D(x: 0.0, z: 20.0)
+        pt = Vector3D(x: 0.0, y:0.0, z: 20.0)
         paths.append(pt)
         
         patrolPath = Path(looped: true, waypoints: paths)
@@ -244,7 +244,7 @@ class EnemyCharacter : SkinnedCharacter, MovingGameObject {
         let steeringForce = steering.calculate()
 
         //acceleration = Force/mass
-        let acceleration = Vector2D(x:steeringForce.x/self.getMass(), z:steeringForce.z/self.getMass())
+        let acceleration = Vector3D(x:steeringForce.x/self.getMass(), y:0.0, z:steeringForce.z/self.getMass())
         
         //update velocity
         velocity.x = velocity.x + acceleration.x*Float(deltaTime)
@@ -307,17 +307,17 @@ class EnemyCharacter : SkinnedCharacter, MovingGameObject {
         return self.position
     }
     
-    func getVelocity() -> Vector2D {
+    func getVelocity() -> Vector3D {
         return self.velocity
 
     }
     // A normalized vector describing the direction of the object
-    func getHeading() -> Vector2D {
+    func getHeading() -> Vector3D {
         return self.heading
 
     }
     // A vector perpendicular to the heading
-    func getPerp() -> Vector2D {
+    func getPerp() -> Vector3D {
         return self.side
 
     }

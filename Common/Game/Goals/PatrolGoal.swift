@@ -46,15 +46,15 @@ class PatrolGoal : Goal {
     }
     
     func addPatrolPath() {
-        var paths = [Vector2D]()
+        var paths = [Vector3D]()
         
-        var pt = Vector2D(x: 0.0, z:100.0)
+        var pt = Vector3D(x: 0.0, y:0.0, z:100.0)
         paths.append(pt)
-        pt = Vector2D(x: 90.0, z:100.0)
+        pt = Vector3D(x: 90.0, y:0.0, z:100.0)
         paths.append(pt)
-        pt = Vector2D(x: 90.0, z: 20.0)
+        pt = Vector3D(x: 90.0, y:0.0, z: 20.0)
         paths.append(pt)
-        pt = Vector2D(x: 0.0, z: 20.0)
+        pt = Vector3D(x: 0.0, y:0.0, z: 20.0)
         paths.append(pt)
         
         patrolPath = Path(looped: true, waypoints: paths)

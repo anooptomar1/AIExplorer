@@ -10,11 +10,11 @@ import SceneKit
 
 protocol MovingGameObject : GameObject  {
     func getPosition() -> SCNVector3
-    func getVelocity() -> Vector2D
+    func getVelocity() -> Vector3D
     // A normalized vector describing the direction of the object
-    func getHeading() -> Vector2D
+    func getHeading() -> Vector3D
     // A vector perpendicular to the heading
-    func getPerp() -> Vector2D
+    func getPerp() -> Vector3D
     
     func getMass() -> Float
     func getMaxSpeed() -> Float
