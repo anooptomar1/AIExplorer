@@ -12,7 +12,7 @@ import SpriteKit
 
 enum ColliderType: Int {
     case Ground = 1024
-    case RacingCar = 4
+    case Bullet = 4
     case Player = 8
     case Enemy = 16
     case LeftWall = 32

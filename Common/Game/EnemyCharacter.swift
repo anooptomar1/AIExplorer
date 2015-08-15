@@ -104,7 +104,7 @@ class EnemyCharacter : SkinnedCharacter, MovingGameObject {
         // We only want to collide with walls and player. Ground collision is handled elsewhere.
         
         collideSphere.physicsBody!.collisionBitMask =
-            ColliderType.FrontWall.rawValue | ColliderType.LeftWall.rawValue | ColliderType.RightWall.rawValue | ColliderType.BackWall.rawValue | ColliderType.Player.rawValue | ColliderType.Door.rawValue | ColliderType.Ground.rawValue
+            ColliderType.FrontWall.rawValue | ColliderType.LeftWall.rawValue | ColliderType.RightWall.rawValue | ColliderType.BackWall.rawValue | ColliderType.Player.rawValue | ColliderType.Door.rawValue | ColliderType.Ground.rawValue | ColliderType.Bullet.rawValue
         
         // Put ourself into the player category so other objects can limit their scope of collision checks.
         collideSphere.physicsBody!.categoryBitMask = ColliderType.Enemy.rawValue;

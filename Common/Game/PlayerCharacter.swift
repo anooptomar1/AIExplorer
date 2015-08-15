@@ -198,10 +198,24 @@ class PlayerCharacter : SkinnedCharacter, MovingGameObject {
     
     
     func createBullet() -> SCNNode {
-        let cylinder = SCNCylinder(radius: 2.0, height: 2.0)
+        let radius:CGFloat = 1.0
+        let height:CGFloat = 1.0
+        let cylinder = SCNCylinder(radius: radius, height: height)
         let geometry = cylinder
         geometry.firstMaterial!.diffuse.contents = SKColor.blueColor()
         let node = SCNNode(geometry: geometry)
+        node.name = "Bullet"
+        
+        let collideSphere = SCNNode()
+        collideSphere.name = "BulletSphere"
+        collideSphere.position = SCNVector3Make(0.0, GFloat(height/2), 0.0)
+        let geo = SCNCapsule(capRadius: CGFloat(radius), height: CGFloat(height))
+        let shape2 = SCNPhysicsShape(geometry: geo, options: nil)
+        collideSphere.physicsBody = SCNPhysicsBody(type: SCNPhysicsBodyType.Kinematic, shape: shape2)
+        collideSphere.physicsBody!.collisionBitMask = ColliderType.Enemy.rawValue
+        collideSphere.physicsBody!.categoryBitMask = ColliderType.Bullet.rawValue
+        node.addChildNode(collideSphere)
+
         node.position = SCNVector3Make(self.position.x, self.position.y+20.0, self.position.z)
         node.rotation = self.rotation
         
