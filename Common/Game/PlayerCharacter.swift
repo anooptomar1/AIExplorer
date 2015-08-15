@@ -25,6 +25,7 @@ enum PlayerAnimationState : Int {
 }
 
 class PlayerCharacter : SkinnedCharacter, MovingGameObject {
+    let health:Float = 100.0
     let mass:Float = 3.0
     let maxSpeed:Float = 10.0
     let maxForce:Float = 5.0
@@ -319,6 +320,9 @@ class PlayerCharacter : SkinnedCharacter, MovingGameObject {
     
     func getSteering() -> SteeringBehavior {
         return self.steering
+    }
+    func getHealth() -> Float {
+        return self.health
     }
 
 }

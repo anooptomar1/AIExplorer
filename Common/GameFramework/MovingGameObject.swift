@@ -23,4 +23,6 @@ protocol MovingGameObject : GameObject  {
     func getMaxTurnRate() -> Float
     func getSteering() -> SteeringBehavior
     
+    func getHealth() -> Float
+    
 }

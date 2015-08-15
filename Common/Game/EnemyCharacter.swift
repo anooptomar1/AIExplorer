@@ -16,7 +16,17 @@ enum EnemyAnimationState : Int {
     Attack
 }
 
+enum EnemyStatus : Int {
+    case Inactive = 0,
+    Spawning,
+    Alive,
+    Dead
+}
+
 class EnemyCharacter : SkinnedCharacter, MovingGameObject {
+    var health:Float = 100.0
+    var status = EnemyStatus.Inactive
+
     let mass:Float = 3.0
     let maxSpeed:Float = 10.0
     let maxForce:Float = 5.0
@@ -59,6 +69,7 @@ class EnemyCharacter : SkinnedCharacter, MovingGameObject {
         self.addPatrolPath()
         self.steering = SteeringBehavior(obj:self, target:player)
         self.brain = ThinkGoal(owner: self)
+        self.status = EnemyStatus.Alive
         
         // Load the animations and store via a lookup table.
         self.setupIdleAnimation()
@@ -131,8 +142,22 @@ class EnemyCharacter : SkinnedCharacter, MovingGameObject {
     }
     
     func handleContact(node:SCNNode, gameObjects:Dictionary<String, GameObject>) {
-        print("Enemy with name \(self.name) handling contact with \(node.name)")
+        //print("Enemy with name \(self.name) handling contact with \(node.name)")
         self.steering.avoidWall(node)
+        
+        if(node.name == "BulletSphere" && status == EnemyStatus.Alive) {
+            self.reduceHealth()
+        }
+    }
+    
+    func reduceHealth() {
+        self.health = self.health - 10.0
+        
+        if(self.health <= 0.0) {
+            //dead
+            self.changeAnimationState(EnemyAnimationState.Die)
+            self.status = EnemyStatus.Dead
+        }
     }
     
     class func keyForAnimationType(animType:EnemyAnimationState) -> String!
@@ -174,9 +199,10 @@ class EnemyCharacter : SkinnedCharacter, MovingGameObject {
     {
         let fileName = assetDirectory + "die.dae"
         let dieAnimation = self.loadAndCacheAnimation(fileName, withSkeletonNode:skeletonName, forKey:EnemyCharacter.keyForAnimationType(EnemyAnimationState.Die))
-        dieAnimation.repeatCount = FLT_MAX;
+        dieAnimation.repeatCount = 1;
+        dieAnimation.removedOnCompletion = false
         dieAnimation.fadeInDuration = 0.15
-        dieAnimation.fadeOutDuration = 0.15
+        dieAnimation.fadeOutDuration = 0.25
         
     }
 
@@ -277,22 +303,22 @@ class EnemyCharacter : SkinnedCharacter, MovingGameObject {
     }
 
     func update(deltaTime:NSTimeInterval) {
-        //stateMachine.update()
+        if(self.status == EnemyStatus.Alive) {
+            print("Updating...")
+            //stateMachine.update()
         
-        //process the currently active goal.
-        brain.process()
+            //process the currently active goal.
+            brain.process()
         
-        self.updatePosition(deltaTime)
+            self.updatePosition(deltaTime)
 
-        //appraise and arbitrate between all possible high level goals
+            //appraise and arbitrate between all possible high level goals
         
-        if (goalArbitrationRegulator.isReady())
-        {
-
-            brain.arbitrate()
+            if (goalArbitrationRegulator.isReady()) {
+                brain.arbitrate()
+            }
         }
         
-        //brain.arbitrate()
     }
     
     func isStatic() -> Bool {
@@ -352,5 +378,7 @@ class EnemyCharacter : SkinnedCharacter, MovingGameObject {
         return self.steering
     }
 
-
+    func getHealth() -> Float {
+        return self.health
+    }
 }
