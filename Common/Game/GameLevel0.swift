@@ -336,6 +336,8 @@ extension GameLevel0 {
         print("Button pressed \(nodeName)")
         if(nodeName == "cameraNode") {
             currentCamera.turnCameraAroundNode(player, radius: 175.0, angleInDegrees: -45.0)
+        } else if(nodeName == "zoomInNode") {
+            self.player.shoot()
         }
 
     }

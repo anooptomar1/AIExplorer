@@ -144,7 +144,7 @@ class SteeringBehavior {
         let vec = vectorToTarget.vector3DFromSCNVector3()
         let dist = vec.length()
         
-        print("Distance to target is \(dist)")
+        //print("Distance to target is \(dist)")
         if(dist > 1.0) {
             let decelerationTweaker:Float = 0.5
             

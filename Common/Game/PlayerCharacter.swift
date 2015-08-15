@@ -7,7 +7,7 @@
 //
 
 import SceneKit
-
+import SpriteKit
 
 enum PlayerAnimationState : Int {
     case Die = 0,
@@ -182,6 +182,44 @@ class PlayerCharacter : SkinnedCharacter, MovingGameObject {
         animation.repeatCount = FLT_MAX;
     }
 
+    
+    func shoot() {
+        print("shooting")
+        let node = self.createBullet()
+        
+        let gLevel = self.gameLevel as? GameLevel0
+        gLevel!.scene.rootNode.addChildNode(node)
+        
+        /*
+        let moveTo = SCNAction.moveTo(SCNVector3(x:self.position.x,y:self.position.y,z:self.position.z+40), duration: 4);
+        node.runAction(moveTo)
+        */
+    }
+    
+    
+    func createBullet() -> SCNNode {
+        let cylinder = SCNCylinder(radius: 2.0, height: 2.0)
+        let geometry = cylinder
+        geometry.firstMaterial!.diffuse.contents = SKColor.blueColor()
+        let node = SCNNode(geometry: geometry)
+        node.position = SCNVector3Make(self.position.x, self.position.y+20.0, self.position.z)
+        node.rotation = self.rotation
+        
+        //Get front direction vector
+        var frontVector = SCNVector3Make(self.transform.m31, self.transform.m32, self.transform.m33)
+        frontVector = SCNVector3Make(400.0*frontVector.x, frontVector.y, 400.0*frontVector.z)
+        //calculate new position for bullet
+        let newPos = SCNVector3Make(node.position.x + frontVector.x, node.position.y, node.position.z+frontVector.z)
+
+        
+        let action = SCNAction.moveTo(newPos, duration: 1)
+        action.timingMode = SCNActionTimingMode.EaseOut
+        node.runAction(action)
+        
+        
+        return node
+    }
+    
     func changeState(newState:State) {
         stateMachine.changeState(newState)
     }
