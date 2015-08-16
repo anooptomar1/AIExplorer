@@ -31,7 +31,10 @@ class GameScenesManager {
     
     var gameState: GameState
     var scnView : SCNView!
+    
+    var gameLevels:[GameLevel] = [GameLevel]()
     var currentLevel: GameLevel!
+    var currentLevelIndex:Int = 0
     
     // Singleton
     class var sharedInstance : GameScenesManager {
@@ -51,11 +54,25 @@ class GameScenesManager {
     
     //Setup all the game levels and initialize to first level
     func setupLevels() {
-        let currentLevelIndex = 0
-        let gameLevel:GameLevel = createGameLevel(levelName + String(currentLevelIndex))
-        currentLevel = gameLevel
+        // Setup the game overlays using SpriteKit.
+        let overlayScene:GameOverlayScene = GameOverlayScene(size: scnView.bounds.size)
+        scnView.overlaySKScene = overlayScene;
+        scnView.backgroundColor = SKColor.grayColor()
+        //scnView.allowsCameraControl = true
+        scnView.showsStatistics = true
 
-        setupGameLevel(gameLevel)
+        for levelIndex in 0...1 {
+            let level:GameLevel = createGameLevel(levelName + String(levelIndex))
+            gameLevels.append(level)
+        }
+        
+        //self.setGameState(GameState.PreGame)
+        GameUIManager.sharedInstance.setScene(overlayScene)
+        GameUIManager.sharedInstance.changeUIState(GameState.PreGame)
+        gameState = GameState.PreGame
+        scnView.scene = SCNScene()
+        scnView.playing = true
+
     }
     
     func createGameLevel(levelName:String) -> GameLevel {
@@ -70,40 +87,38 @@ class GameScenesManager {
         return level
     }
     
-    func setupGameLevel(level:GameLevel) {
-        // Setup the game overlays using SpriteKit.
-        let overlayScene:GameOverlayScene = GameOverlayScene(size: scnView.bounds.size)
-        scnView.overlaySKScene = overlayScene;
+    func setupGameLevel(level:GameLevel) -> SCNScene {
         let scene:SCNScene = level.createLevel(scnView)
-        
-        scnView.backgroundColor = SKColor.blackColor()
         scnView.scene = scene
         scnView.delegate = level
-        // Workaround to refresh
-        scnView.playing = true
-        
-        //scnView.allowsCameraControl = true
-        scnView.showsStatistics = true
-        
         scnView.scene!.physicsWorld.contactDelegate = level
         //scnView.scene!.physicsWorld.gravity = SCNVector3Make(0, -800, 0)
         //scnView.scene!.physicsWorld.speed = 4.0
         
         // Hide scene till game starts playing
         scnView.scene!.rootNode.hidden = true
-
-        self.setGameState(GameState.PreGame)
+        // Workaround to refresh
+        scnView.playing = true
+        
+        return scene
     }
     
-    func setGameState(gameState:GameState) {
-        
-        currentLevel.changeUIState(gameState)
+    func setGameState(gameState:GameState, levelIndex:Int) {
         
         switch(gameState) {
         case .PreGame:
-            scnView.scene!.rootNode.hidden = true
+            //scnView.scene!.rootNode.hidden = true
             break;
         case .InGame:
+            currentLevelIndex = levelIndex
+            if(currentLevelIndex < gameLevels.count) {
+                currentLevel = gameLevels[currentLevelIndex]
+                let newScene = setupGameLevel(currentLevel)
+                self.transitionScene(newScene)
+                currentLevel = gameLevels[levelIndex]
+                let _ = setupGameLevel(gameLevels[levelIndex])
+            }
+ 
             scnView.scene!.rootNode.hidden = false
             currentLevel.startLevel()
             scnView.play(self)
@@ -122,6 +137,7 @@ class GameScenesManager {
             scnView.scene!.rootNode.hidden = true
             currentLevel.stopLevel()
             scnView.stop(self)
+            //self.transitionScene(newScene)
             break;
         case .Paused:
             scnView.scene!.rootNode.hidden = false
@@ -130,8 +146,16 @@ class GameScenesManager {
             break;
         }
         
+        currentLevel.changeUIState(gameState)
         self.gameState = gameState;
 
+    }
+    
+    func transitionScene(scene:SCNScene) {
+        /*
+        let sceneTransition = SKTransition.doorsCloseHorizontalWithDuration(2.0)
+        scnView.presentScene(scene, withTransition: sceneTransition, incomingPointOfView:nil, completionHandler:nil)
+        */
     }
     
 }

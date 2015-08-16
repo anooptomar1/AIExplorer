@@ -28,9 +28,7 @@ class GameUIManager {
     }
 
     func setScene(scene: SKScene) {
-        skScene = scene;
-        self.changeUIState(GameState.PreGame)
-
+        skScene = scene
     }
     
     func changeUIState(state: GameState) {
@@ -67,6 +65,7 @@ class GameUIManager {
         let fontName:String = "Optima-ExtraBlack"
         let myLabel:SKLabelNode = SKLabelNode(fontNamed: fontName)
         
+        myLabel.name = text
         myLabel.text = text
         myLabel.fontSize = textSize;
         myLabel.fontColor = SKColor.yellowColor();

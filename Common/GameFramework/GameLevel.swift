@@ -18,6 +18,9 @@ protocol GameLevel : SCNSceneRendererDelegate, SCNPhysicsContactDelegate {
     func pauseLevel()
     func stopLevel()
     
+    func levelFailed()
+    func levelCompleted()
+    
     func getGameObject(id:String) -> GameObject
     func changeUIState(state:GameState)
     func buttonPressedAction(nodeName:String)

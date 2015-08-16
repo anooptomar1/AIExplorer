@@ -25,6 +25,8 @@
 		C12622E01B7650AD00886D97 /* SCNVector3Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12622DE1B7650AD00886D97 /* SCNVector3Extensions.swift */; };
 		C12622E51B79400D00886D97 /* BoxObstacle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12622E41B79400D00886D97 /* BoxObstacle.swift */; };
 		C12622E61B79400D00886D97 /* BoxObstacle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12622E41B79400D00886D97 /* BoxObstacle.swift */; };
+		C18D85801B80DB43000F5B64 /* GameLevel1.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18D857F1B80DB43000F5B64 /* GameLevel1.swift */; };
+		C18D85811B80DB43000F5B64 /* GameLevel1.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18D857F1B80DB43000F5B64 /* GameLevel1.swift */; };
 		C1B469461B7A4B5800E6A3B5 /* Path.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B469451B7A4B5800E6A3B5 /* Path.swift */; };
 		C1B469471B7A4B5800E6A3B5 /* Path.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B469451B7A4B5800E6A3B5 /* Path.swift */; };
 		C1BC3BAA1B7CEB6300FCAA47 /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1BC3BA91B7CEB6300FCAA47 /* Queue.swift */; };
@@ -125,6 +127,7 @@
 		C12622DA1B7641A800886D97 /* SteeringBehavior.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SteeringBehavior.swift; path = Common/GameFramework/SteeringBehavior.swift; sourceTree = "<group>"; };
 		C12622DE1B7650AD00886D97 /* SCNVector3Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SCNVector3Extensions.swift; path = Common/GameFramework/Utils/SCNVector3Extensions.swift; sourceTree = "<group>"; };
 		C12622E41B79400D00886D97 /* BoxObstacle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BoxObstacle.swift; path = Common/Game/BoxObstacle.swift; sourceTree = "<group>"; };
+		C18D857F1B80DB43000F5B64 /* GameLevel1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GameLevel1.swift; path = Common/Game/GameLevel1.swift; sourceTree = "<group>"; };
 		C1B469451B7A4B5800E6A3B5 /* Path.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Path.swift; path = Common/GameFramework/Path.swift; sourceTree = "<group>"; };
 		C1BC3BA91B7CEB6300FCAA47 /* Queue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Queue.swift; path = Common/GameFramework/Utils/Queue.swift; sourceTree = "<group>"; };
 		C1BC3BAF1B7CEC1500FCAA47 /* Goal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Goal.swift; path = Common/GameFramework/Goal.swift; sourceTree = "<group>"; };
@@ -330,6 +333,7 @@
 				C1DFA0D21B740DCE00DAD2B8 /* UI */,
 				C1DFA0C91B740DC800DAD2B8 /* PlayerCharacter.swift */,
 				C1DFA0CA1B740DC800DAD2B8 /* GameLevel0.swift */,
+				C18D857F1B80DB43000F5B64 /* GameLevel1.swift */,
 				C1DFA0CB1B740DC800DAD2B8 /* EnemyCharacter.swift */,
 				C12622E41B79400D00886D97 /* BoxObstacle.swift */,
 			);
@@ -480,6 +484,7 @@
 				C1DFA0551B73B7A600DAD2B8 /* GameSceneView.swift in Sources */,
 				C1BC3BB71B7CF88100FCAA47 /* WanderGoal.swift in Sources */,
 				C1DFA05B1B73B7A600DAD2B8 /* GameObject.swift in Sources */,
+				C18D85801B80DB43000F5B64 /* GameLevel1.swift in Sources */,
 				C12622D51B76400B00886D97 /* MovingGameObject.swift in Sources */,
 				C1BC3BBA1B7D029E00FCAA47 /* Regulator.swift in Sources */,
 				C1D165DF1B7E3FEC00358B68 /* NavigationMeshGraph.swift in Sources */,
@@ -528,6 +533,7 @@
 				C1DFA0561B73B7A600DAD2B8 /* GameSceneView.swift in Sources */,
 				C1DFA0DD1B740DE600DAD2B8 /* LevelFailedMenu.swift in Sources */,
 				C1BC3BC11B7D06BA00FCAA47 /* ThinkGoal.swift in Sources */,
+				C18D85811B80DB43000F5B64 /* GameLevel1.swift in Sources */,
 				C1DFA0C21B7405F300DAD2B8 /* State.swift in Sources */,
 				C1DFA05E1B73B7A600DAD2B8 /* GameLevel.swift in Sources */,
 				C1D165C11B7D1FE800358B68 /* GoalEvaluator.swift in Sources */,

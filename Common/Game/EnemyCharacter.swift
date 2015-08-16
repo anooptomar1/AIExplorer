@@ -62,12 +62,13 @@ class EnemyCharacter : SkinnedCharacter, MovingGameObject {
         self.gameLevel = level
         self.addCollideSphere()
         
-        let gLevel = gameLevel as! GameLevel0
-        player = gLevel.player
-        print("Found player with name \(player.getID())")
-
+        
+        let gameObject = gameLevel.getGameObject("Player")
+        let player = gameObject as? PlayerCharacter
+        print("Found player with name \(player!.getID())")
+        self.steering = SteeringBehavior(obj:self, target:player!)
+        
         self.addPatrolPath()
-        self.steering = SteeringBehavior(obj:self, target:player)
         self.brain = ThinkGoal(owner: self)
         self.status = EnemyStatus.Alive
         
@@ -78,9 +79,11 @@ class EnemyCharacter : SkinnedCharacter, MovingGameObject {
         self.setupDieAnimation()
         self.setupAttackAnimation()
         
+        /*
         stateMachine = StateMachine(owner: self)
         stateMachine.setCurrentState(EnemyIdleState.sharedInstance)
         stateMachine.changeState(EnemyIdleState.sharedInstance)
+        */
 
         NSNotificationCenter.defaultCenter().addObserver(
             self,
@@ -304,7 +307,6 @@ class EnemyCharacter : SkinnedCharacter, MovingGameObject {
 
     func update(deltaTime:NSTimeInterval) {
         if(self.status == EnemyStatus.Alive) {
-            print("Updating...")
             //stateMachine.update()
         
             //process the currently active goal.

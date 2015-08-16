@@ -24,8 +24,15 @@ enum PlayerAnimationState : Int {
     Unknown
 }
 
+enum PlayerStatus : Int {
+    case Inactive = 0,
+    Alive,
+    Dead
+}
+
 class PlayerCharacter : SkinnedCharacter, MovingGameObject {
-    let health:Float = 100.0
+    var status = PlayerStatus.Inactive
+    var health:Float = 100.0
     let mass:Float = 3.0
     let maxSpeed:Float = 10.0
     let maxForce:Float = 5.0
@@ -55,6 +62,7 @@ class PlayerCharacter : SkinnedCharacter, MovingGameObject {
         
         self.name = id
         self.gameLevel = level
+        self.status = PlayerStatus.Alive
         self.addCollideSphere()
         
         // Load the animations and store via a lookup table.
@@ -101,6 +109,10 @@ class PlayerCharacter : SkinnedCharacter, MovingGameObject {
     }
 
     func handleContact(node:SCNNode, gameObjects:Dictionary<String, GameObject>) {
+        if(node.name == "EnemyCollideSphere-Enemy0" && status == PlayerStatus.Alive) {
+            print("Reducing player health")
+            self.reduceHealth()
+        }
     }
     
     class func keyForAnimationType(animType:PlayerAnimationState) -> String!
@@ -184,6 +196,17 @@ class PlayerCharacter : SkinnedCharacter, MovingGameObject {
     }
 
     
+    func reduceHealth() {
+        self.health = self.health - 10.0
+        
+        if(self.health <= 0.0) {
+            //dead
+            self.changeAnimationState(PlayerAnimationState.GetHit)
+            self.status = PlayerStatus.Dead
+            gameLevel.levelCompleted()
+        }
+    }
+
     func shoot() {
         print("shooting")
         let node = self.createBullet()
