@@ -222,7 +222,7 @@ class GameLevel1 : NSObject, GameLevel {
         if(ikActive) {
     // update the influence factor of the IK constraint based on the animation progress
             let attackSpeed = 1.0
-            let animationDuration = 5.0
+            let animationDuration = 2.0
             var currProgress:CGFloat = CGFloat(attackSpeed * (time - animationStartTime) / animationDuration)
     
             //clamp
@@ -370,6 +370,8 @@ extension GameLevel1 {
             currentCamera.turnCameraAroundNode(player, radius: 175.0, angleInDegrees: -45.0)
         } else if(nodeName == "zoomInNode") {
             ikActive = true
+            ik.influenceFactor = 0.9
+            animationStartTime = CACurrentMediaTime();
             ik.targetPosition = SCNVector3Make(hand.position.x - 10, hand.position.y - 10 , hand.position.z-10)
 
         }
