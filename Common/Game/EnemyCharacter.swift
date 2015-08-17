@@ -24,6 +24,21 @@ enum EnemyStatus : Int {
 }
 
 class EnemyCharacter : SkinnedCharacter, MovingGameObject {
+    
+    var grid2d: [[Int]] = [
+        [0,0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0,0],
+        [0,0,1,1,1,1,1,1,0,0,0],
+        [0,0,1,1,1,1,1,1,0,0,0],
+        [0,0,1,1,1,1,1,1,0,0,0],
+        [0,0,1,1,1,0,1,1,1,1,1],
+        [0,0,1,1,1,1,0,0,0,0,0],
+        [0,0,1,1,1,1,1,1,0,0,0],
+        [0,1,1,1,1,1,1,1,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0,0]
+    ]
+
     var health:Float = 100.0
     var status = EnemyStatus.Inactive
 
@@ -43,6 +58,7 @@ class EnemyCharacter : SkinnedCharacter, MovingGameObject {
     var patrolPath:Path!
     let goalArbitrationRegulator = Regulator(numUpdatesPerSecond: 4.0) // 4 updates per second
     var brain:ThinkGoal!
+    var pathPlanner:PathPlanner!
     
     let assetDirectory = "art.scnassets/common/models/warrior/"
     let skeletonName = "Bip01"
@@ -64,9 +80,13 @@ class EnemyCharacter : SkinnedCharacter, MovingGameObject {
         
         
         let gameObject = gameLevel.getGameObject("Player")
-        let player = gameObject as? PlayerCharacter
+        self.player = gameObject as? PlayerCharacter
         print("Found player with name \(player!.getID())")
         self.steering = SteeringBehavior(obj:self, target:player!)
+        
+        let gridPathFinder = GridPathfinder(left: -200, bottom: -200, right: 200, top: 200, grid2d: grid2d)
+        
+        self.pathPlanner = PathPlanner(owner: self, pathfinder: gridPathFinder)
         
         self.addPatrolPath()
         self.brain = ThinkGoal(owner: self)
@@ -90,6 +110,10 @@ class EnemyCharacter : SkinnedCharacter, MovingGameObject {
             selector: "handleNotification:",
             name: notificationKey,
             object: nil)
+    }
+    
+    func getPathPlanner() -> PathPlanner {
+        return self.pathPlanner
     }
     
     func handleNotification(notification:NSNotification) {

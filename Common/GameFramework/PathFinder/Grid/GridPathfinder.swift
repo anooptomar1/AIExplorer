@@ -11,24 +11,34 @@ import SceneKit
 
 
 class GridPathfinder : Pathfinder {
-    var reverse:Bool = false
+    /*
+    var grid2d: [[Int]] = [
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,0],
+    [0,1,1,1,1,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0],
+    [0,1,1,1,1,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0],
+    [0,1,1,1,1,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0],
+    [0,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0],
+    [0,1,1,1,1,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0],
+    [0,1,1,1,1,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0],
+    [0,1,1,1,1,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+    ]
+    
+    */
+
     var gridGraph:GridGraph!
     var spOpenSteps:[ShortestPathStep] = [ShortestPathStep]()
     var spClosedSteps:[ShortestPathStep] = [ShortestPathStep]()
-    var target:Vector3D!
-    var original:Vector3D!
-    var targetPosition:Vector3D!
     var shortestPath:[ShortestPathStep]! = [ShortestPathStep]()
     
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    init() {
-        self.original = Vector3D(x: 0.0, y:0.0, z: 0.0)
-        self.target = Vector3D(x: 200.0, y: 0.0, z: 250.0)
-        self.targetPosition = self.target
-        self.gridGraph = GridGraph(left:-250, bottom: -400, right: 250, top: 600)
+    init(left:Float, bottom:Float, right:Float, top:Float, grid2d:[[Int]]) {
+        self.gridGraph = GridGraph(left:left, bottom: bottom, right: right, top: top, grid2d: grid2d)
     }
     
     func getGrids() -> [GridSquare] {
@@ -160,7 +170,7 @@ class GridPathfinder : Pathfinder {
     {
         // Here we use the Manhattan method, which calculates the total number of step moved horizontally and vertically to reach the
         // final desired step from the current step, ignoring any obstacles that may be in the way
-        return Int(abs(toCoord.x - fromCoord.x) + abs(toCoord.y - fromCoord.y))
+        return Int(abs(toCoord.x - fromCoord.x) + abs(toCoord.z - fromCoord.z))
     }
     
     // Compute the cost of moving from a step to an adjacent one
@@ -173,26 +183,26 @@ class GridPathfinder : Pathfinder {
     
     func walkableAdjacentTilesCoordForTileCoord(tileCoord:Vector3D) -> [Vector3D] {
         var tmp = [Vector3D]()
-        var p = Vector3D(x:tileCoord.x, y:0.0, z:tileCoord.y - 1)
+        var p = Vector3D(x:tileCoord.x, y:0.0, z:tileCoord.z - 1)
         
         if (gridGraph.isValidTileCoord(p)) {
             tmp.append(p)
         }
         
         // Left
-        p = Vector3D(x:tileCoord.x - 1, y:0.0, z:tileCoord.y)
+        p = Vector3D(x:tileCoord.x - 1, y:0.0, z:tileCoord.z)
         if (gridGraph.isValidTileCoord(p)) {
             tmp.append(p)
         }
         
         // Bottom
-        p = Vector3D(x:tileCoord.x, y:0.0, z:tileCoord.y + 1)
+        p = Vector3D(x:tileCoord.x, y:0.0, z:tileCoord.z + 1)
         if (gridGraph.isValidTileCoord(p)) {
             tmp.append(p)
         }
         
         // Right
-        p = Vector3D(x:tileCoord.x + 1, y:0.0, z:tileCoord.y)
+        p = Vector3D(x:tileCoord.x + 1, y:0.0, z:tileCoord.z)
         if (gridGraph.isValidTileCoord(p)) {
             tmp.append(p)
         }

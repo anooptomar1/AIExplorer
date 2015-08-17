@@ -16,40 +16,41 @@ struct GridSquare {
 }
 
 class GridGraph {
-    var left:CGFloat!
-    var right:CGFloat!
-    var bottom:CGFloat!
-    var top:CGFloat!
-    var columns:Int!
-    var rows:Int!
+    var left:Float!
+    var right:Float!
+    var bottom:Float!
+    var top:Float!
+    var columns:Int = 0
+    var rows:Int = 0
     var grids:[GridSquare]!
+    var widthStep:Int = 0
+    var heightStep:Int = 0
     
-    var grid2d: [[Int]] = [
-                            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-                            [0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,0],
-                            [0,1,1,1,1,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0],
-                            [0,1,1,1,1,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0],
-                            [0,1,1,1,1,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0],
-                            [0,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0],
-                            [0,1,1,1,1,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0],
-                            [0,1,1,1,1,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0],
-                            [0,1,1,1,1,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0],
-                            [0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,0],
-                            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
-                        ]
-    
-    init(left:CGFloat, bottom:CGFloat, right:CGFloat, top:CGFloat) {
+    var grid2d:[[Int]]!
+    init(left:Float, bottom:Float, right:Float, top:Float, grid2d:[[Int]]) {
         self.left = left
         self.right = right
         self.top = top
         self.bottom = bottom
+        self.grid2d = grid2d
+        
+        for first in grid2d {
+            columns = 0
+            for _ in first {
+                columns++
+            }
+            rows++
+        }
+        rows = rows - 1
+        columns = columns - 1
+        print("rows = \(rows), columns = \(columns)")
+
         
         let width = right - left
         let height = top - bottom
-        rows = Int(width / 50.0)
-        columns = Int(height/50.0)
+        widthStep = Int(width) / rows
+        heightStep = Int(height) / rows
         
-        //print("rows = \(rows), columns = \(columns)")
         grids = [GridSquare]()
         var grid:GridSquare!
         var idx:Int = 0
@@ -57,7 +58,6 @@ class GridGraph {
         for row in 0...rows {
             for column in 0...columns {
                 //print("GRID 2D value for row \(row) and column \(column) is \(grid2d[row][column])")
-                //if((row == 6 || row == 7 || row == 8 || row == 9) && (column == 8 || column == 9)) {
                 if(grid2d[row][column] == 0) {
                     v = false
                 } else {
@@ -77,8 +77,8 @@ class GridGraph {
     func isValidTileCoord(tileCoord:Vector3D) -> Bool {
         var isValid = true
         
-        let idx = Int(tileCoord.x)*(columns+1) + Int(tileCoord.y)
-        //print("TILE coord x: \(tileCoord.x) , y: \(tileCoord.y), idx is \(idx)")
+        let idx = Int(tileCoord.x)*(columns+1) + Int(tileCoord.z)
+        //print("TILE coord x: \(tileCoord.x) , z: \(tileCoord.y), idx is \(idx)")
         
         isValid = grids[idx].valid
         return isValid;
@@ -87,15 +87,15 @@ class GridGraph {
     func getTileCoord(location:Vector3D) -> Vector3D {
         let locX = round(location.x) - Float(self.left)
         let locZ = round(location.z) - Float(self.bottom)
-        let tileX:Int = Int(locX/50.0)
-        let tileZ:Int = Int(locZ/50.0)
+        let tileX:Int = Int(locX)/widthStep
+        let tileZ:Int = Int(locZ)/widthStep
         
         return Vector3D(x:Float(tileX), y:0.0, z:Float(tileZ))
     }
     
     func getLocationFromTileCoord(tileCoord:Vector3D) -> Vector3D {
-        let x = Float(tileCoord.x * 50.0) + Float(left)
-        let z = Float(tileCoord.y * 50.0) + Float(bottom)
+        let x = Float(tileCoord.x) * Float(widthStep) + Float(left)
+        let z = Float(tileCoord.z) * Float(widthStep) + Float(bottom)
         
         return Vector3D(x:x, y:0.0, z:z)
     }

@@ -43,6 +43,14 @@
 		C13CC5CC1B816E0600539C43 /* Pathfinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13CC5CA1B816E0600539C43 /* Pathfinder.swift */; };
 		C13CC5CE1B81705400539C43 /* GridGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13CC5CD1B81705400539C43 /* GridGraph.swift */; };
 		C13CC5CF1B81705400539C43 /* GridGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13CC5CD1B81705400539C43 /* GridGraph.swift */; };
+		C13CC5D11B82272A00539C43 /* AttackGoalEvaluator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13CC5D01B82272A00539C43 /* AttackGoalEvaluator.swift */; };
+		C13CC5D21B82272A00539C43 /* AttackGoalEvaluator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13CC5D01B82272A00539C43 /* AttackGoalEvaluator.swift */; };
+		C13CC5D41B82277D00539C43 /* AttackGoal.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13CC5D31B82277D00539C43 /* AttackGoal.swift */; };
+		C13CC5D51B82277D00539C43 /* AttackGoal.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13CC5D31B82277D00539C43 /* AttackGoal.swift */; };
+		C13CC5D81B82299600539C43 /* GetItemGoal.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13CC5D61B82299600539C43 /* GetItemGoal.swift */; };
+		C13CC5D91B82299600539C43 /* GetItemGoal.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13CC5D61B82299600539C43 /* GetItemGoal.swift */; };
+		C13CC5DA1B82299600539C43 /* GetHealthGoalEvaluator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13CC5D71B82299600539C43 /* GetHealthGoalEvaluator.swift */; };
+		C13CC5DB1B82299600539C43 /* GetHealthGoalEvaluator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13CC5D71B82299600539C43 /* GetHealthGoalEvaluator.swift */; };
 		C18D85801B80DB43000F5B64 /* GameLevel1.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18D857F1B80DB43000F5B64 /* GameLevel1.swift */; };
 		C18D85811B80DB43000F5B64 /* GameLevel1.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18D857F1B80DB43000F5B64 /* GameLevel1.swift */; };
 		C1B469461B7A4B5800E6A3B5 /* Path.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B469451B7A4B5800E6A3B5 /* Path.swift */; };
@@ -144,6 +152,10 @@
 		C13CC5C71B816BF100539C43 /* NavigationMeshPathfinder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NavigationMeshPathfinder.swift; path = Common/GameFramework/PathFinder/NavigationMesh/NavigationMeshPathfinder.swift; sourceTree = "<group>"; };
 		C13CC5CA1B816E0600539C43 /* Pathfinder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Pathfinder.swift; path = Common/GameFramework/PathFinder/Pathfinder.swift; sourceTree = "<group>"; };
 		C13CC5CD1B81705400539C43 /* GridGraph.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GridGraph.swift; path = Common/GameFramework/PathFinder/Grid/GridGraph.swift; sourceTree = "<group>"; };
+		C13CC5D01B82272A00539C43 /* AttackGoalEvaluator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AttackGoalEvaluator.swift; path = Common/Game/Goals/AttackGoalEvaluator.swift; sourceTree = "<group>"; };
+		C13CC5D31B82277D00539C43 /* AttackGoal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AttackGoal.swift; path = Common/Game/Goals/AttackGoal.swift; sourceTree = "<group>"; };
+		C13CC5D61B82299600539C43 /* GetItemGoal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GetItemGoal.swift; path = Common/Game/Goals/GetItemGoal.swift; sourceTree = "<group>"; };
+		C13CC5D71B82299600539C43 /* GetHealthGoalEvaluator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GetHealthGoalEvaluator.swift; path = Common/Game/Goals/GetHealthGoalEvaluator.swift; sourceTree = "<group>"; };
 		C18D857F1B80DB43000F5B64 /* GameLevel1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GameLevel1.swift; path = Common/Game/GameLevel1.swift; sourceTree = "<group>"; };
 		C1B469451B7A4B5800E6A3B5 /* Path.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Path.swift; path = Common/GameFramework/Path.swift; sourceTree = "<group>"; };
 		C1BC3BA91B7CEB6300FCAA47 /* Queue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Queue.swift; path = Common/GameFramework/Utils/Queue.swift; sourceTree = "<group>"; };
@@ -256,6 +268,10 @@
 		C1BC3BB51B7CF86600FCAA47 /* Goals */ = {
 			isa = PBXGroup;
 			children = (
+				C13CC5D61B82299600539C43 /* GetItemGoal.swift */,
+				C13CC5D71B82299600539C43 /* GetHealthGoalEvaluator.swift */,
+				C13CC5D31B82277D00539C43 /* AttackGoal.swift */,
+				C13CC5D01B82272A00539C43 /* AttackGoalEvaluator.swift */,
 				C1D165CB1B7D3DBB00358B68 /* PatrolGoalEvaluator.swift */,
 				C1D165CC1B7D3DBB00358B68 /* PatrolGoal.swift */,
 				C1BC3BB61B7CF88100FCAA47 /* WanderGoal.swift */,
@@ -509,9 +525,11 @@
 				C12622DF1B7650AD00886D97 /* SCNVector3Extensions.swift in Sources */,
 				C12622C21B74FA1900886D97 /* PlayerMovingState.swift in Sources */,
 				C13CC5BB1B816BAD00539C43 /* Vertex.swift in Sources */,
+				C13CC5DA1B82299600539C43 /* GetHealthGoalEvaluator.swift in Sources */,
 				C12622B81B74F9E200886D97 /* PlayerIdleState.swift in Sources */,
 				C1DFA0531B73B7A600DAD2B8 /* GameUtilities.swift in Sources */,
 				C1DF9F8C1B717E8900DAD2B8 /* GameViewController.swift in Sources */,
+				C13CC5D41B82277D00539C43 /* AttackGoal.swift in Sources */,
 				C1DFA0DA1B740DE600DAD2B8 /* PreGameMenu.swift in Sources */,
 				C13CC5C81B816BF100539C43 /* NavigationMeshPathfinder.swift in Sources */,
 				C1DFA0C11B7405F300DAD2B8 /* State.swift in Sources */,
@@ -544,6 +562,7 @@
 				C1DFA0DC1B740DE600DAD2B8 /* LevelFailedMenu.swift in Sources */,
 				C1BC3BB31B7CEC2900FCAA47 /* CompositeGoal.swift in Sources */,
 				C1D165EB1B7E531100358B68 /* Vector3D.swift in Sources */,
+				C13CC5D11B82272A00539C43 /* AttackGoalEvaluator.swift in Sources */,
 				C1DF9F881B717E8900DAD2B8 /* AppDelegate.swift in Sources */,
 				C12622DB1B7641A800886D97 /* SteeringBehavior.swift in Sources */,
 				C1BC3BC01B7D06BA00FCAA47 /* ThinkGoal.swift in Sources */,
@@ -556,6 +575,7 @@
 				C1DFA0571B73B7A600DAD2B8 /* GameScenesManager.swift in Sources */,
 				C1DFA05D1B73B7A600DAD2B8 /* GameLevel.swift in Sources */,
 				C1D165C31B7D22BC00358B68 /* WanderGoalEvaluator.swift in Sources */,
+				C13CC5D81B82299600539C43 /* GetItemGoal.swift in Sources */,
 				C1DFA0CC1B740DC800DAD2B8 /* PlayerCharacter.swift in Sources */,
 				C1DFA0C41B74079000DAD2B8 /* StateMachine.swift in Sources */,
 				C1DFA0511B73B7A600DAD2B8 /* SkinnedCharacter.swift in Sources */,
@@ -569,8 +589,10 @@
 			files = (
 				C12622C31B74FA1900886D97 /* PlayerMovingState.swift in Sources */,
 				C13CC5C61B816BBB00539C43 /* GameUtils.swift in Sources */,
+				C13CC5D21B82272A00539C43 /* AttackGoalEvaluator.swift in Sources */,
 				C1B469471B7A4B5800E6A3B5 /* Path.swift in Sources */,
 				C1DFA0CD1B740DC800DAD2B8 /* PlayerCharacter.swift in Sources */,
+				C13CC5D51B82277D00539C43 /* AttackGoal.swift in Sources */,
 				C13CC5CC1B816E0600539C43 /* Pathfinder.swift in Sources */,
 				C13CC5C41B816BBB00539C43 /* ShortestPathStep.swift in Sources */,
 				C13CC5B71B816BA100539C43 /* GridPathfinder.swift in Sources */,
@@ -581,6 +603,7 @@
 				C1DFA0561B73B7A600DAD2B8 /* GameSceneView.swift in Sources */,
 				C1DFA0DD1B740DE600DAD2B8 /* LevelFailedMenu.swift in Sources */,
 				C1BC3BC11B7D06BA00FCAA47 /* ThinkGoal.swift in Sources */,
+				C13CC5DB1B82299600539C43 /* GetHealthGoalEvaluator.swift in Sources */,
 				C18D85811B80DB43000F5B64 /* GameLevel1.swift in Sources */,
 				C1DFA0C21B7405F300DAD2B8 /* State.swift in Sources */,
 				C1DFA05E1B73B7A600DAD2B8 /* GameLevel.swift in Sources */,
@@ -601,6 +624,7 @@
 				C1DFA0D11B740DC800DAD2B8 /* EnemyCharacter.swift in Sources */,
 				C13CC5C01B816BAD00539C43 /* MeshTriangle.swift in Sources */,
 				C1DF9FA61B717EB200DAD2B8 /* GameViewController.swift in Sources */,
+				C13CC5D91B82299600539C43 /* GetItemGoal.swift in Sources */,
 				C1DFA0521B73B7A600DAD2B8 /* SkinnedCharacter.swift in Sources */,
 				C12622B91B74F9E200886D97 /* PlayerIdleState.swift in Sources */,
 				C1DFA0E31B740DE600DAD2B8 /* InGameMenu.swift in Sources */,

@@ -20,9 +20,13 @@ class ThinkGoal : CompositeGoal {
         //but for now we'll just give them some random values
         let wanderBias:Float = 0.2
         let patrolBias:Float = 0.3
+        let attackBias:Float = 0.4
+        let getHealthBias:Float = 0.5
         
         goalEvaluators.append(WanderGoalEvaluator(characterBias: wanderBias))
         goalEvaluators.append(PatrolGoalEvaluator(characterBias: patrolBias))
+        goalEvaluators.append(AttackGoalEvaluator(characterBias: attackBias))
+        goalEvaluators.append(GetHealthGoalEvaluator(characterBias: getHealthBias))
     }
     
     override func activate() {
@@ -74,6 +78,20 @@ class ThinkGoal : CompositeGoal {
         }
     }
     
+    func addAttackGoal() {
+        if(notPresent(GoalType.Attack.rawValue)) {
+            self.removeAllSubGoals()
+            self.addSubGoal(AttackGoal(owner:self.owner, type:GoalType.Attack))
+        }
+    }
+
+    func addGetItemGoal() {
+        if(notPresent(GoalType.GetItem.rawValue)) {
+            self.removeAllSubGoals()
+            self.addSubGoal(GetItemGoal(owner:self.owner, type:GoalType.GetItem))
+        }
+    }
+
     func notPresent(goalType:Int) -> Bool
     {
         if (!subgoals.isEmpty()) {

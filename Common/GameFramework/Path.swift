@@ -33,16 +33,17 @@ class Path {
     }
     
     func setNextWayPoint() {
-        self.currentWayPoint = self.wayPoints[currentWayPointIndex]
-
-        currentWayPointIndex++
         if(currentWayPointIndex == self.wayPoints.count) {
             if(looped) {
                 currentWayPointIndex = 0
             } else {
                 print("Reached end of path")
             }
+            return
         }
+        self.currentWayPoint = self.wayPoints[currentWayPointIndex]
+
+        currentWayPointIndex++
     }
     
     func finished() -> Bool {

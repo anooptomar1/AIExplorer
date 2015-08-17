@@ -18,6 +18,8 @@ enum Status:Int {
 enum GoalType : Int {
     case Wander = 0,
     Patrol,
+    Attack,
+    GetItem,
     Think
 }
 
