@@ -25,6 +25,8 @@
 		C12622E01B7650AD00886D97 /* SCNVector3Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12622DE1B7650AD00886D97 /* SCNVector3Extensions.swift */; };
 		C12622E51B79400D00886D97 /* BoxObstacle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12622E41B79400D00886D97 /* BoxObstacle.swift */; };
 		C12622E61B79400D00886D97 /* BoxObstacle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12622E41B79400D00886D97 /* BoxObstacle.swift */; };
+		C13CC5B01B81657C00539C43 /* GridPathfinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13CC5AF1B81657C00539C43 /* GridPathfinder.swift */; };
+		C13CC5B11B81657C00539C43 /* GridPathfinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13CC5AF1B81657C00539C43 /* GridPathfinder.swift */; };
 		C18D85801B80DB43000F5B64 /* GameLevel1.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18D857F1B80DB43000F5B64 /* GameLevel1.swift */; };
 		C18D85811B80DB43000F5B64 /* GameLevel1.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18D857F1B80DB43000F5B64 /* GameLevel1.swift */; };
 		C1B469461B7A4B5800E6A3B5 /* Path.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B469451B7A4B5800E6A3B5 /* Path.swift */; };
@@ -127,6 +129,7 @@
 		C12622DA1B7641A800886D97 /* SteeringBehavior.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SteeringBehavior.swift; path = Common/GameFramework/SteeringBehavior.swift; sourceTree = "<group>"; };
 		C12622DE1B7650AD00886D97 /* SCNVector3Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SCNVector3Extensions.swift; path = Common/GameFramework/Utils/SCNVector3Extensions.swift; sourceTree = "<group>"; };
 		C12622E41B79400D00886D97 /* BoxObstacle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BoxObstacle.swift; path = Common/Game/BoxObstacle.swift; sourceTree = "<group>"; };
+		C13CC5AF1B81657C00539C43 /* GridPathfinder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GridPathfinder.swift; path = Common/GameFramework/PathFinder/GridPathfinder.swift; sourceTree = "<group>"; };
 		C18D857F1B80DB43000F5B64 /* GameLevel1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GameLevel1.swift; path = Common/Game/GameLevel1.swift; sourceTree = "<group>"; };
 		C1B469451B7A4B5800E6A3B5 /* Path.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Path.swift; path = Common/GameFramework/Path.swift; sourceTree = "<group>"; };
 		C1BC3BA91B7CEB6300FCAA47 /* Queue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Queue.swift; path = Common/GameFramework/Utils/Queue.swift; sourceTree = "<group>"; };
@@ -227,6 +230,7 @@
 		C1D165D41B7E1B1D00358B68 /* PathFinder */ = {
 			isa = PBXGroup;
 			children = (
+				C13CC5AF1B81657C00539C43 /* GridPathfinder.swift */,
 				C1D165E71B7E43FA00358B68 /* GameUtils.swift */,
 				C1D165D81B7E1C5900358B68 /* PathPlanner.swift */,
 				C1D165DB1B7E3E4100358B68 /* ShortestPathStep.swift */,
@@ -482,6 +486,7 @@
 				C12622D01B75196E00886D97 /* Message.swift in Sources */,
 				C1DFA0591B73B7A600DAD2B8 /* GameOverlayScene.swift in Sources */,
 				C1DFA0551B73B7A600DAD2B8 /* GameSceneView.swift in Sources */,
+				C13CC5B01B81657C00539C43 /* GridPathfinder.swift in Sources */,
 				C1BC3BB71B7CF88100FCAA47 /* WanderGoal.swift in Sources */,
 				C1DFA05B1B73B7A600DAD2B8 /* GameObject.swift in Sources */,
 				C18D85801B80DB43000F5B64 /* GameLevel1.swift in Sources */,
@@ -565,6 +570,7 @@
 				C12622DC1B7641A800886D97 /* SteeringBehavior.swift in Sources */,
 				C1D165EC1B7E531100358B68 /* Vector3D.swift in Sources */,
 				C1D165CE1B7D3DBB00358B68 /* PatrolGoalEvaluator.swift in Sources */,
+				C13CC5B11B81657C00539C43 /* GridPathfinder.swift in Sources */,
 				C1DFA0CF1B740DC800DAD2B8 /* GameLevel0.swift in Sources */,
 				C1DFA0E11B740DE600DAD2B8 /* Joystick.swift in Sources */,
 				C1DFA0DB1B740DE600DAD2B8 /* PreGameMenu.swift in Sources */,
