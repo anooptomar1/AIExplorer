@@ -25,8 +25,24 @@
 		C12622E01B7650AD00886D97 /* SCNVector3Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12622DE1B7650AD00886D97 /* SCNVector3Extensions.swift */; };
 		C12622E51B79400D00886D97 /* BoxObstacle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12622E41B79400D00886D97 /* BoxObstacle.swift */; };
 		C12622E61B79400D00886D97 /* BoxObstacle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12622E41B79400D00886D97 /* BoxObstacle.swift */; };
-		C13CC5B01B81657C00539C43 /* GridPathfinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13CC5AF1B81657C00539C43 /* GridPathfinder.swift */; };
-		C13CC5B11B81657C00539C43 /* GridPathfinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13CC5AF1B81657C00539C43 /* GridPathfinder.swift */; };
+		C13CC5B61B816BA100539C43 /* GridPathfinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13CC5B51B816BA100539C43 /* GridPathfinder.swift */; };
+		C13CC5B71B816BA100539C43 /* GridPathfinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13CC5B51B816BA100539C43 /* GridPathfinder.swift */; };
+		C13CC5BB1B816BAD00539C43 /* Vertex.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13CC5B81B816BAD00539C43 /* Vertex.swift */; };
+		C13CC5BC1B816BAD00539C43 /* Vertex.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13CC5B81B816BAD00539C43 /* Vertex.swift */; };
+		C13CC5BD1B816BAD00539C43 /* NavigationMeshGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13CC5B91B816BAD00539C43 /* NavigationMeshGraph.swift */; };
+		C13CC5BE1B816BAD00539C43 /* NavigationMeshGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13CC5B91B816BAD00539C43 /* NavigationMeshGraph.swift */; };
+		C13CC5BF1B816BAD00539C43 /* MeshTriangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13CC5BA1B816BAD00539C43 /* MeshTriangle.swift */; };
+		C13CC5C01B816BAD00539C43 /* MeshTriangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13CC5BA1B816BAD00539C43 /* MeshTriangle.swift */; };
+		C13CC5C31B816BBB00539C43 /* ShortestPathStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13CC5C11B816BBB00539C43 /* ShortestPathStep.swift */; };
+		C13CC5C41B816BBB00539C43 /* ShortestPathStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13CC5C11B816BBB00539C43 /* ShortestPathStep.swift */; };
+		C13CC5C51B816BBB00539C43 /* GameUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13CC5C21B816BBB00539C43 /* GameUtils.swift */; };
+		C13CC5C61B816BBB00539C43 /* GameUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13CC5C21B816BBB00539C43 /* GameUtils.swift */; };
+		C13CC5C81B816BF100539C43 /* NavigationMeshPathfinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13CC5C71B816BF100539C43 /* NavigationMeshPathfinder.swift */; };
+		C13CC5C91B816BF100539C43 /* NavigationMeshPathfinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13CC5C71B816BF100539C43 /* NavigationMeshPathfinder.swift */; };
+		C13CC5CB1B816E0600539C43 /* Pathfinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13CC5CA1B816E0600539C43 /* Pathfinder.swift */; };
+		C13CC5CC1B816E0600539C43 /* Pathfinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13CC5CA1B816E0600539C43 /* Pathfinder.swift */; };
+		C13CC5CE1B81705400539C43 /* GridGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13CC5CD1B81705400539C43 /* GridGraph.swift */; };
+		C13CC5CF1B81705400539C43 /* GridGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13CC5CD1B81705400539C43 /* GridGraph.swift */; };
 		C18D85801B80DB43000F5B64 /* GameLevel1.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18D857F1B80DB43000F5B64 /* GameLevel1.swift */; };
 		C18D85811B80DB43000F5B64 /* GameLevel1.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18D857F1B80DB43000F5B64 /* GameLevel1.swift */; };
 		C1B469461B7A4B5800E6A3B5 /* Path.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B469451B7A4B5800E6A3B5 /* Path.swift */; };
@@ -55,16 +71,6 @@
 		C1D165D31B7D790A00358B68 /* Graph.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D165D11B7D790A00358B68 /* Graph.swift */; };
 		C1D165D91B7E1C5900358B68 /* PathPlanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D165D81B7E1C5900358B68 /* PathPlanner.swift */; };
 		C1D165DA1B7E1C5900358B68 /* PathPlanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D165D81B7E1C5900358B68 /* PathPlanner.swift */; };
-		C1D165DC1B7E3E4100358B68 /* ShortestPathStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D165DB1B7E3E4100358B68 /* ShortestPathStep.swift */; };
-		C1D165DD1B7E3E4100358B68 /* ShortestPathStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D165DB1B7E3E4100358B68 /* ShortestPathStep.swift */; };
-		C1D165DF1B7E3FEC00358B68 /* NavigationMeshGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D165DE1B7E3FEC00358B68 /* NavigationMeshGraph.swift */; };
-		C1D165E01B7E3FEC00358B68 /* NavigationMeshGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D165DE1B7E3FEC00358B68 /* NavigationMeshGraph.swift */; };
-		C1D165E21B7E40F200358B68 /* Vertex.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D165E11B7E40F200358B68 /* Vertex.swift */; };
-		C1D165E31B7E40F200358B68 /* Vertex.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D165E11B7E40F200358B68 /* Vertex.swift */; };
-		C1D165E51B7E41E100358B68 /* MeshTriangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D165E41B7E41E100358B68 /* MeshTriangle.swift */; };
-		C1D165E61B7E41E100358B68 /* MeshTriangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D165E41B7E41E100358B68 /* MeshTriangle.swift */; };
-		C1D165E81B7E43FA00358B68 /* GameUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D165E71B7E43FA00358B68 /* GameUtils.swift */; };
-		C1D165E91B7E43FA00358B68 /* GameUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D165E71B7E43FA00358B68 /* GameUtils.swift */; };
 		C1D165EB1B7E531100358B68 /* Vector3D.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D165EA1B7E531100358B68 /* Vector3D.swift */; };
 		C1D165EC1B7E531100358B68 /* Vector3D.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D165EA1B7E531100358B68 /* Vector3D.swift */; };
 		C1DF9F881B717E8900DAD2B8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DF9F871B717E8900DAD2B8 /* AppDelegate.swift */; };
@@ -129,7 +135,15 @@
 		C12622DA1B7641A800886D97 /* SteeringBehavior.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SteeringBehavior.swift; path = Common/GameFramework/SteeringBehavior.swift; sourceTree = "<group>"; };
 		C12622DE1B7650AD00886D97 /* SCNVector3Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SCNVector3Extensions.swift; path = Common/GameFramework/Utils/SCNVector3Extensions.swift; sourceTree = "<group>"; };
 		C12622E41B79400D00886D97 /* BoxObstacle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BoxObstacle.swift; path = Common/Game/BoxObstacle.swift; sourceTree = "<group>"; };
-		C13CC5AF1B81657C00539C43 /* GridPathfinder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GridPathfinder.swift; path = Common/GameFramework/PathFinder/GridPathfinder.swift; sourceTree = "<group>"; };
+		C13CC5B51B816BA100539C43 /* GridPathfinder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GridPathfinder.swift; path = Common/GameFramework/PathFinder/Grid/GridPathfinder.swift; sourceTree = "<group>"; };
+		C13CC5B81B816BAD00539C43 /* Vertex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Vertex.swift; path = Common/GameFramework/PathFinder/NavigationMesh/Vertex.swift; sourceTree = "<group>"; };
+		C13CC5B91B816BAD00539C43 /* NavigationMeshGraph.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NavigationMeshGraph.swift; path = Common/GameFramework/PathFinder/NavigationMesh/NavigationMeshGraph.swift; sourceTree = "<group>"; };
+		C13CC5BA1B816BAD00539C43 /* MeshTriangle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MeshTriangle.swift; path = Common/GameFramework/PathFinder/NavigationMesh/MeshTriangle.swift; sourceTree = "<group>"; };
+		C13CC5C11B816BBB00539C43 /* ShortestPathStep.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ShortestPathStep.swift; path = Common/GameFramework/PathFinder/Common/ShortestPathStep.swift; sourceTree = "<group>"; };
+		C13CC5C21B816BBB00539C43 /* GameUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GameUtils.swift; path = Common/GameFramework/PathFinder/Common/GameUtils.swift; sourceTree = "<group>"; };
+		C13CC5C71B816BF100539C43 /* NavigationMeshPathfinder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NavigationMeshPathfinder.swift; path = Common/GameFramework/PathFinder/NavigationMesh/NavigationMeshPathfinder.swift; sourceTree = "<group>"; };
+		C13CC5CA1B816E0600539C43 /* Pathfinder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Pathfinder.swift; path = Common/GameFramework/PathFinder/Pathfinder.swift; sourceTree = "<group>"; };
+		C13CC5CD1B81705400539C43 /* GridGraph.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GridGraph.swift; path = Common/GameFramework/PathFinder/Grid/GridGraph.swift; sourceTree = "<group>"; };
 		C18D857F1B80DB43000F5B64 /* GameLevel1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GameLevel1.swift; path = Common/Game/GameLevel1.swift; sourceTree = "<group>"; };
 		C1B469451B7A4B5800E6A3B5 /* Path.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Path.swift; path = Common/GameFramework/Path.swift; sourceTree = "<group>"; };
 		C1BC3BA91B7CEB6300FCAA47 /* Queue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Queue.swift; path = Common/GameFramework/Utils/Queue.swift; sourceTree = "<group>"; };
@@ -144,11 +158,6 @@
 		C1D165CC1B7D3DBB00358B68 /* PatrolGoal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PatrolGoal.swift; path = Common/Game/Goals/PatrolGoal.swift; sourceTree = "<group>"; };
 		C1D165D11B7D790A00358B68 /* Graph.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Graph.swift; path = Common/GameFramework/Utils/Graph.swift; sourceTree = "<group>"; };
 		C1D165D81B7E1C5900358B68 /* PathPlanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PathPlanner.swift; path = Common/GameFramework/PathFinder/PathPlanner.swift; sourceTree = "<group>"; };
-		C1D165DB1B7E3E4100358B68 /* ShortestPathStep.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ShortestPathStep.swift; path = Common/GameFramework/PathFinder/ShortestPathStep.swift; sourceTree = "<group>"; };
-		C1D165DE1B7E3FEC00358B68 /* NavigationMeshGraph.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NavigationMeshGraph.swift; path = Common/GameFramework/PathFinder/NavigationMeshGraph.swift; sourceTree = "<group>"; };
-		C1D165E11B7E40F200358B68 /* Vertex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Vertex.swift; path = Common/GameFramework/PathFinder/Vertex.swift; sourceTree = "<group>"; };
-		C1D165E41B7E41E100358B68 /* MeshTriangle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MeshTriangle.swift; path = Common/GameFramework/PathFinder/MeshTriangle.swift; sourceTree = "<group>"; };
-		C1D165E71B7E43FA00358B68 /* GameUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GameUtils.swift; path = Common/GameFramework/PathFinder/GameUtils.swift; sourceTree = "<group>"; };
 		C1D165EA1B7E531100358B68 /* Vector3D.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Vector3D.swift; path = Common/GameFramework/Utils/Vector3D.swift; sourceTree = "<group>"; };
 		C1DF9F841B717E8900DAD2B8 /* AIExplorer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AIExplorer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1DF9F871B717E8900DAD2B8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -215,6 +224,35 @@
 			name = Utils;
 			sourceTree = "<group>";
 		};
+		C13CC5B21B816B7100539C43 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				C13CC5C11B816BBB00539C43 /* ShortestPathStep.swift */,
+				C13CC5C21B816BBB00539C43 /* GameUtils.swift */,
+			);
+			name = Common;
+			sourceTree = "<group>";
+		};
+		C13CC5B31B816B7E00539C43 /* NavigationMesh */ = {
+			isa = PBXGroup;
+			children = (
+				C13CC5C71B816BF100539C43 /* NavigationMeshPathfinder.swift */,
+				C13CC5B81B816BAD00539C43 /* Vertex.swift */,
+				C13CC5B91B816BAD00539C43 /* NavigationMeshGraph.swift */,
+				C13CC5BA1B816BAD00539C43 /* MeshTriangle.swift */,
+			);
+			name = NavigationMesh;
+			sourceTree = "<group>";
+		};
+		C13CC5B41B816B9000539C43 /* Grid */ = {
+			isa = PBXGroup;
+			children = (
+				C13CC5CD1B81705400539C43 /* GridGraph.swift */,
+				C13CC5B51B816BA100539C43 /* GridPathfinder.swift */,
+			);
+			name = Grid;
+			sourceTree = "<group>";
+		};
 		C1BC3BB51B7CF86600FCAA47 /* Goals */ = {
 			isa = PBXGroup;
 			children = (
@@ -230,13 +268,11 @@
 		C1D165D41B7E1B1D00358B68 /* PathFinder */ = {
 			isa = PBXGroup;
 			children = (
-				C13CC5AF1B81657C00539C43 /* GridPathfinder.swift */,
-				C1D165E71B7E43FA00358B68 /* GameUtils.swift */,
+				C13CC5B41B816B9000539C43 /* Grid */,
+				C13CC5B31B816B7E00539C43 /* NavigationMesh */,
+				C13CC5B21B816B7100539C43 /* Common */,
 				C1D165D81B7E1C5900358B68 /* PathPlanner.swift */,
-				C1D165DB1B7E3E4100358B68 /* ShortestPathStep.swift */,
-				C1D165DE1B7E3FEC00358B68 /* NavigationMeshGraph.swift */,
-				C1D165E11B7E40F200358B68 /* Vertex.swift */,
-				C1D165E41B7E41E100358B68 /* MeshTriangle.swift */,
+				C13CC5CA1B816E0600539C43 /* Pathfinder.swift */,
 			);
 			name = PathFinder;
 			sourceTree = "<group>";
@@ -472,46 +508,49 @@
 			files = (
 				C12622DF1B7650AD00886D97 /* SCNVector3Extensions.swift in Sources */,
 				C12622C21B74FA1900886D97 /* PlayerMovingState.swift in Sources */,
+				C13CC5BB1B816BAD00539C43 /* Vertex.swift in Sources */,
 				C12622B81B74F9E200886D97 /* PlayerIdleState.swift in Sources */,
 				C1DFA0531B73B7A600DAD2B8 /* GameUtilities.swift in Sources */,
-				C1D165E21B7E40F200358B68 /* Vertex.swift in Sources */,
 				C1DF9F8C1B717E8900DAD2B8 /* GameViewController.swift in Sources */,
 				C1DFA0DA1B740DE600DAD2B8 /* PreGameMenu.swift in Sources */,
+				C13CC5C81B816BF100539C43 /* NavigationMeshPathfinder.swift in Sources */,
 				C1DFA0C11B7405F300DAD2B8 /* State.swift in Sources */,
-				C1D165DC1B7E3E4100358B68 /* ShortestPathStep.swift in Sources */,
 				C1DFA0CE1B740DC800DAD2B8 /* GameLevel0.swift in Sources */,
 				C1DFA0E21B740DE600DAD2B8 /* InGameMenu.swift in Sources */,
 				C1BC3BB01B7CEC1500FCAA47 /* Goal.swift in Sources */,
+				C13CC5BD1B816BAD00539C43 /* NavigationMeshGraph.swift in Sources */,
 				C1DFA0D01B740DC800DAD2B8 /* EnemyCharacter.swift in Sources */,
 				C12622D01B75196E00886D97 /* Message.swift in Sources */,
 				C1DFA0591B73B7A600DAD2B8 /* GameOverlayScene.swift in Sources */,
 				C1DFA0551B73B7A600DAD2B8 /* GameSceneView.swift in Sources */,
-				C13CC5B01B81657C00539C43 /* GridPathfinder.swift in Sources */,
 				C1BC3BB71B7CF88100FCAA47 /* WanderGoal.swift in Sources */,
 				C1DFA05B1B73B7A600DAD2B8 /* GameObject.swift in Sources */,
 				C18D85801B80DB43000F5B64 /* GameLevel1.swift in Sources */,
+				C13CC5C31B816BBB00539C43 /* ShortestPathStep.swift in Sources */,
 				C12622D51B76400B00886D97 /* MovingGameObject.swift in Sources */,
+				C13CC5CE1B81705400539C43 /* GridGraph.swift in Sources */,
 				C1BC3BBA1B7D029E00FCAA47 /* Regulator.swift in Sources */,
-				C1D165DF1B7E3FEC00358B68 /* NavigationMeshGraph.swift in Sources */,
-				C1D165E81B7E43FA00358B68 /* GameUtils.swift in Sources */,
+				C13CC5C51B816BBB00539C43 /* GameUtils.swift in Sources */,
 				C1D165D21B7D790A00358B68 /* Graph.swift in Sources */,
 				C1D165C01B7D1FE800358B68 /* GoalEvaluator.swift in Sources */,
+				C13CC5CB1B816E0600539C43 /* Pathfinder.swift in Sources */,
 				C12622E51B79400D00886D97 /* BoxObstacle.swift in Sources */,
 				C1D165CD1B7D3DBB00358B68 /* PatrolGoalEvaluator.swift in Sources */,
 				C1DFA0E01B740DE600DAD2B8 /* Joystick.swift in Sources */,
 				C1D165D91B7E1C5900358B68 /* PathPlanner.swift in Sources */,
 				C1B469461B7A4B5800E6A3B5 /* Path.swift in Sources */,
 				C1DFA0E41B740DE600DAD2B8 /* GameUIManager.swift in Sources */,
+				C13CC5BF1B816BAD00539C43 /* MeshTriangle.swift in Sources */,
 				C1DFA0DC1B740DE600DAD2B8 /* LevelFailedMenu.swift in Sources */,
 				C1BC3BB31B7CEC2900FCAA47 /* CompositeGoal.swift in Sources */,
 				C1D165EB1B7E531100358B68 /* Vector3D.swift in Sources */,
-				C1D165E51B7E41E100358B68 /* MeshTriangle.swift in Sources */,
 				C1DF9F881B717E8900DAD2B8 /* AppDelegate.swift in Sources */,
 				C12622DB1B7641A800886D97 /* SteeringBehavior.swift in Sources */,
 				C1BC3BC01B7D06BA00FCAA47 /* ThinkGoal.swift in Sources */,
 				C1DFA05F1B73B7A600DAD2B8 /* GameCamera.swift in Sources */,
 				C12622C71B74FA3100886D97 /* EnemyPatrolState.swift in Sources */,
 				C1D165CF1B7D3DBB00358B68 /* PatrolGoal.swift in Sources */,
+				C13CC5B61B816BA100539C43 /* GridPathfinder.swift in Sources */,
 				C1BC3BAA1B7CEB6300FCAA47 /* Queue.swift in Sources */,
 				C1DFA0DE1B740DE600DAD2B8 /* LevelCompleteMenu.swift in Sources */,
 				C1DFA0571B73B7A600DAD2B8 /* GameScenesManager.swift in Sources */,
@@ -529,8 +568,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				C12622C31B74FA1900886D97 /* PlayerMovingState.swift in Sources */,
+				C13CC5C61B816BBB00539C43 /* GameUtils.swift in Sources */,
 				C1B469471B7A4B5800E6A3B5 /* Path.swift in Sources */,
 				C1DFA0CD1B740DC800DAD2B8 /* PlayerCharacter.swift in Sources */,
+				C13CC5CC1B816E0600539C43 /* Pathfinder.swift in Sources */,
+				C13CC5C41B816BBB00539C43 /* ShortestPathStep.swift in Sources */,
+				C13CC5B71B816BA100539C43 /* GridPathfinder.swift in Sources */,
 				C12622E61B79400D00886D97 /* BoxObstacle.swift in Sources */,
 				C1DFA0E51B740DE600DAD2B8 /* GameUIManager.swift in Sources */,
 				C1DFA0601B73B7A600DAD2B8 /* GameCamera.swift in Sources */,
@@ -546,10 +589,7 @@
 				C1D165C41B7D22BC00358B68 /* WanderGoalEvaluator.swift in Sources */,
 				C1DFA05C1B73B7A600DAD2B8 /* GameObject.swift in Sources */,
 				C1D165D01B7D3DBB00358B68 /* PatrolGoal.swift in Sources */,
-				C1D165E91B7E43FA00358B68 /* GameUtils.swift in Sources */,
 				C1BC3BB11B7CEC1500FCAA47 /* Goal.swift in Sources */,
-				C1D165E31B7E40F200358B68 /* Vertex.swift in Sources */,
-				C1D165E01B7E3FEC00358B68 /* NavigationMeshGraph.swift in Sources */,
 				C1D165DA1B7E1C5900358B68 /* PathPlanner.swift in Sources */,
 				C12622D61B76400B00886D97 /* MovingGameObject.swift in Sources */,
 				C1DF9FA41B717EB200DAD2B8 /* GameView.swift in Sources */,
@@ -559,10 +599,9 @@
 				C1DFA0DF1B740DE600DAD2B8 /* LevelCompleteMenu.swift in Sources */,
 				C1DFA0581B73B7A600DAD2B8 /* GameScenesManager.swift in Sources */,
 				C1DFA0D11B740DC800DAD2B8 /* EnemyCharacter.swift in Sources */,
+				C13CC5C01B816BAD00539C43 /* MeshTriangle.swift in Sources */,
 				C1DF9FA61B717EB200DAD2B8 /* GameViewController.swift in Sources */,
 				C1DFA0521B73B7A600DAD2B8 /* SkinnedCharacter.swift in Sources */,
-				C1D165DD1B7E3E4100358B68 /* ShortestPathStep.swift in Sources */,
-				C1D165E61B7E41E100358B68 /* MeshTriangle.swift in Sources */,
 				C12622B91B74F9E200886D97 /* PlayerIdleState.swift in Sources */,
 				C1DFA0E31B740DE600DAD2B8 /* InGameMenu.swift in Sources */,
 				C1DFA0C51B74079000DAD2B8 /* StateMachine.swift in Sources */,
@@ -570,10 +609,13 @@
 				C12622DC1B7641A800886D97 /* SteeringBehavior.swift in Sources */,
 				C1D165EC1B7E531100358B68 /* Vector3D.swift in Sources */,
 				C1D165CE1B7D3DBB00358B68 /* PatrolGoalEvaluator.swift in Sources */,
-				C13CC5B11B81657C00539C43 /* GridPathfinder.swift in Sources */,
 				C1DFA0CF1B740DC800DAD2B8 /* GameLevel0.swift in Sources */,
 				C1DFA0E11B740DE600DAD2B8 /* Joystick.swift in Sources */,
+				C13CC5BE1B816BAD00539C43 /* NavigationMeshGraph.swift in Sources */,
 				C1DFA0DB1B740DE600DAD2B8 /* PreGameMenu.swift in Sources */,
+				C13CC5C91B816BF100539C43 /* NavigationMeshPathfinder.swift in Sources */,
+				C13CC5CF1B81705400539C43 /* GridGraph.swift in Sources */,
+				C13CC5BC1B816BAD00539C43 /* Vertex.swift in Sources */,
 				C1BC3BB81B7CF88100FCAA47 /* WanderGoal.swift in Sources */,
 				C1BC3BBB1B7D029E00FCAA47 /* Regulator.swift in Sources */,
 				C1DF9FA21B717EB200DAD2B8 /* AppDelegate.swift in Sources */,

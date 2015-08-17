@@ -9,105 +9,8 @@
 import GameplayKit
 import SceneKit
 
-struct GridSquare {
-    var x:Int!
-    var y:Int!
-    var valid:Bool!
-}
 
-class GridGraph {
-    var left:CGFloat!
-    var right:CGFloat!
-    var bottom:CGFloat!
-    var top:CGFloat!
-    var columns:Int!
-    var rows:Int!
-    var grids:[GridSquare]!
-    
-    var grid2d: [[Int]] = [
-                            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-                            [0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,0],
-                            [0,1,1,1,1,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0],
-                            [0,1,1,1,1,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0],
-                            [0,1,1,1,1,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0],
-                            [0,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0],
-                            [0,1,1,1,1,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0],
-                            [0,1,1,1,1,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0],
-                            [0,1,1,1,1,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0],
-                            [0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,0],
-                            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
-                        ]
-    
-    init(left:CGFloat, bottom:CGFloat, right:CGFloat, top:CGFloat) {
-        self.left = left
-        self.right = right
-        self.top = top
-        self.bottom = bottom
-        
-        let width = right - left
-        let height = top - bottom
-        rows = Int(width / 50.0)
-        columns = Int(height/50.0)
-        
-        //print("rows = \(rows), columns = \(columns)")
-        grids = [GridSquare]()
-        var grid:GridSquare!
-        var idx:Int = 0
-        var v:Bool!
-        for row in 0...rows {
-            for column in 0...columns {
-                //print("GRID 2D value for row \(row) and column \(column) is \(grid2d[row][column])")
-                //if((row == 6 || row == 7 || row == 8 || row == 9) && (column == 8 || column == 9)) {
-                if(grid2d[row][column] == 0) {
-                    v = false
-                } else {
-                    v = true
-                }
-                grid = GridSquare(x:row, y:column, valid:v)
-
-                grids.append(grid)
-                //print("tile x: \(row) , y: \(column), idx is \(idx)")
-
-                idx++
-            }
-        }
-        
-    }
-    
-    func isValidTileCoord(tileCoord:Vector3D) -> Bool {
-        var isValid = true
-        
-        let idx = Int(tileCoord.x)*(columns+1) + Int(tileCoord.y)
-        //print("TILE coord x: \(tileCoord.x) , y: \(tileCoord.y), idx is \(idx)")
-        
-        isValid = grids[idx].valid
-        return isValid;
-    }
-    
-    func getTileCoord(location:Vector3D) -> Vector3D {
-        let locX = round(location.x) - Float(self.left)
-        let locZ = round(location.z) - Float(self.bottom)
-        let tileX:Int = Int(locX/50.0)
-        let tileZ:Int = Int(locZ/50.0)
-        
-        return Vector3D(x:Float(tileX), y:0.0, z:Float(tileZ))
-    }
-    
-    func getLocationFromTileCoord(tileCoord:Vector3D) -> Vector3D {
-        let x = Float(tileCoord.x * 50.0) + Float(left)
-        let z = Float(tileCoord.y * 50.0) + Float(bottom)
-        
-        return Vector3D(x:x, y:0.0, z:z)
-    }
-
-    func getGrids() -> [GridSquare] {
-        return grids
-    }
-}
-
-
-
-class GridPathfinder {
+class GridPathfinder : Pathfinder {
     var reverse:Bool = false
     var gridGraph:GridGraph!
     var spOpenSteps:[ShortestPathStep] = [ShortestPathStep]()
@@ -132,45 +35,11 @@ class GridPathfinder {
         return gridGraph.getGrids()
         
     }
-
-    func getNextNode(currentPosition:Vector3D) -> Vector3D {
-        let nextNodePosition:Vector3D = targetPosition
         
+    func findShortestPath(currentPosition:Vector3D, targetPosition:Vector3D) -> [ShortestPathStep] {
         let fromTileCoord = gridGraph.getTileCoord(currentPosition)
         let toTileCoord = gridGraph.getTileCoord(targetPosition)
-        
-        if(Vector3DEqualToVector3D(fromTileCoord, targetPosition: toTileCoord)) {
-            print("Already on tile. Reversing direction...")
-            spOpenSteps = [ShortestPathStep]()
-            spClosedSteps = [ShortestPathStep]()
-            shortestPath = [ShortestPathStep]()
 
-            if(reverse == false) {
-                targetPosition = original
-                reverse = true
-            } else {
-                reverse = false
-                targetPosition = self.target
-
-            }
-            //return nextNodePosition
-            return targetPosition
-        }
-        
-        if(shortestPath.count > 0) {
-            let s = shortestPath[0]
-            //print("element from shortest path \(s.position.x) and \(s.position.y), tilecoord \(fromTileCoord.x) and \(fromTileCoord.y)")
-
-            if(Vector3DEqualToVector3D(fromTileCoord, targetPosition:s.position)) {
-                //print("Removing element from shortest path \(s.position.x) and \(s.position.y)")
-                shortestPath.removeAtIndex(0)
-            }
-            return gridGraph.getLocationFromTileCoord(s.position)
-        }
-        //check if the tile is walkable (check for walls etc)
-        
-        //var pathFound = false
-        
         // Start by adding the from position to the open list
         self.insertInOpenSteps(ShortestPathStep(position: fromTileCoord))
         
@@ -250,11 +119,8 @@ class GridPathfinder {
             
         } while( self.spOpenSteps.count > 0)
         
-        if(self.shortestPath.count == 0) {
-            print("No path found")
-        }
         
-        return nextNodePosition
+        return self.shortestPath
     }
     
     func constructPath(var step:ShortestPathStep?) {
