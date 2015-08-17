@@ -34,10 +34,15 @@ class PathPlanner {
         
         if(shortestPath.count == 0) {
             print("No path found")
+            // REMOVE THIS _ FOR DEBUG ONLY
+            //path.append(targetPosition)
+
         } else {
             for sPath in shortestPath {
                 path.append(sPath.position)
             }
+            // Add the final target position to the end of the path
+            path.append(targetPosition)
         }
         
         return path

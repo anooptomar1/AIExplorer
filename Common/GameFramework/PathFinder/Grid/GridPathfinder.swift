@@ -31,7 +31,7 @@ class GridPathfinder : Pathfinder {
     var gridGraph:GridGraph!
     var spOpenSteps:[ShortestPathStep] = [ShortestPathStep]()
     var spClosedSteps:[ShortestPathStep] = [ShortestPathStep]()
-    var shortestPath:[ShortestPathStep]! = [ShortestPathStep]()
+    var shortestPath:[ShortestPathStep] = [ShortestPathStep]()
     
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -129,7 +129,10 @@ class GridPathfinder : Pathfinder {
             
         } while( self.spOpenSteps.count > 0)
         
-        
+        //Convert to absolute coordinates
+        for path in self.shortestPath {
+            path.position = gridGraph.getLocationFromTileCoord(path.position)
+        }
         return self.shortestPath
     }
     

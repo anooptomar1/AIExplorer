@@ -111,7 +111,7 @@ class PlayerCharacter : SkinnedCharacter, MovingGameObject {
     func handleContact(node:SCNNode, gameObjects:Dictionary<String, GameObject>) {
         if(node.name == "EnemyCollideSphere-Enemy0" && status == PlayerStatus.Alive) {
             print("Reducing player health")
-            self.reduceHealth()
+            //self.reduceHealth()
         }
     }
     

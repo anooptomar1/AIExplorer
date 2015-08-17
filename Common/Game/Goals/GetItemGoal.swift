@@ -27,7 +27,7 @@ class GetItemGoal : Goal {
         let position = enemy.player.position.vector3DFromSCNVector3()
         let path = pathPlanner.createPathToPosition(position)
         for item in path {
-            print("Shortest path point is \(item)")
+            print("Shortest path point is \(item.x) and \(item.z)")
         }
         self.patrolPath = Path(looped: false, waypoints: path)
         
