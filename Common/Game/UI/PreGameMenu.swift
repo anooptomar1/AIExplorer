@@ -13,6 +13,7 @@ class PreGameMenu :SKNode {
     var myLabel:SKLabelNode!
     let levelName1 = "Level 1"
     let levelName2 = "Level 2"
+    let levelName3 = "Level 3"
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder:aDecoder)
@@ -24,12 +25,16 @@ class PreGameMenu :SKNode {
         self.name = "PreGameMenu"
         self.size = size;
         self.userInteractionEnabled = true
-        myLabel = GameUIManager.labelWithText(levelName1, textSize: 40)
+        myLabel = GameUIManager.labelWithText(levelName1, textSize: 30)
         myLabel.position = CGPointMake(size.width/2, size.height/2 + 20)
         self.addChild(myLabel)
         
-        myLabel = GameUIManager.labelWithText(levelName2, textSize: 40)
+        myLabel = GameUIManager.labelWithText(levelName2, textSize: 30)
         myLabel.position = CGPointMake(size.width/2, size.height/2 - 20)
+        self.addChild(myLabel)
+
+        myLabel = GameUIManager.labelWithText(levelName3, textSize: 30)
+        myLabel.position = CGPointMake(size.width/2, size.height/2 - 40)
         self.addChild(myLabel)
 
     }
@@ -48,6 +53,8 @@ class PreGameMenu :SKNode {
             levelIndex = 0
         } else if(node.name == levelName2) {
             levelIndex = 1
+        } else if(node.name == levelName3) {
+            levelIndex = 2
         } else {
             return
         }
@@ -66,6 +73,8 @@ class PreGameMenu :SKNode {
             levelIndex = 0
         } else if(node.name == levelName2) {
             levelIndex = 1
+        } else if(node.name == levelName3) {
+            levelIndex = 2
         } else {
             return
         }

@@ -26,19 +26,6 @@ enum EnemyStatus : Int {
 
 class EnemyCharacter : SkinnedCharacter, MovingGameObject {
 
-    var grid2d: [[Int]] = [
-        [0,0,0,0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0,0,0,0],
-        [0,0,1,1,1,1,1,1,1,1,0],
-        [0,0,1,1,1,1,1,1,1,1,0],
-        [0,0,1,1,0,0,0,1,1,1,0],
-        [0,0,1,1,0,0,0,1,1,1,1],
-        [0,0,1,1,0,0,0,1,1,1,0],
-        [0,0,1,1,1,1,1,1,1,1,0],
-        [0,1,1,1,1,1,1,1,1,1,0],
-        [0,0,0,0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0,0,0,0]
-    ]
 
     var health:Float = 100.0
     var status = EnemyStatus.Inactive
@@ -73,7 +60,7 @@ class EnemyCharacter : SkinnedCharacter, MovingGameObject {
         super.init(coder:aDecoder)
     }
         
-    init(characterNode:SCNNode, id:String, level:GameLevel) {
+    init(characterNode:SCNNode, id:String, level:GameLevel, pathfinder:Pathfinder) {
         super.init(rootNode: characterNode)
         self.name = id
         self.gameLevel = level
@@ -85,10 +72,11 @@ class EnemyCharacter : SkinnedCharacter, MovingGameObject {
         print("Found player with name \(player!.getID())")
         self.steering = SteeringBehavior(obj:self, target:player!)
         
-        let gridPathFinder = GridPathfinder(left: -200, bottom: -200, right: 200, top: 200, grid2d: grid2d)
+        
+        //let gridPathFinder = GridPathfinder(left: -200, bottom: -200, right: 200, top: 200, grid2d: grid2d)
         //self.drawDebugPath(gridPathFinder)
         
-        self.pathPlanner = PathPlanner(owner: self, pathfinder: gridPathFinder)
+        self.pathPlanner = PathPlanner(owner: self, pathfinder: pathfinder)
         
         self.addPatrolPath()
         self.brain = ThinkGoal(owner: self)
@@ -125,9 +113,9 @@ class EnemyCharacter : SkinnedCharacter, MovingGameObject {
             let loc = Vector3D(x:x, y:0.0, z:z)
             let pos = loc.getSCNVector3()
             if(grid.valid == true) {
-                GameUtilities.createDebugBox(level!.scene, box:SCNBox(width:5.0, height:5.0, length:5.0, chamferRadius:1.0), position: pos, color: SKColor.redColor(), rotation:SCNVector4Make(Float(1.0), Float(0.0), Float(0.0), Float(0.0)))
+                GameUtilities.createDebugBox(level!.scene, box:SCNBox(width:5.0, height:5.0, length:5.0, chamferRadius:1.0), position: pos, color: SKColor.redColor(), rotation:SCNVector4Make(GFloat(1.0), GFloat(0.0), GFloat(0.0), GFloat(0.0)))
             } else {
-                GameUtilities.createDebugBox(level!.scene, box:SCNBox(width:5.0, height:5.0, length:5.0, chamferRadius:1.0), position: pos, color: SKColor.blueColor(), rotation:SCNVector4Make(Float(1.0), Float(0.0), Float(0.0), Float(0.0)))
+                GameUtilities.createDebugBox(level!.scene, box:SCNBox(width:5.0, height:5.0, length:5.0, chamferRadius:1.0), position: pos, color: SKColor.blueColor(), rotation:SCNVector4Make(GFloat(1.0), GFloat(0.0), GFloat(0.0), GFloat(0.0)))
             }
         }
         

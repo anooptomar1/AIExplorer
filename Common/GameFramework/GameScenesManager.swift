@@ -61,7 +61,7 @@ class GameScenesManager {
         //scnView.allowsCameraControl = true
         scnView.showsStatistics = true
 
-        for levelIndex in 0...1 {
+        for levelIndex in 0...2 {
             let level:GameLevel = createGameLevel(levelName + String(levelIndex))
             gameLevels.append(level)
         }

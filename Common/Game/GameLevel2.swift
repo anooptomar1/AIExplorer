@@ -1,5 +1,5 @@
 //
-//  GameLevel0.swift
+//  GameLevel2.swift
 //  AIExplorer
 //
 //  Created by Vivek Nagar on 8/5/15.
@@ -10,37 +10,15 @@ import Foundation
 import SceneKit
 import SpriteKit
 
-enum ColliderType: Int {
-    case Ground = 1024
-    case Bullet = 4
-    case Player = 8
-    case Enemy = 16
-    case LeftWall = 32
-    case RightWall = 64
-    case BackWall = 128
-    case FrontWall = 256
-    case Door = 512
-    
-}
 
-class GameLevel0 : NSObject, GameLevel {
-    var grid2d: [[Int]] = [
-        [0,0,0,0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0,0,0,0],
-        [0,0,1,1,1,1,1,1,1,1,0],
-        [0,0,1,1,1,1,1,1,1,1,0],
-        [0,0,1,1,0,0,0,1,1,1,0],
-        [0,0,1,1,0,0,0,1,1,1,1],
-        [0,0,1,1,0,0,0,1,1,1,0],
-        [0,0,1,1,1,1,1,1,1,1,0],
-        [0,1,1,1,1,1,1,1,1,1,0],
-        [0,0,0,0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0,0,0,0]
-    ]
-    
+class GameLevel2 : NSObject, GameLevel {
 
-    let currentLevel:Int = 0
     var gameObjects = [String: GameObject]()
+    var animationStartTime:CFTimeInterval!
+    var ikActive:Bool = false
+    var ik:SCNIKConstraint!
+    var lookAt:SCNLookAtConstraint!
+    var hand:SCNNode!
     
     var scene : SCNScene!
     var scnView : SCNView!
@@ -51,8 +29,9 @@ class GameLevel0 : NSObject, GameLevel {
     var frontCamera:GameCamera!
     var currentCamera:GameCamera!
     var player:PlayerCharacter!
-    var enemies = [String: EnemyCharacter]()
+    var enemy:EnemyCharacter!
     var ship:SCNNode!
+    var navMeshPathfinder:Pathfinder!
     
     override init() {
         super.init()
@@ -103,13 +82,64 @@ class GameLevel0 : NSObject, GameLevel {
         ambientLightNode.light!.color = SKColor.darkGrayColor()
         scene.rootNode.addChildNode(ambientLightNode)
         
-        self.addFloorAndWalls()
+        self.setupSceneElements()
         self.addPlayer()
+        //self.addFloorAndWalls()
         self.addEnemies()
-        self.addObstacles()
-        self.addDebugObjects()
+        //self.addDebugObjects()
 
         return self.scene
+    }
+    
+    func setupSceneElements() {
+        let bunker = SCNNode()
+        let escene = SCNScene(named: "art.scnassets/level2/navmesh.dae", inDirectory: nil, options:nil)
+        let rootNode = escene?.rootNode
+
+        rootNode?.enumerateChildNodesUsingBlock({
+            child, stop in
+            if(child.name == "Navmesh") {
+                let triangles = GameUtils.extractVerticesFromSCNNode(child)
+                var scaledTriangles:[MeshTriangle] = [MeshTriangle]()
+                var idx = 0
+                for v in triangles {
+                    let scaledTriangle = MeshTriangle()
+                    scaledTriangle.vertices.append(Vector3D(x: v.vertices[0].x*25, y: v.vertices[0].y*25, z: v.vertices[0].z*25))
+                    scaledTriangle.vertices.append(Vector3D(x: v.vertices[1].x*25, y: v.vertices[1].y*25, z: v.vertices[1].z*25))
+                    scaledTriangle.vertices.append(Vector3D(x: v.vertices[2].x*25, y: v.vertices[2].y*25, z: v.vertices[2].z*25))
+                    
+                    scaledTriangles.append(scaledTriangle)
+                    idx++
+                }
+                self.navMeshPathfinder = NavigationMeshPathfinder(meshTriangles: scaledTriangles)
+            }
+
+            bunker.addChildNode(child)
+        })
+        bunker.position = SCNVector3Make(0, 0, 0)
+        bunker.scale = SCNVector3Make(25, 25, 25)
+        scene.rootNode.addChildNode(bunker)
+    }
+    
+    func addPlayer() {
+        let skinnedModelName = "art.scnassets/common/models/explorer/explorer_skinned.dae"
+        
+        let modelScene = SCNScene(named:skinnedModelName)
+        
+        let rootNode = modelScene!.rootNode
+        
+        rootNode.enumerateChildNodesUsingBlock({
+            child, stop in
+            // do something with node or stop
+            if(child.name == "group") {
+                self.player = PlayerCharacter(characterNode:child, id:"Player", level:self)
+                self.player.scale = SCNVector3Make(self.player.getObjectScale(), self.player.getObjectScale(), self.player.getObjectScale())
+                self.player.position = SCNVector3Make(0, 0, 120)
+                
+                self.scene.rootNode.addChildNode(self.player)
+                self.gameObjects[self.player.getID()] = self.player
+            }
+        })
     }
     
     func addFloorAndWalls() {
@@ -180,58 +210,75 @@ class GameLevel0 : NSObject, GameLevel {
         scene.rootNode.addChildNode(ceilNode)
     }
     
-    func addPlayer() {
-        let skinnedModelName = "art.scnassets/common/models/explorer/explorer_skinned.dae"
-        
-        let modelScene = SCNScene(named:skinnedModelName)
-        
-        let rootNode = modelScene!.rootNode
-        
-        rootNode.enumerateChildNodesUsingBlock({
-            child, stop in
-            // do something with node or stop
-            if(child.name == "group") {
-                self.player = PlayerCharacter(characterNode:child, id:"Player", level:self)
-                self.player.scale = SCNVector3Make(self.player.getObjectScale(), self.player.getObjectScale(), self.player.getObjectScale())
-                self.player.position = SCNVector3Make(-20, 0, -50)
-                
-                self.scene.rootNode.addChildNode(self.player)
-                self.gameObjects[self.player.getID()] = self.player
-            }
-        })
-    }
     
     func addEnemies() {
         let skinnedModelName = "art.scnassets/common/models/warrior/walk.dae"
         let count = 0
         
-        let gridPathFinder = GridPathfinder(left: -200, bottom: -200, right: 200, top: 200, grid2d: grid2d)
-        
         for i in 0...count {
             let escene = SCNScene(named:skinnedModelName)
             let rootNode = escene!.rootNode
-            
-            var enemy:EnemyCharacter!
+            hand = rootNode.childNodeWithName("Bip01_R_Hand", recursively: true)
+            let clavicle = rootNode.childNodeWithName("Bip01_R_Clavicle", recursively: true)
+            let head = rootNode.childNodeWithName("Bip01_Head", recursively:true)
 
-            enemy = EnemyCharacter(characterNode:rootNode, id:"Enemy"+String(i), level:self, pathfinder:gridPathFinder)
+            enemy = EnemyCharacter(characterNode:rootNode, id:"Enemy"+String(i), level:self, pathfinder:self.navMeshPathfinder)
             enemy.scale = SCNVector3Make(enemy.getObjectScale(), enemy.getObjectScale(), enemy.getObjectScale())
             #if os(iOS)
-                let xPos = 10.0 * Float(i+1)
-                let zPos = 100.0 * Float(i+1)
+                let xPos = 0.0 * Float(i+1)
+                let zPos = -90.0 * Float(i+1)
                 enemy.rotation = SCNVector4Make(0, 1, 0, Float(M_PI))
                 #else
-                let xPos = 10.0 * CGFloat(i+1)
-                let zPos = 100.0 * CGFloat(i+1)
+                let xPos = 0.0 * CGFloat(i+1)
+                let zPos = -90.0 * CGFloat(i+1)
                 enemy.rotation = SCNVector4Make(0, 1, 0, CGFloat(M_PI))
             #endif
             enemy.position = SCNVector3Make(xPos, 0, zPos)
 
-            enemies[enemy.getID()] = enemy
-            //enemies.append(enemy)
             scene.rootNode.addChildNode(enemy)
-            //self.gameObjects[enemy.getID()] = enemy
+            
+            ik = SCNIKConstraint.inverseKinematicsConstraintWithChainRootNode(clavicle!)
+            hand!.constraints = [ik];
+            ik.influenceFactor = 0.0;
+
+            lookAt = SCNLookAtConstraint(target: self.player)
+            head?.constraints = [lookAt]
+            lookAt.influenceFactor = 1;
+            animationStartTime = CACurrentMediaTime();
+
         }
         
+    }
+    
+    func renderer(aRenderer: SCNSceneRenderer, didApplyAnimationsAtTime time: NSTimeInterval) {
+        if(ikActive) {
+    // update the influence factor of the IK constraint based on the animation progress
+            let attackSpeed = 1.0
+            let animationDuration = 2.0
+            var currProgress:CGFloat = CGFloat(attackSpeed * (time - animationStartTime) / animationDuration)
+    
+            //clamp
+            currProgress = max(0,currProgress);
+            currProgress = min(1,currProgress);
+    
+            if(currProgress >= 1){
+                ikActive = false
+            }
+    
+            let middle:CGFloat = 0.5
+            var f:CGFloat = 0.0
+    
+            // smoothly increate from 0% to 50% then smoothly decrease from 50% to 100%
+            if(currProgress > middle){
+                f = (1.0-currProgress)/(1.0-middle);
+            }
+            else{
+                f = currProgress/middle;
+            }
+    
+            ik.influenceFactor = f;
+            lookAt.influenceFactor = 1-f;
+        }
     }
     
     func getGameObject(id:String) -> GameObject {
@@ -268,9 +315,7 @@ class GameLevel0 : NSObject, GameLevel {
         
         if(GameScenesManager.sharedInstance.gameState == GameState.InGame) {
             player.update(deltaTime)
-            for (_, enemy) in enemies {
-                enemy.update(deltaTime)
-            }
+            enemy.update(deltaTime)
             currentCamera.update(deltaTime)
         }
 
@@ -286,16 +331,10 @@ class GameLevel0 : NSObject, GameLevel {
         }
         var asRange = contact.nodeA.name!.rangeOfString("EnemyCollideSphere-")
         if let asRange = asRange where asRange.startIndex == contact.nodeA.name!.startIndex {
-            let substr = contact.nodeA.name!.substringFromIndex(advance(contact.nodeA.name!.startIndex, 19))
-            //print("substr is \(substr)")
-            let enemy = enemies[substr]
             enemy!.handleContact(contact.nodeB, gameObjects: gameObjects)
         }
         asRange = contact.nodeB.name!.rangeOfString("EnemyCollideSphere-")
         if let asRange = asRange where asRange.startIndex == contact.nodeB.name!.startIndex {
-            let substr = contact.nodeB.name!.substringFromIndex(advance(contact.nodeB.name!.startIndex, 19))
-            //print("substr is \(substr)")
-            let enemy = enemies[substr]
             enemy!.handleContact(contact.nodeA, gameObjects: gameObjects)
         }
 
@@ -304,7 +343,7 @@ class GameLevel0 : NSObject, GameLevel {
 }
 
 //MARK: GameLevel protocol methods
-extension GameLevel0 {
+extension GameLevel2 {
     func startLevel() {
     }
     
@@ -321,9 +360,9 @@ extension GameLevel0 {
     }
     func levelCompleted() {
         print("Level completed")
-        GameScenesManager.sharedInstance.setGameState(GameState.LevelComplete, levelIndex: self.currentLevel)
     }
     
+
     func changeUIState(state:GameState) {
         let skScene = self.scnView.overlaySKScene
         
@@ -362,7 +401,11 @@ extension GameLevel0 {
         if(nodeName == "cameraNode") {
             currentCamera.turnCameraAroundNode(player, radius: 175.0, angleInDegrees: -45.0)
         } else if(nodeName == "zoomInNode") {
-            self.player.shoot()
+            ikActive = true
+            ik.influenceFactor = 0.9
+            animationStartTime = CACurrentMediaTime();
+            ik.targetPosition = SCNVector3Make(hand.position.x - 10, hand.position.y - 10 , hand.position.z-10)
+
         }
 
     }

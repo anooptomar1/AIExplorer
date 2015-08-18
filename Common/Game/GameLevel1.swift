@@ -13,6 +13,21 @@ import SpriteKit
 
 class GameLevel1 : NSObject, GameLevel {
 
+    var grid2d: [[Int]] = [
+        [0,0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0,0],
+        [0,0,1,1,1,1,1,1,1,1,0],
+        [0,0,1,1,1,1,1,1,1,1,0],
+        [0,0,1,1,0,0,0,1,1,1,0],
+        [0,0,1,1,0,0,0,1,1,1,1],
+        [0,0,1,1,0,0,0,1,1,1,0],
+        [0,0,1,1,1,1,1,1,1,1,0],
+        [0,1,1,1,1,1,1,1,1,1,0],
+        [0,0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0,0]
+    ]
+    
+
     var gameObjects = [String: GameObject]()
     var animationStartTime:CFTimeInterval!
     var ikActive:Bool = false
@@ -182,6 +197,7 @@ class GameLevel1 : NSObject, GameLevel {
     func addEnemies() {
         let skinnedModelName = "art.scnassets/common/models/warrior/walk.dae"
         let count = 0
+        let gridPathFinder = GridPathfinder(left: -200, bottom: -200, right: 200, top: 200, grid2d: grid2d)
         
         for i in 0...count {
             let escene = SCNScene(named:skinnedModelName)
@@ -190,7 +206,7 @@ class GameLevel1 : NSObject, GameLevel {
             let clavicle = rootNode.childNodeWithName("Bip01_R_Clavicle", recursively: true)
             let head = rootNode.childNodeWithName("Bip01_Head", recursively:true)
 
-            enemy = EnemyCharacter(characterNode:rootNode, id:"Enemy"+String(i), level:self)
+            enemy = EnemyCharacter(characterNode:rootNode, id:"Enemy"+String(i), level:self, pathfinder:gridPathFinder)
             enemy.scale = SCNVector3Make(enemy.getObjectScale(), enemy.getObjectScale(), enemy.getObjectScale())
             #if os(iOS)
                 let xPos = 10.0 * Float(i+1)

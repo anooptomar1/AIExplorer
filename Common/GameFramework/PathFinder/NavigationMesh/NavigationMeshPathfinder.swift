@@ -11,9 +11,6 @@ import SceneKit
 class NavigationMeshPathfinder : Pathfinder {
     let gameUtils = GameUtils()
     var triangles: [MeshTriangle]!
-    var owner:MovingGameObject!
-    private var targetPosition:Vector3D!
-    private var original:Vector3D!
     private var navMeshGraph:NavigationMeshGraph!
     
     var spOpenSteps = [ShortestPathStep]()
@@ -21,26 +18,23 @@ class NavigationMeshPathfinder : Pathfinder {
     var shortestPath = [ShortestPathStep]()
 
     
-    init(owner:MovingGameObject, meshTriangles:[MeshTriangle]) {
-        self.owner = owner
+    init(meshTriangles:[MeshTriangle]) {
         self.triangles = meshTriangles
         self.navMeshGraph = NavigationMeshGraph(v: meshTriangles)
-        self.original = owner.getPosition().vector3DFromSCNVector3()
-        self.targetPosition = owner.getPosition().vector3DFromSCNVector3()
     }
     
         
-    func walkableAdjacentTilesCoordForTileCoord(position:Vector3D) -> [Vector3D] {
+    func walkableAdjacentTilesCoordForTileCoord(position:Vector3D, targetPosition:Vector3D) -> [Vector3D] {
         var adjSteps:[Vector3D] = [Vector3D]()
         
         let v1 = Vertex(position: position)
         let a = navMeshGraph.nodeGraph.indexOfVertex(v1)
         
         // check if the current step added to the closed steps is one of the vertices of the final position triangle
-        let tIndex = self.isVertexInListOfTargetTriangle(position, targetPosition: self.targetPosition)
+        let tIndex = self.isVertexInListOfTargetTriangle(position, targetPosition: targetPosition)
         if (tIndex != -1) {
             print("Landed on one of the vertices of the target position enclosing triangle index \(tIndex)")
-            adjSteps.append(self.targetPosition)
+            adjSteps.append(targetPosition)
             return adjSteps
         }
         
@@ -113,7 +107,7 @@ class NavigationMeshPathfinder : Pathfinder {
             }
         
             // Get the adjacent tiles coord of the current step
-            let adjSteps = self.walkableAdjacentTilesCoordForTileCoord(currentStep.position)
+            let adjSteps = self.walkableAdjacentTilesCoordForTileCoord(currentStep.position, targetPosition:targetPosition)
 
             for v in adjSteps {
                 //print("Adjacent step is \(v) for position:\(currentStep.position)")
