@@ -286,14 +286,16 @@ class GameLevel0 : NSObject, GameLevel {
         }
         var asRange = contact.nodeA.name!.rangeOfString("EnemyCollideSphere-")
         if let asRange = asRange where asRange.startIndex == contact.nodeA.name!.startIndex {
-            let substr = contact.nodeA.name!.substringFromIndex(advance(contact.nodeA.name!.startIndex, 19))
+            let subIdx = contact.nodeA.name!.startIndex.advancedBy(19)
+            let substr = contact.nodeA.name!.substringFromIndex(subIdx)
             //print("substr is \(substr)")
             let enemy = enemies[substr]
             enemy!.handleContact(contact.nodeB, gameObjects: gameObjects)
         }
         asRange = contact.nodeB.name!.rangeOfString("EnemyCollideSphere-")
         if let asRange = asRange where asRange.startIndex == contact.nodeB.name!.startIndex {
-            let substr = contact.nodeB.name!.substringFromIndex(advance(contact.nodeB.name!.startIndex, 19))
+            let subIdx = contact.nodeB.name!.startIndex.advancedBy(19)
+            let substr = contact.nodeB.name!.substringFromIndex(subIdx)
             //print("substr is \(substr)")
             let enemy = enemies[substr]
             enemy!.handleContact(contact.nodeA, gameObjects: gameObjects)

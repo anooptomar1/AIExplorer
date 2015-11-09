@@ -61,7 +61,7 @@ class SkinnedCharacter : SCNNode {
         if let node = scene!.rootNode.childNodeWithName(skeletonNode, recursively: true) {
             animation = node.animationForKey(animationName)
             if(animation == nil) {
-                print("No animation for key \(animationName)", appendNewline: false)
+                print("No animation for key \(animationName)", terminator: "")
                 return nil
             }
         } else {

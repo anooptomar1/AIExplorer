@@ -51,6 +51,8 @@
 		C13CC5D91B82299600539C43 /* GetItemGoal.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13CC5D61B82299600539C43 /* GetItemGoal.swift */; };
 		C13CC5DA1B82299600539C43 /* GetHealthGoalEvaluator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13CC5D71B82299600539C43 /* GetHealthGoalEvaluator.swift */; };
 		C13CC5DB1B82299600539C43 /* GetHealthGoalEvaluator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13CC5D71B82299600539C43 /* GetHealthGoalEvaluator.swift */; };
+		C13CC5DD1B836CB800539C43 /* GameLevel2.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13CC5DC1B836CB800539C43 /* GameLevel2.swift */; };
+		C13CC5DE1B836CB800539C43 /* GameLevel2.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13CC5DC1B836CB800539C43 /* GameLevel2.swift */; };
 		C18D85801B80DB43000F5B64 /* GameLevel1.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18D857F1B80DB43000F5B64 /* GameLevel1.swift */; };
 		C18D85811B80DB43000F5B64 /* GameLevel1.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18D857F1B80DB43000F5B64 /* GameLevel1.swift */; };
 		C1B469461B7A4B5800E6A3B5 /* Path.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B469451B7A4B5800E6A3B5 /* Path.swift */; };
@@ -156,6 +158,7 @@
 		C13CC5D31B82277D00539C43 /* AttackGoal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AttackGoal.swift; path = Common/Game/Goals/AttackGoal.swift; sourceTree = "<group>"; };
 		C13CC5D61B82299600539C43 /* GetItemGoal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GetItemGoal.swift; path = Common/Game/Goals/GetItemGoal.swift; sourceTree = "<group>"; };
 		C13CC5D71B82299600539C43 /* GetHealthGoalEvaluator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GetHealthGoalEvaluator.swift; path = Common/Game/Goals/GetHealthGoalEvaluator.swift; sourceTree = "<group>"; };
+		C13CC5DC1B836CB800539C43 /* GameLevel2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GameLevel2.swift; path = Common/Game/GameLevel2.swift; sourceTree = "<group>"; };
 		C18D857F1B80DB43000F5B64 /* GameLevel1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GameLevel1.swift; path = Common/Game/GameLevel1.swift; sourceTree = "<group>"; };
 		C1B469451B7A4B5800E6A3B5 /* Path.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Path.swift; path = Common/GameFramework/Path.swift; sourceTree = "<group>"; };
 		C1BC3BA91B7CEB6300FCAA47 /* Queue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Queue.swift; path = Common/GameFramework/Utils/Queue.swift; sourceTree = "<group>"; };
@@ -390,6 +393,7 @@
 				C1DFA0C91B740DC800DAD2B8 /* PlayerCharacter.swift */,
 				C1DFA0CA1B740DC800DAD2B8 /* GameLevel0.swift */,
 				C18D857F1B80DB43000F5B64 /* GameLevel1.swift */,
+				C13CC5DC1B836CB800539C43 /* GameLevel2.swift */,
 				C1DFA0CB1B740DC800DAD2B8 /* EnemyCharacter.swift */,
 				C12622E41B79400D00886D97 /* BoxObstacle.swift */,
 			);
@@ -577,6 +581,7 @@
 				C1D165C31B7D22BC00358B68 /* WanderGoalEvaluator.swift in Sources */,
 				C13CC5D81B82299600539C43 /* GetItemGoal.swift in Sources */,
 				C1DFA0CC1B740DC800DAD2B8 /* PlayerCharacter.swift in Sources */,
+				C13CC5DD1B836CB800539C43 /* GameLevel2.swift in Sources */,
 				C1DFA0C41B74079000DAD2B8 /* StateMachine.swift in Sources */,
 				C1DFA0511B73B7A600DAD2B8 /* SkinnedCharacter.swift in Sources */,
 				C12622C41B74FA1900886D97 /* EnemyIdleState.swift in Sources */,
@@ -630,6 +635,7 @@
 				C1DFA0E31B740DE600DAD2B8 /* InGameMenu.swift in Sources */,
 				C1DFA0C51B74079000DAD2B8 /* StateMachine.swift in Sources */,
 				C12622D11B75196E00886D97 /* Message.swift in Sources */,
+				C13CC5DE1B836CB800539C43 /* GameLevel2.swift in Sources */,
 				C12622DC1B7641A800886D97 /* SteeringBehavior.swift in Sources */,
 				C1D165EC1B7E531100358B68 /* Vector3D.swift in Sources */,
 				C1D165CE1B7D3DBB00358B68 /* PatrolGoalEvaluator.swift in Sources */,
